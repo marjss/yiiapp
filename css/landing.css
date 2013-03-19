@@ -1,0 +1,433 @@
+/* 
+    Document   : landing
+    Created on : 18 Mar, 2013, 4:39:29 PM
+    Author     : Sudhanshu
+    Description:
+        Landing salon page for the web users.
+*/
+
+body{ margin:0px; padding:0px; width:100%; background:url(../images/body-bg.jpg); font-family:Arial, Helvetica, sans-serif; font-size:13px;}
+img{border:none;}
+form, input, select, textarea{ margin:0; padding:0;}
+a{ outline:none; color:#000; text-decoration:none;}
+a:hover{ color:#EC008C}
+
+@font-face {
+	font-family: 'BebasNeue';
+    src: url('bebasneue.eot');
+    src: url('bebasneue.eot?#iefix') format('embedded-opentype'),
+         url('bebasneue.woff') format('woff'),
+         url('bebasneue.ttf') format('truetype'),
+         url('bebasneue.svg#bebasneue') format('svg');
+    font-weight: normal;
+    font-style: normal;
+		}
+		
+@font-face {
+				font-family:'Freehand521BT-RegularC';
+				src: url('tt1018m_.eot');
+				src: url('tt1018m_.eot?#iefix') format('embedded-opentype'),
+						 url('tt1018m_.woff') format('woff'),
+						 url('tt1018m_.ttf') format('truetype'),
+						 url('tt1018m_.svg#tt1018m_') format('svg');
+				font-weight: normal;
+				font-style: normal;
+		}
+header {}
+.warrper{ margin:auto;width:1000px;}
+.logo{padding:5px 0 0; float:left;}
+.top{width:100%;}
+.top-right{padding:20px 0 0; float:right;}
+.top-right ul{ margin:0; padding:0;}
+
+.top-right ul li{ margin:0 10px; padding:0px; float:left; text-decoration:none; list-style:none; line-height: 30px;}
+.top-right ul li a{ text-decoration:none;  color:#ec008c; font-size:14px;}
+.top-right ul li a:hover{ color:#38708A;}
+.clear{ clear:both;}
+li.call{ margin:0 10px; padding:0 0 0 40px !important; background:url(../images/call.png) no-repeat left; height:29px;}
+li.login{ margin:0 10px; padding:0 0 0 40px !important; background:url(../images/lock.png) no-repeat left; height:29px;}
+li.sign{ margin:0 10px; padding:0 0 0 40px !important; background:url(../images/sign-in.png) no-repeat left; height:29px;}
+
+li.call:hover{ margin:0 10px; padding:0 0 0 10px ; background:url(../images/call-hover.png) no-repeat left; height:29px;}
+li.login:hover{ margin:0 10px; padding:0 0 0 10px ; background:url(../images/lock-hover.png) no-repeat left; height:29px;}
+li.sign:hover{ margin:0 10px; padding:0 0 0 10px ; background:url(../images/sign-in-hover.png) no-repeat left; height:29px;}
+		
+
+.top-manu{border-bottom:1px solid #b9b9b9;}
+.manu{float:right; margin-top:58px;}
+.top-outer{width:100%;  background:url(../images/top-bg.png) repeat-x; height:24px;}
+.manu ul{ margin:0px; padding:0px;}
+.manu ul li{ margin:0px; padding:0px; float:left; text-decoration:none; list-style:none; background:url(../images/septer.png) no-repeat right; height:29px;}
+.manu ul li.select a{color:#ec008c;}
+.manu ul li a{padding:0 24px 7px; text-decoration:none; list-style:none; color:#000000; font-size:14px;}
+.manu ul li a:hover{background:url(../images/hover.png) no-repeat bottom; color:#EC008C;}
+.mid-part{}
+.mid-part-left{float:left; width:595px;}
+.mid-part-left p{ margin:0; padding:10px 0 5px; font-size:19px; font-family:"Myriad Pro"; color:#565656; width:490px;}
+.mid-part-right{padding:50px 0 0; float:right;    width: 403px;}
+.mid-button a {background: url(../images/try2.png) repeat-x ;border-radius: 10px 10px 10px 10px;color: #FFFFFF;display: block;font-family: 'BebasNeue';font-size: 48px;height: 77px;line-height: 73px;padding: 0 20px;text-align: center;text-decoration: none;width: 331px;}
+.mid-button a:hover{background: url(../images/try2-hover.png) repeat-x;}
+
+footer{}
+.footer-part{padding:15px 0 0;}
+.footer-left{float:left;font-size:14px; color:#5b5b5b; text-decoration:none;}
+.footer-right{float:right;}
+
+.mid-bottom{padding:30px 0 0; overflow:hidden;}
+.mid-bottom-boder{padding:15px 0 0 30px;  border-top:2px solid #000000;width: 800px; font-size:30px; color:#38708a; font-family:'Freehand521BT-RegularC'; font-weight:bold;}
+.mid-left-cont{}
+.mid-left-cont h2{ margin:0px; padding:0px; font-size:68px;font-family:'Freehand521BT-RegularC'; color:#38708a;}
+.mid-left-cont h3{ margin:0px; padding:0px; font-size:68px; font-family:'Freehand521BT-RegularC'; color:#565656;}
+.mid-left-cont h3 span{font-size:68px; font-family:'Freehand521BT-RegularC'; color:#ec008c;}
+.mid-button{}
+.facbook-iceo {margin:0 5px;float:left;  background:url(../images/facebook.png) no-repeat; height:18px;  width: 9px;cursor:pointer;}
+.tweter-iceo {margin:0 5px; float:left; background:url(../images/twettar.png) no-repeat; height:18px; width:15px;cursor:pointer;}
+.google-iceo {margin:0 5px; float:left; background:url(../images/google.png) no-repeat; height:18px; width: 17px;cursor:pointer;}
+
+.slide-bottom{float: right;padding:20px 0 0;position: relative;right: 0;width: 764px;}
+
+.facbook-iceo:hover{margin:0 5px; float:left; background:url(../images/facebook-hover.png) no-repeat; cursor:pointer;}
+.tweter-iceo:hover{ margin:0 5px; float:left; background:url(../images/twettar-hover.png) no-repeat;cursor:pointer;}
+.google-iceo:hover{margin:0 5px; float:left; background:url(../images/google-hover.png) no-repeat;cursor:pointer;}
+.footer-outer{background-color:#252525; height:45px; width:100%; clear:both;}
+/*---------------------SIGN UP START--------------------------*/
+.middle-content{ clear:both; padding:20px 0;}
+.signup{}
+.signup .signup-left{ width:640px; float:left;}
+.signup .signup-left h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0;}
+.signup .signup-left form{ background: url(../images/form-bg.png) repeat; padding:20px; margin-top:20px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;}
+.signup .signup-left form label{ font-size:16px; color:#000; display:block; margin:0 0 2px 5px}
+.signup .signup-left form input.textbox{ padding:10px 5px;display:block; background:#fff;margin-bottom:18px; border:none; width:400px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; } 
+.signup .signup-left form span{ font-size:11px;}
+.signup .signup-left form span a{ color:#EC008C;}
+.signup .signup-left form span a:hover{ color:#000;}
+.signup .signup-left form input.Signup-button{ background:url(../images/signup-button.png) no-repeat bottom; width:182px; height:56px; display:block; cursor:pointer; text-indent:-9999px; border:none; margin-top:18px;}
+.signup .signup-left form input.Signup-button:hover{ background-position:top;}
+
+.signup .signup-right{ width:295px; float:left; margin-left:40px; padding-top:60px;}
+.signup .signup-right p{ font-size:16px; color:#5f5f5f; font-style:italic;}
+.signup .signup-right span{font-family:'Freehand521BT-RegularC'; font-size:24px; color:#ec008c;text-align:center; display:block;}
+
+/*---------------------SIGN UP END--------------------------*/
+
+/*-----------------PRICE SALONIER START-------------------------*/
+.price-salonier h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0; text-align:center}
+#pricing-table {
+	margin: 50px auto;
+	text-align: center;}
+
+#pricing-table .plan {
+	background: #fff;      
+	border: 4px solid #ddd;
+	color: #333;
+	width:30%; /* plan width = 180 + 20 + 20 + 1 + 1 = 222px */      
+	float: left;
+	position: relative;
+	margin:0 5px;
+}
+#pricing-table .plan:hover{border: 4px solid #356C85;}
+#pricing-table .plan .price{ padding:2px 0; font-size:20px; color:#f5f5f5; text-align:center; background:#356c85; font-weight:bold;}
+#pricing-table .plan .price span{ color:#1a3642; font-size:30px;}
+
+#pricing-table .plan .stylist{ clear:both; font-family:'Freehand521BT-RegularC'; font-size:26px; color:#38708a; text-align:center; font-weight:bold;}
+#pricing-table .plan .stylist span{ display:inline-block; background:url(../images/stylist-bg.png) no-repeat top center; width:132px; height:112px; margin:22px 0 5px 0; font-size:80px; text-align:center; color:#fff; font-family:Arial, Helvetica, sans-serif; font-weight:bold; padding-top:20px}
+#pricing-table .plan:hover .stylist span{background:url(../images/stylist-bg.png) no-repeat bottom center;}
+#pricing-table .plan .clients{ font-size:27px; color:#565656; text-align:center; padding:10px; font-weight:normal}
+#pricing-table .plan .try{ text-align:center;}
+#pricing-table .plan .try a{ background:url(../images/tryit.png) no-repeat bottom; width:181px; height:56px; display:inline-block; text-indent:-9999px; margin-bottom:20px;}
+#pricing-table .plan .try a:hover{background-position:top;}
+
+#pricing-table .plan:nth-child(1) {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;        
+}
+
+#pricing-table .plan:nth-child(4) {
+	-moz-border-radius: 0 5px 5px 0;
+	-webkit-border-radius: 0 5px 5px 0;
+	border-radius: 0 5px 5px 0;        
+}
+
+/* --------------- */	
+
+#pricing-table h3 {
+	font-size:36px; color:#8a8a8a;padding:30px 0;margin:0;
+	background-color: #eee;
+	background-image: -moz-linear-gradient(#fff,#eee);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));    
+	background-image: -webkit-linear-gradient(#fff, #eee);
+	background-image: -o-linear-gradient(#fff, #eee);
+	background-image: -ms-linear-gradient(#fff, #eee);
+	background-image: linear-gradient(#fff, #eee);
+}
+
+.clear:before, .clear:after {
+  content:"";
+  display:table
+}
+
+.clear:after {
+  clear:both
+}
+   
+/*-----------------PRICE SALONIER END-------------------------*/
+
+/*-----------------ABOUT US START-------------------------*/
+.about-us h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0;}
+.about-us .salon-scheduling{}
+.about-us .salon-scheduling h2{font-family: 'BebasNeue'; font-size:24px; margin:0; padding:0; color:#ec008c; font-weight:normal;}
+.about-us .meet-saloniers{ margin-top:30px;}
+.about-us .meet-saloniers h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#606060; margin:0; padding:5px 0 20px; background:url(../images/about-heading.png) no-repeat; font-weight:normal; text-align:center;}
+.meet-saloniers .every-saloniers .salonier{width:400px; margin-top:20px;}
+.meet-saloniers .every-saloniers .salonier img{ float:left; border:solid 1px #333;margin-right:5px;}
+.meet-saloniers .every-saloniers .salonier .salonier-content h2{ color:#38708a; font-size:24px; margin:0; padding:0; font-weight:normal;font-family: 'BebasNeue';;}
+.meet-saloniers .every-saloniers .salonier .salonier-content span{ color:#ec008c;}
+.left{ float:left}
+.right{ float:right;}
+
+/*-----------------ABOUT US END-------------------------*/
+
+/*----------------salonier-features--------------------------*/
+.salonier-features{}
+.salonier-features h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0 0 50px 0; padding:0;}
+.salonier-features .features{ background:url(../images/check.png) no-repeat top left; padding-left:130px; height:74px; margin-bottom:30px;}
+.salonier-features .features:hover{ background-position:bottom left}
+.salonier-features .features h2{font-family: 'BebasNeue'; font-size:24px; margin:0; padding:0; color:#ec008c; font-weight:normal; }
+
+
+
+/*23-1-2013/*/
+.calender:after, .tabingblock:after, .landing_leftblkbg:after, .landing_header .blk:after, .clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+textarea {
+     resize:none;
+}
+*{ margin:0; padding:0; border:0;}
+.top-outer{ position:relative; z-index:1;}
+.landing_header{ clear:both; width:100%; display:block; position:relative; z-index:0; background-color:#fff; border:solid 1px #dadada; position:relative; top:-4px; margin-bottom:-4px;
+border-bottom-right-radius: 15px;
+border-bottom-left-radius: 15px;} 
+.landing_header .blk{  width:944px; margin:0 auto; clear:both; display:block;}
+.landing_header .blk h1 a{   color: #000000;
+    display: inline-block;
+    float: left;
+    font-size: 42px;
+    font-weight: 700;
+    margin-top: 12px;
+    padding-bottom: 12px;
+    padding-top: 7px;
+    text-decoration: none;}
+.landing_header .blk .logo{padding-bottom:15px; float:right; padding-top:15px; display:inline-block;}
+
+
+.landing_page{ clear:both; display:block; width:1000px; padding-top:7px;}
+.landing_page_left{ float:left; display:block; width:495px; margin-right:10px; padding-bottom:10px;}  
+.landing_page_left:last-child{ margin-right:0px;}
+.landing_left{ background-color:#fff; border:solid 1px #d5d5d5; clear:both; border-radius: 15px; display:block;}
+
+.landing_leftblk{ width:440px; clear:both; display:block; padding:27px; padding-bottom:15px;}
+.landing_leftblk .button{  background-color: #F10C82;
+    border: medium none !important;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF; cursor:pointer;
+    font-family: 'Conv_avenirltstd-heavy';
+    font-size: 21px;
+    margin-left: 110px;
+    padding: 3px 13px;
+    text-align: center;}
+.landing_leftblk .button:hover{ 
+   background: none repeat scroll 0 0 #356d87;
+    transform: scale(1.2);
+    transition: background 0.5s ease-in-out 0s;}
+.landing_leftblkbg{ background-color:#fbfbfb; border:solid 1px #e3e3e3; margin-bottom:17px; clear:both; display:block;border-radius: 6px;}
+@font-face {
+	font-family: 'Conv_avenirltstd-heavy';
+	src: url('avenirltstd-heavy.eot');
+	/*src: local('☺'), url('avenirltstd-heavy.woff') format('woff'), url('avenirltstd-heavy.ttf') format('truetype'), url('avenirltstd-heavy.svg') format('svg');*/
+	font-weight: normal;
+	font-style: normal;
+}
+
+.landing_leftbgblk{ width:409px;  margin:0 auto; display:block; padding-top:15px;}
+
+.landing_leftbgblk p{ font-size:15px; clear:both; display:block; margin-top: 20px;
+    padding-bottom: 20px;}
+.landing_leftbgblk a{ margin-top: 20px;
+    padding-bottom: 20px; text-decoration:none; font-size:15px; clear:both; display:block}
+.landing_leftbgblk h2{   border-bottom: 1px solid #E1E1E1;
+    display: block;  
+    font-size: 21px; font-family: 'Conv_avenirltstd-heavy';
+    font-weight: 700;
+    padding-bottom: 5px; color:#f10c82;}
+.landing_leftbgblk h2 img{ float:left; display:inline-block; margin-right:10px;}
+
+
+.landing_left_shadow{ background-image:url(../images/shadow_left.jpg); width:494px; height:11px; clear:both; display:block;}
+.landing_right_shadow{ background-image:url(../images/shadow_right.jpg); width:494px; height:11px; clear:both; display:block;}
+
+.hournav{ clear:both; display:block; width:100%; }
+.hournav ul{ list-style-type:none;}
+.hournav li{    border-bottom: 1px solid #E3E3E3;
+    clear: both; *height:46px;
+    color: #000000;
+    display:block;
+    font-size: 17px; background:background-color 0.55s ease-in-out 0s;
+    line-height:46.70px;
+    text-indent: 14px;}
+.hournav li dd{ float:left; display:block;}
+.hournav li:hover{ background-color:#f5f5f5;}
+.hournav li:last-child{ border-bottom:none;}
+.hournav li span{ float:right; text-align:right; margin-right:14px; display: inline-block;}
+
+ 
+/*tabing css start*/
+.shadetabs ul{ list-style-type:none;   width:100%;}
+.border01{ width:100%; border-bottom:solid 1px #b6bcc1; clear:both; display:block; }
+.shadetabs li{  border-right: 1px solid #F991C7;
+    display: block;
+    float: left;}
+.shadetabs li:last-child{ border:none;}
+.shadetabs li a{     color: #FFFFFF;
+    display: inline-block;
+    font-family: 'Conv_avenirltstd-heavy' !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.4px !important;
+    margin-left: -1px !important;
+    padding: 9px 39px !important;
+    text-decoration: none !important;
+    } 
+.ui-widget-content{   background: url("images/ui-bg_flat_75_ffffff_40x100.png") repeat-x scroll 50% 50% #FFFFFF;
+    border: none !important;
+    color: #222222;}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{border: none !important;}
+.ui-state-active .ui-state-hover .ui-widget-content .ui-state-active, .ui-widget-header{ border: none !important;}
+shadetabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all{background: none}
+.shadetabs li a.selected { background-color: #fff;
+    border-bottom: medium none;
+    color: #f10c82;
+    display: inline-block;
+    letter-spacing: -0.4px;
+}
+.shadetabs li a.selected:first-child {
+    background-color: #fff;
+    border-bottom: medium none;
+    color: #F10C82;
+    display: inline-block;
+    letter-spacing: -0.4px;
+}
+.shadetabs li a span .selected { background-color:#4e97f5; color: #fff; display:block; }
+
+#countrytabs{ float:left;}
+ 
+/*tabing css stop*/
+.map_location_desc .user_img {
+    color: #F10C82;
+    font-family: BebasNeue;
+    font-size: 16px;
+}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {color: #F10C82;}
+#map_canvas{width: 675px !important;}
+.tabingblock{ background-color:#fff; clear:both; display:block ;border-radius: 9px; border:solid 1px #d5d5d5; margin-bottom:20px; }
+.tab_bg{    background-color: #F10C82;
+            height: 40px;
+    clear: both;
+    display: inline-block;
+    width: 100%;border-top-left-radius: 6px;
+border-top-right-radius: 6px;}
+
+.tab_photo{ clear:both; display:block; }
+.tab_photo ul{ list-style-type:none; padding-bottom:30px; display:inline-block;}
+.tab_photo li{ float:left; display:inline-block; margin-right:0px !important; margin:15px; background-image:url(../images/photo_bg.jpg); width:118px; height:110px;}
+.tab_photo li a{ padding:3px 4px 4px; display:inline-block;}
+
+.calender{ background-color:#fff; width:1000px; clear:both; display:block; margin-top:10px; border:solid 1px #d6d6d6; padding-bottom:2px;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;}
+.calender .row{ clear:both; display:block; background-color:#fafafa; border-bottom:solid 1px #fff;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;}
+
+
+.datepicker{    background-image: url("../images/picker_icon.jpg");
+    background-position: right center;
+    background-repeat: no-repeat; float:left;
+    border: 1px solid #B3B3B3;
+    border-radius: 6px 6px 6px 6px;
+    color: #5B5B5B;
+    font-family: 'Conv_avenirltstd-heavy';
+    font-size: 18px;
+    margin: 18px;
+    padding: 10px;
+    width: 218px;
+} 
+
+.selectmen{    border: 1px solid #B3B3B3;
+    border-radius: 4px 4px 4px 4px;
+    color: #5B5B5B;  font-family: 'Conv_avenirltstd-heavy';
+    display: inline-block;
+    float: right;
+    font-size: 18px;
+    margin: 20px;
+    padding: 5px;
+    width: 227px;}
+	
+.user_id{ background-color: #FFFFFF;
+    border-top: 1px solid #E0E0E0;
+    clear: both;
+    display: block;}
+.user_id ul{ list-style-type:none; margin-left:119px;}
+.user_id li{ float:left; display:inline-block; color:#f10c82; font-size:17px; padding:17px 30px; font-family: 'Conv_avenirltstd-heavy';}
+.user_id li:last-child{padding:17px 0px; }
+
+.timingnav{ clear:both; display:block;}
+.timingnav ul{ list-style-type:none; position:relative; left:2px;}
+.timingnav li{  background-color: #F5F5F5;
+    border-right: 1px solid #D0D0D0;
+    border-top: 1px solid #D6D6D6;
+    display: block;
+    float: left;
+    height: 107px;
+    text-align: center;
+    width: 110px;}
+.timingnav li dd{ color:#646464;  font-family: 'Conv_avenirltstd-heavy'; font-size:18px; margin-top:43px;}
+.timingnav li span{ background-image:url(../images/table_bg.jpg); clear:both; display:block; height:107px; border:solid 1px #fff; width:107px;}
+.timingnav li span.active, .timingnav li span:hover{background-image:url(../images/table_bg1.jpg); cursor:pointer;}
+
+.status{ clear:both; float: right; display:block;}
+.status ul{ list-style-type:none;}
+.status li{  background-image: url("../images/book.jpg");
+    background-position: left center;
+    background-repeat: no-repeat;
+    color: #161616; float:right;
+    display: inline-block ; margin-top:7px;
+    font-size: 14px;
+    height: 25px;
+    line-height: 25px; 
+    margin-left: 20px;
+    padding-left: 28px;}
+.bookimg{ background-image: url("../images/book_1.jpg")!important;}
+.avaimg{ background-image: url("../images/ava.jpg")!important ;}
+
+
+.copyright{  clear: both;
+    display: block;
+    float: right;
+    padding-bottom: 12px;
+    padding-top: 6px;}
+.copyright p{ color:#161616; font-size:14px; float:left; display:block; line-height:25px;}
+.copyright img{ float:right; display:inline-block;}
+
+ input, textarea, select {outline-style:none;}
+ 

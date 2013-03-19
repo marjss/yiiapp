@@ -1,0 +1,522 @@
+div.input {
+    margin-top: 15px;
+}
+.error  {
+    /*background: none repeat scroll 0 0 #FBE3E4;*/
+  // border-color: #FBC2C4;
+    //color: #D12F19;
+   /* background: url("../images/error-notification.jpg") no-repeat scroll 7px 14px #FFC7CA;
+    border: 1px solid #FBC0C6;
+    margin-top: 10px;
+    padding: 15px 10px 15px 30px;*/
+}
+
+
+.success  {
+     background: url("../images/success-notification.jpg") no-repeat scroll 7px 14px #A3E6BD;
+    border: 1px solid #62D498;
+    margin-top: 10px;
+    padding: 15px 10px 15px 30px;
+}
+
+.error-message{
+    border-color: #FBC2C4;
+    color: #D12F19;
+}
+
+.text label, .textarea label, .select label, .file label, .datetime label, .password label {
+    display: block;
+}
+/*
+p, label {
+    font-size: 1.2em;
+}*/
+label {
+    color: #464646;
+}
+.signup-left form input[type="password"] {
+    border: 1px solid #D0D0D0;
+    margin: 0 0 17px;
+    padding: 5px;
+    width: 415px;
+}
+form .form-left label {
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 2px;
+}
+
+/*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, form, label,  table, caption, tbody,
+ tfoot, thead, tr, th, td {
+ border: 0 none;
+    font-family: inherit;
+    font-size: 100%;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    vertical-align: baseline;
+}*/
+body{
+background:#fff none repeat scroll 0%;
+line-height:1;
+font-size: 12px;
+font-family:arial,sans-serif;
+margin:0pt;
+height:100%;
+}
+table {
+border-collapse:separate;
+/*border-spacing:0pt; */
+}
+caption, th, td {
+font-weight:normal;
+
+ padding:0px 2px 24px 12px;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+content:"";
+}
+blockquote, q {
+quotes:"" "";
+}
+a{
+cursor: pointer;
+text-decoration:none;
+}
+br.both{
+clear:both;
+}
+#backgroundPopup{
+display:none;
+position:fixed;
+_position:absolute; /* hack for internet explorer 6*/
+height:100%;
+width:100%;
+top:0;
+left:0;
+background:#000000;
+border:1px solid #cecece;
+z-index:1;
+}
+#popupContact{
+display:none;
+position:fixed;
+_position:absolute; /* hack for internet explorer 6*/
+height:384px;
+width:408px;
+background:#FFFFFF;
+border:2px solid #cecece;
+z-index:2;
+padding:12px;
+font-size:13px;
+}
+#popupContact h1{
+text-align:left;
+color:#6FA5FD;
+font-size:22px;
+font-weight:700;
+border-bottom:1px dotted #D3D3D3;
+padding-bottom:2px;
+margin-bottom:20px;
+}
+#popupContactClose{
+font-size:14px;
+line-height:14px;
+right:6px;
+top:4px;
+position:absolute;
+color:#6fa5fd;
+font-weight:700;
+display:block;
+}
+#button{
+text-align:center;
+margin:100px;
+}
+.hd{
+display:none !important;
+}
+
+
+/*New Pop Box css*/
+#facebox{ width:709px; }
+td.border-bottom
+{ 
+/*border-bottom:1px #8a837d solid; */
+padding:0 2px 0 12; 
+font-size: 12px; font-weight:bold;
+}
+.appointment td.border-bottom
+{ 
+/*border-bottom:1px #8a837d solid; */
+padding:3px 2px 3px 0 !important; 
+font-size: 12px;
+border:none;
+}
+.main-pop-bg {
+margin: auto;
+width:900px;
+}
+.popuptop {
+background: url("../images/top.png") no-repeat scroll 0 0 transparent;
+height:54px;
+text-align: center;
+width:900px;
+}
+.pop-heading {
+    border-bottom: 1px solid #8A837D;
+    color: #70D04B;
+    font-size: 24px;
+    font-weight: bold;
+    margin: auto;
+    padding: 21px 0 11px;
+    text-align: left;
+    width: 747px;
+}
+.popupbg {
+    background: url("../images/bg.png") repeat-y scroll 0 0 transparent;
+    height: auto;
+    width: 900px;
+}
+.popupbotttom {
+    background: url("../images/buttom.png") no-repeat scroll 0 0 transparent;
+    height:64px;
+    width:900px;
+}
+.in-pop
+  { 
+  margin: 0 0 0 1px;
+  width:884px;
+ }
+#time2 td
+ { 
+  font-size:12px; 
+  padding:5px 0;
+   color: #6BCB45;
+    font-size: 13px;
+    font-weight: normal;
+    text-decoration: underline;
+ }
+.pop-left-img {
+ /* border-top: 1px solid #8A837D;*/
+  float: left;
+  margin: 34px 0 0 17px;
+  padding: 5px 0 0;
+  width:195px;
+}
+.pop-right {
+    margin: auto;
+    padding: 19px 0 0;
+    width: 662px;
+}	
+#maintable tr td
+  {
+   padding:4px 9px 0 5px;
+}
+.top-deai {
+    margin: auto;
+    width: 656px;
+}
+/*New Pop Box End*/
+
+
+
+/*Css 10 Start*/
+.user-data {
+    margin: 0 0 0 19px;
+    padding: 0 0 11px;
+}
+.pop-map {
+    float: left;
+    width: 251px;
+}
+p.address {
+    color: #666666;
+    float: left;
+    font-size: 12px;
+    margin: 0 0 0 8px;
+    width: 160px;
+}
+.attention
+ { 
+ float:right; 
+ width:256px; 
+ margin:0 15px 0 0;
+ }
+.attention h3
+ { 
+ font-size:13px; 
+ margin:0px; 
+ padding:0px; 
+ color:#70D04B;
+ }
+.attention p
+ { 
+  font-size:12px; 
+  margin:0px; 
+  padding:0px; 
+  color:#999999;
+  }
+.gray-bg {
+    background: none repeat scroll 0 0 #E5E3E4;
+    color: #1D1D1D;
+    font-size: 24px;
+    font-weight: bold;
+    margin: auto;
+    padding: 7px 10px 7px 63px;
+    width: 804px;
+}
+.featured-coach {
+    background: none repeat scroll 0 0 #000000;
+    border: 1px solid #999999;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px;
+	margin:10px 0 0 0;
+}
+/*settiming css Start*/
+.date-time-bg{ 
+ background:#c2bab7; 
+ border:1px #fff solid ; 
+ color:#4A4949;
+ }
+ .time-table-bg div strong{
+ clear: both;
+    color: #2F4F4F;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    text-align: center;
+    }
+.coach-dashboard #maintable tr td 
+ { border:1px #fff solid;
+ }
+.time-table-bg {
+    background: none repeat scroll 0 0 #D7D7D7;
+    color: #8C8C8C;
+    font-size: 11px;
+    height: 12px;
+    padding: 5px 0 !important;
+     vertical-align: top;
+    text-align: center;
+    width: 100px;
+}
+.deaitels-table-bg
+ { 
+  background:#d7d7d7; 
+  color:#8c8c8c; 
+  font-size:11px; 
+  text-align: center; 
+  padding:5px 0 !important; 
+  width: 100px; 
+  height:12px;
+  }
+.deaitels-table-bg1
+ { 
+ background:#fff; 
+ color:#8c8c8c; 
+ font-size:11px; 
+ text-align: center; 
+ padding:5px 0 !important; 
+ width: 100px; 
+ height:12px;
+ }
+.coach-dashboard table {
+    border: 0 none;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+/*settiming css End*/
+
+.popbox-2
+  { 
+  width:341px;
+  }
+.popbox-2-top
+ { 
+  width:341px; 
+  height:22px; 
+  background: url("../images/pop-box2top.png") no-repeat scroll 0 0 transparent;  
+ }
+.popbox-2-mid
+ {
+  width:341px; 
+  background: url("../images/pop-box2mid.png") repeat-y scroll 0 0 transparent;
+  }
+.popbox-2-bottom
+ {
+  width:341px; 
+  height:22px; 
+  background: url("../images/pop-box2bottom.png") no-repeat scroll 0 0 transparent;
+ }
+#dialog-form table th, td {
+    font-weight: normal;
+    padding: 0 2px 0 12px;}
+.view-heading {
+    border-bottom: 2px dotted #757575;
+    color: #5AC42E;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    margin: 0 9px 0 0;
+    padding: 0 0 10px;
+    width: 306px;
+	text-align:center;
+}	
+/*Css 10 End*/
+
+
+.font-size
+  { 
+   font-size:18px; 
+   color:#252525;
+   }
+.font-size1
+  { 
+   font-size:18px; 
+   color:#252525;
+   float:left; 
+   width:115px; 
+   text-align:right;
+   }   
+.grayfont
+ { 
+  color:#7c7c7c; 
+  font-size:18px;
+  }
+.grayfont1 {
+    color: #7C7C7C;
+    float: right;
+    font-size: 18px;
+    padding: 0 0 0 10px;
+    text-align: left;
+    width: 198px;
+}
+#dialog-form table th, td {
+    font-weight: normal;
+    padding: 5px 2px 5px 12px;}
+.green {
+    background: none repeat scroll 0 0 #ff0000;
+    color: #8C8C8C;
+    font-size: 11px;
+    height: 12px;
+    padding: 5px 0 !important;
+    text-align: center;
+    width: 100px;
+}	
+
+.red {
+    background: none repeat scroll 0 0 #6cca42;
+    color: #8C8C8C;
+    font-size: 11px;
+    height: 12px;
+    padding: 5px 0 !important;
+    text-align: center;
+    width: 100px;
+}	
+.add-pop 
+  { 
+  margin: 0 0 0 19px; 
+  width: 323px;
+  }
+.validateTips1
+  { 
+  font-size:11px; 
+  color:#333; 
+  padding:5px 0;
+  }  
+  
+.padding-new
+  {  
+  padding: 5px 0 26px;
+  }
+.add-pop #CoachScheduleAddtimeForm .text label {
+    float: left;
+    text-align: right;
+    width: 115px; 
+	color: #252525 !important;
+	font-size: 18px !important;
+}
+.add-pop #CoachScheduleAddtimeForm div.input {
+    margin-bottom: 9px;
+    margin-top: 9px !important;
+}
+.next-btn1 {
+    float: right;
+    margin:-5px 40px 0 0;
+}
+.next-btn1 input[type="submit"]
+  { 
+  width:80px; 
+  height:27px; 
+  border:0px; 
+  cursor:pointer; 
+  background: url("../images/pop-save-btn.png") no-repeat; 
+  font-size:0px;
+  }
+.add-pop #CoachScheduleAddtimeForm .text input
+  { 
+  margin:0 0 0 10px;
+  }
+.next-btn1 {
+    float: right;
+    margin:0 40px 0 0;
+}  
+.next-btn1 a.check {
+    background: url("../images/left-butten.png") no-repeat scroll left center transparent;
+    float: left;
+    height: 39px;
+    margin: 10px 0;
+    padding-left: 20px;
+}
+.next-btn1 a.check span {
+    background: url("../images/right-butten.png") no-repeat scroll right center transparent;
+    color: #FFFFFF;
+    float: left;
+    font-weight: bold;
+    height: 39px;
+    line-height: 37px;
+    padding-right: 20px;
+}
+.pop-3 #CoachScheduleEditForm .input
+  { 
+  margin:0!important;
+  }
+  
+.book-table-bg {
+    color:red;
+    font-size: 11px;
+    text-align: center;
+}
+#CoachSocialnetSocialnetForm .error-message{float: left;}
+
+.coach-photo a img{
+	 border: 1px solid #000000;
+	}
+.cal_menu {
+    /*margin: 0 0 0 40px;*/
+    padding: 17px 0 0;
+}
+.cal_menu a {
+   background: url("../images/deshboard-bg.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: table-cell;
+    font-family: arial;
+    font-weight: bold;
+    height: 34px;
+    padding-left: 33px;
+    vertical-align: middle;
+    width: 132px;
+}	
+.resume_edit {
+    width: 550px;
+    border: 1px solid;
+    margin-left: 57px;
+    text-align: justify;
+    padding: 9px;
+}

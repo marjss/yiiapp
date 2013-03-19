@@ -1,0 +1,222 @@
+
+/*!
+ * Bootstrap v2.0.1
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+/* Basic jQuery Slider essential styles */
+ul.bjqs {position: relative;list-style: none;padding: 0;margin: 0;overflow: hidden;display: none;}
+li.bjqs-slide {display: none;position: absolute;overflow: hidden; width:1000px !important;}
+ul.bjqs-controls {list-style: none;margin: 0;padding: 0;z-index: 999;
+}
+ol.bjqs-markers {list-style: none;margin: 0;left:0px;padding: 0;z-index: 999;}
+
+ol.bjqs-markers li {float: left;}
+p.bjqs-caption {display: block;width: 97%;margin: 0;padding: 2%;position: absolute;bottom: 0;}
+/* Basic jQuery Slider - Main page slider styles */
+#feature-slideshow {  width: 940px;
+  margin: 0;
+  
+  position: relative;
+}
+#fade-example,
+#slide-example {
+  height: 310px;
+  width: 620px;
+  position: relative;
+  margin: 0px 0px 110px;
+}
+
+#feature-slideshow ul.bjqs .video-wrapper,
+#slide-example ul.bjqs .video-wrapper,
+#fade-example ul.bjqs .video-wrapper {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+#feature-slideshow ul.bjqs .video-description,
+#slide-example ul.bjqs .video-description,
+#fade-example ul.bjqs .video-description {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  width: 380px;
+  padding: 0 10px;
+}
+#feature-slideshow ul.bjqs .featured-post,
+#slide-example ul.bjqs .featured-post,
+#fade-example ul.bjqs .featured-post,
+#feature-slideshow ul.bjqs .video-post,
+#slide-example ul.bjqs .video-post,
+#fade-example ul.bjqs .video-post {
+
+  height: 228px;
+  position: relative;
+}
+#feature-slideshow ul.bjqs .featured-post span,
+#slide-example ul.bjqs .featured-post span,
+#fade-example ul.bjqs .featured-post .slide-bottom {
+  position: absolute;
+  right: 0px;
+  top: 35px;
+  width: 750px;
+}
+#feature-slideshow ul.bjqs .featured-post img,
+#slide-example ul.bjqs .featured-post img,
+#fade-example ul.bjqs .featured-post img {
+  position: absolute;
+  bottom:0px;
+  left:0px;
+  width:917px;	
+}
+#feature-slideshow ul.bjqs p,
+#slide-example ul.bjqs p,
+#fade-example ul.bjqs p {
+  color:#242424;
+  font-weight: normal;
+  font-size: 14px;
+  margin: 0 85px 10px 0;
+  letter-spacing: -1px;
+
+  line-height: 22px;
+}
+#feature-slideshow ul.bjqs h1,
+#slide-example ul.bjqs h1,
+#fade-example ul.bjqs h1
+{
+color:#23617e;
+  font-weight: bold;
+  font-size: 18px;
+  margin:0 0 25px;
+  letter-spacing: -1px;
+
+  line-height: 22px;
+}
+
+
+
+
+#feature-slideshow ul.bjqs-controls li a,
+#slide-example ul.bjqs-controls li a,
+#fade-example ul.bjqs-controls li a {
+ 
+    overflow: auto;
+    position: absolute;
+    right: 40px;
+    top: -65px;
+    width: 25px;
+	outline: medium none;
+
+}
+#feature-slideshow ul.bjqs-controls li a i,
+#slide-example ul.bjqs-controls li a i,
+#fade-example ul.bjqs-controls li a i {
+ 
+    outline: medium none;
+    overflow: auto;
+    position: absolute;
+    right: 0px;
+    top: -5px;
+    width: 25px;
+}
+
+#feature-slideshow p.bjqs-caption,
+#slide-example p.bjqs-caption,
+#fade-example p.bjqs-caption {
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+}
+#feature-slideshow ol.bjqs-markers,
+#slide-example ol.bjqs-markers,
+#fade-example ol.bjqs-markers {
+  position: absolute;
+  bottom: 5px;
+  margin:0 0 0 22px;
+  right: 0;
+}
+#feature-slideshow ol.bjqs-markers li,
+#slide-example ol.bjqs-markers li,
+#fade-example ol.bjqs-markers li {
+  float: left;
+  margin: 0 6px;
+}
+#feature-slideshow ol.bjqs-markers li a,
+#slide-example ol.bjqs-markers li a,
+#fade-example ol.bjqs-markers li a {
+  display: block;
+ 
+  width: 100px;
+  color: #fff;
+  overflow: hidden;
+  text-align: center;
+  border: none;
+  font-size:1px;
+}
+#feature-slideshow ol.bjqs-markers li a span,
+#slide-example ol.bjqs-markers li a span,
+#fade-example ol.bjqs-markers li a span {
+  position: relative;
+  top: 4px;
+}
+#feature-slideshow ol.bjqs-markers li a:hover,
+#slide-example ol.bjqs-markers li a:hover,
+#fade-example ol.bjqs-markers li a:hover {
+
+  color: #fff;
+  text-decoration: none;
+}
+#feature-slideshow ol.bjqs-markers li a:active,
+#slide-example ol.bjqs-markers li a:active,
+#fade-example ol.bjqs-markers li a:active {
+}
+#feature-slideshow ol.bjqs-markers li.active-marker a,
+#slide-example ol.bjqs-markers li.active-marker a,
+#fade-example ol.bjqs-markers li.active-marker a {
+
+}
+#feature-slideshow ul.bjqs-controls li a.bjqs-next,
+#slide-example ul.bjqs-controls li a.bjqs-next {
+ right: 0px;
+}
+#feature-slideshow ul.bjqs-controls li a.bjqs-next,
+ right: 0px;
+}
+#fade-example ul.bjqs-controls li a.bjqs-next {
+  right: 0;
+}
+#fade-example {
+}
+.influads_block {
+  margin: 0 auto;
+}
+
+#feature-slideshow ul.bjqs-controls li a, #slide-example ul.bjqs-controls li a, #fade-example ul.bjqs-controls li a { background:url(../images/left-arow.png) no-repeat;
+    /*bottom: 160px;*/
+    height: 22px;
+    /*overflow: hidden;*/
+    position: absolute;
+    width: 20px;
+	float:left;
+
+}
+#feature-slideshow ul.bjqs-controls li a:hover, #slide-example ul.bjqs-controls li a:hover, #fade-example ul.bjqs-controls li a:hover{ background:url(../images/left-arow-hover.png) no-repeat;} 
+
+#feature-slideshow ul.bjqs-controls li a.bjqs-next, #slide-example ul.bjqs-controls li a.bjqs-prev{ background:url(../images/right-arow.png) no-repeat;
+    right: 10px;
+}
+
+#feature-slideshow ul:hover.bjqs-controls li a:hover.bjqs-next, #slide-example ul:hover.bjqs-controls li a.bjqs-prev:hover{ background: url(../images/right-arow-hover.png) no-repeat;
+    right: 10px;
+}
+
+/* \o/ LOL HI */
+
+.slider-cont-bottom{ margin:0px; padding:20px 0 0; width:520px;}
+.slider-cont-bottom-left{ margin:0 5px 0 0; padding:0px; float:left; font-size:16px; font-weight:bold;  color:#ec008c;}
+.slider-cont-bottom-right{ margin:0; padding:0px; width:650px; font-size:16px; color:#565656;font-weight:bold;}
+ol.bjqs-markers{ display:none;}
+

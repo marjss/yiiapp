@@ -1,0 +1,412 @@
+body{ margin:30px 0; padding:0px; width:100%; background:url(../images/body-bg.jpg); font-family:Arial, Helvetica, sans-serif; font-size:13px;}
+img{border:none;}
+form, input, select, textarea{ margin:0; padding:0;}
+a{ outline:none; color:#000; text-decoration:none;}
+a:hover{ color:#EC008C}
+.cl{ clear:both}
+p { margin:0px; padding:0px;}
+.clear { clear:both;}
+@font-face {
+				font-family: 'BebasNeue';
+    src: url('bebasneue.eot');
+    src: url('bebasneue.eot?#iefix') format('embedded-opentype'),
+         url('bebasneue.woff') format('woff'),
+         url('bebasneue.ttf') format('truetype'),
+         url('bebasneue.svg#bebasneue') format('svg');
+    font-weight: normal;
+    font-style: normal;
+		}
+		
+@font-face {
+				font-family:'Freehand521BT-RegularC';
+				src: url('tt1018m_.eot');
+				src: url('tt1018m_.eot?#iefix') format('embedded-opentype'),
+						 url('tt1018m_.woff') format('woff'),
+						 url('tt1018m_.ttf') format('truetype'),
+						 url('tt1018m_.svg#tt1018m_') format('svg');
+				font-weight: normal;
+				font-style: normal;
+		}
+header {}
+.warrper { margin: auto; width: 1000px;}
+.logo{padding:5px 0 0; float:left;}
+.top{width:100%;}
+.top-right{padding:20px 0 0; float:right;}
+.top-right ul{ margin:0; padding:0;}
+
+.top-right ul li{ margin:0 10px; padding:0px; float:left; text-decoration:none; list-style:none; line-height: 30px;}
+.top-right ul li a{ text-decoration:none;  color:#ec008c; font-size:14px;}
+.top-right ul li a:hover{ color:#38708A;}
+.clear{ clear:both;}
+li.call{ margin:0 10px; padding:0 0 0 40px !important; background:url(../images/call.png) no-repeat left; height:29px;}
+li.login{ margin:0 10px; padding:0 0 0 40px !important; background:url(../images/lock.png) no-repeat left; height:29px;}
+li.sign{ margin:0 10px; padding:0 0 0 40px !important; background:url(../images/sign-in.png) no-repeat left; height:29px;}
+
+li.call:hover{ margin:0 10px; padding:0 0 0 10px ; background:url(../images/call-hover.png) no-repeat left; height:29px;}
+li.login:hover{ margin:0 10px; padding:0 0 0 10px ; background:url(../images/lock-hover.png) no-repeat left; height:29px;}
+li.sign:hover{ margin:0 10px; padding:0 0 0 10px ; background:url(../images/sign-in-hover.png) no-repeat left; height:29px;}
+		
+
+.top-manu{border-bottom:1px solid #b9b9b9;}
+.manu{float:right; margin-top:58px;}
+.top-outer{width:100%;  background:url(../images/top-bg.png) repeat-x; height:24px;}
+.manu ul{ margin:0px; padding:0px;}
+.manu ul li{ margin:0px; padding:0px; float:left; text-decoration:none; list-style:none; background:url(../images/septer.png) no-repeat right; height:29px;}
+.manu ul li.select a{color:#ec008c;}
+.manu ul li a{padding:0 24px 7px; text-decoration:none; list-style:none; color:#000000; font-size:14px;}
+.manu ul li a:hover{background:url(../images/hover.png) no-repeat bottom; color:#EC008C;}
+.mid-part{}
+.mid-part-left{float:left; width:595px;}
+.mid-part-left p{ margin:0; padding:10px 0 5px; font-size:19px; font-family:"Myriad Pro"; color:#565656; width:490px;}
+.mid-part-right{padding:50px 0 0; float:right;    width: 403px;}
+.mid-button a {background: url(../images/try2.png) repeat-x ;border-radius: 10px 10px 10px 10px;color: #FFFFFF;display: block;font-family: 'BebasNeue';font-size: 48px;height: 77px;line-height: 73px;padding: 0 20px;text-align: center;text-decoration: none;width: 331px;}
+.mid-button a:hover{background: url(../images/try2-hover.png) repeat-x;}
+
+footer{}
+.footer-part{padding:15px 0 0;}
+.footer-left{float:left;font-size:14px; color:#5b5b5b; text-decoration:none;}
+.footer-right{float:right;}
+
+.mid-bottom{padding:30px 0 0; overflow:hidden;}
+.mid-bottom-boder{padding:15px 0 0 30px;  border-top:2px solid #000000;width: 800px; font-size:30px; color:#38708a; font-family:'Freehand521BT-RegularC'; font-weight:bold;}
+.mid-left-cont{}
+.mid-left-cont h2{ margin:0px; padding:0px; font-size:68px;font-family:'Freehand521BT-RegularC'; color:#38708a;}
+.mid-left-cont h3{ margin:0px; padding:0px; font-size:68px; font-family:'Freehand521BT-RegularC'; color:#565656;}
+.mid-left-cont h3 span{font-size:68px; font-family:'Freehand521BT-RegularC'; color:#ec008c;}
+.mid-button{}
+.facbook-iceo {margin:0 5px;float:left;  background:url(../images/facebook.png) no-repeat; height:18px;  width: 9px;cursor:pointer;}
+.tweter-iceo {margin:0 5px; float:left; background:url(../images/twettar.png) no-repeat; height:18px; width:15px;cursor:pointer;}
+.google-iceo {margin:0 5px; float:left; background:url(../images/google.png) no-repeat; height:18px; width: 17px;cursor:pointer;}
+
+.slide-bottom{float: right;padding:20px 0 0;position: relative;right: 0;width: 764px;}
+
+.facbook-iceo:hover{margin:0 5px; float:left; background:url(../images/facebook-hover.png) no-repeat; cursor:pointer;}
+.tweter-iceo:hover{ margin:0 5px; float:left; background:url(../images/twettar-hover.png) no-repeat;cursor:pointer;}
+.google-iceo:hover{margin:0 5px; float:left; background:url(../images/google-hover.png) no-repeat;cursor:pointer;}
+.footer-outer{background-color:#252525; height:45px; width:100%; clear:both;}
+/*---------------------SIGN UP START--------------------------*/
+.middle-content{ clear:both; padding:20px 0;}
+.signup{}
+.signup .signup-left{ width:640px; float:left;}
+.signup .signup-left h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0;}
+.signup .signup-left form{ background: url(../images/form-bg.png) repeat; padding:20px; margin-top:20px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;}
+.signup .signup-left form label{ font-size:16px; color:#000; display:block; margin:0 0 2px 5px}
+.signup .signup-left form input.textbox{ padding:10px 5px;display:block; background:#fff;margin-bottom:18px; border:none; width:400px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; } 
+.signup .signup-left form span{ font-size:11px;}
+.signup .signup-left form span a{ color:#EC008C;}
+.signup .signup-left form span a:hover{ color:#000;}
+.signup .signup-left form input.Signup-button{ background:url(../images/signup-button.png) no-repeat bottom; width:182px; height:56px; display:block; cursor:pointer; text-indent:-9999px; border:none; margin-top:18px;}
+.signup .signup-left form input.login-button{ background:url(../images/login-button.png) no-repeat bottom; width:182px; height:56px; display:block; cursor:pointer; text-indent:-9999px; border:none; margin-top:18px;}
+.signup .signup-left form input.login-button:hover{ background-position:top;}
+.signup .signup-left form input.Signup-button:hover{ background-position:top;}
+
+.signup .signup-right{ width:295px; float:left; margin-left:40px; padding-top:60px;}
+.signup .signup-right p{ font-size:16px; color:#5f5f5f; font-style:italic;}
+.signup .signup-right span{font-family:'Freehand521BT-RegularC'; font-size:24px; color:#ec008c;text-align:center; display:block;}
+
+/*---------------------SIGN UP END--------------------------*/
+
+/*-----------------PRICE SALONIER START-------------------------*/
+.price-salonier h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0; text-align:center}
+#pricing-table {
+	margin: 50px auto;
+	text-align: center;}
+
+#pricing-table .plan {
+	background: #fff;      
+	border: 4px solid #ddd;
+	color: #333;
+	width:30%; /* plan width = 180 + 20 + 20 + 1 + 1 = 222px */      
+	float: left;
+	position: relative;
+	margin:0 5px;
+}
+#pricing-table .plan:hover{border: 4px solid #356C85;}
+#pricing-table .plan .price{ padding:2px 0; font-size:20px; color:#f5f5f5; text-align:center; background:#356c85; font-weight:bold;}
+#pricing-table .plan .price span{ color:#1a3642; font-size:30px;}
+
+#pricing-table .plan .stylist{ clear:both; font-family:'Freehand521BT-RegularC'; font-size:26px; color:#38708a; text-align:center; font-weight:bold;}
+#pricing-table .plan .stylist span{ display:inline-block; background:url(../images/stylist-bg.png) no-repeat top center; width:132px; height:112px; margin:22px 0 5px 0; font-size:80px; text-align:center; color:#fff; font-family:Arial, Helvetica, sans-serif; font-weight:bold; padding-top:20px}
+#pricing-table .plan:hover .stylist span{background:url(../images/stylist-bg.png) no-repeat bottom center;}
+#pricing-table .plan .clients{ font-size:27px; color:#565656; text-align:center; padding:10px; font-weight:normal}
+#pricing-table .plan .try{ text-align:center;}
+#pricing-table .plan .try a{ background:url(../images/tryit.png) no-repeat bottom; width:181px; height:56px; display:inline-block; text-indent:-9999px; margin-bottom:20px;}
+#pricing-table .plan .try a:hover{background-position:top;}
+
+#pricing-table .plan:nth-child(1) {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;        
+}
+
+#pricing-table .plan:nth-child(4) {
+	-moz-border-radius: 0 5px 5px 0;
+	-webkit-border-radius: 0 5px 5px 0;
+	border-radius: 0 5px 5px 0;        
+}
+
+/* --------------- */	
+
+#pricing-table h3 {
+	font-size:36px; color:#8a8a8a;padding:30px 0;margin:0;
+	background-color: #eee;
+	background-image: -moz-linear-gradient(#fff,#eee);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));    
+	background-image: -webkit-linear-gradient(#fff, #eee);
+	background-image: -o-linear-gradient(#fff, #eee);
+	background-image: -ms-linear-gradient(#fff, #eee);
+	background-image: linear-gradient(#fff, #eee);
+}
+
+.clear:before, .clear:after {
+  content:"";
+  display:table
+}
+
+.clear:after {
+  clear:both
+}
+   
+/*-----------------PRICE SALONIER END-------------------------*/
+
+/*-----------------ABOUT US START-------------------------*/
+.about-us h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0;}
+.about-us .salon-scheduling{}
+.about-us .salon-scheduling h2{font-family: 'BebasNeue'; font-size:24px; margin:0; padding:0; color:#ec008c; font-weight:normal;}
+.about-us .meet-saloniers{ margin-top:30px;}
+.about-us .meet-saloniers h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#606060; margin:0; padding:5px 0 20px; background:url(../images/about-heading.png) no-repeat; font-weight:normal; text-align:center;}
+.meet-saloniers .every-saloniers .salonier{ float:left; width:400px; margin-top:20px; margin-right:90px}
+.meet-saloniers .every-saloniers .salonier img{ float:left; border:solid 1px #333; padding:2px; margin-right:5px;}
+.meet-saloniers .every-saloniers .salonier .salonier-content h2{ color:#38708a; font-size:24px; margin:0; padding:0; font-weight:normal;font-family: 'BebasNeue';}
+.meet-saloniers .every-saloniers .salonier .salonier-content span{ color:#ec008c;}
+
+/*-----------------ABOUT US END-------------------------*/
+
+
+
+
+.errorSummary {
+    background-color: #FFCECE;
+    border: 1px solid #FF0000;
+    color: #35392F;
+    padding: 10px 11px 12px 13px;
+}
+.errorMessage {
+    color: red;
+    font-size: 0.9em;
+}
+.flash-success{
+    background-color: #ECF7FB;
+    border: 1px solid #008BBF;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 4px #CCCCCC;
+    color: #35392F;
+    font-weight: normal;
+    margin: 10px 0 10px 10px;
+    padding: 8px 0;
+    text-align: center;
+    width: 360px;
+}
+
+/*---------------------SIGN UP END--------------------------*/
+
+/*-----------------PRICE SALONIER START-------------------------*/
+.price-salonier h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0; text-align:center}
+#pricing-table {
+	margin: 50px auto;
+	text-align: center;}
+
+#pricing-table .plan {
+	background: #fff;      
+	border: 4px solid #ddd;
+	color: #333;
+	width:30%; /* plan width = 180 + 20 + 20 + 1 + 1 = 222px */      
+	float: left;
+	position: relative;
+	margin:0 5px;
+}
+#pricing-table .plan:hover{border: 4px solid #356C85;}
+#pricing-table .plan .price{ padding:2px 0; font-size:20px; color:#f5f5f5; text-align:center; background:#356c85; font-weight:bold;}
+#pricing-table .plan .price span{ color:#1a3642; font-size:30px;}
+
+#pricing-table .plan .stylist{ clear:both; font-family:'Freehand521BT-RegularC'; font-size:26px; color:#38708a; text-align:center; font-weight:bold;}
+#pricing-table .plan .stylist span{ display:inline-block; background:url(../images/stylist-bg.png) no-repeat top center; width:132px; height:112px; margin:22px 0 5px 0; font-size:80px; text-align:center; color:#fff; font-family:Arial, Helvetica, sans-serif; font-weight:bold; padding-top:20px}
+#pricing-table .plan:hover .stylist span{background:url(../images/stylist-bg.png) no-repeat bottom center;}
+#pricing-table .plan .clients{ font-size:27px; color:#565656; text-align:center; padding:10px; font-weight:normal}
+#pricing-table .plan .try{ text-align:center;}
+#pricing-table .plan .try a{ background:url(../images/tryit.png) no-repeat bottom; width:181px; height:56px; display:inline-block; text-indent:-9999px; margin-bottom:20px;}
+#pricing-table .plan .try a:hover{background-position:top;}
+
+#pricing-table .plan:nth-child(1) {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;        
+}
+
+#pricing-table .plan:nth-child(4) {
+	-moz-border-radius: 0 5px 5px 0;
+	-webkit-border-radius: 0 5px 5px 0;
+	border-radius: 0 5px 5px 0;        
+}
+#pricing-table .summary{display:none;}
+/* --------------- */	
+
+#pricing-table h3 {
+	font-size:36px; color:#8a8a8a;padding:30px 0;margin:0;
+	background-color: #eee;
+	background-image: -moz-linear-gradient(#fff,#eee);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));    
+	background-image: -webkit-linear-gradient(#fff, #eee);
+	background-image: -o-linear-gradient(#fff, #eee);
+	background-image: -ms-linear-gradient(#fff, #eee);
+	background-image: linear-gradient(#fff, #eee);
+}
+
+.clear:before, .clear:after {
+  content:"";
+  display:table
+}
+
+.clear:after {
+  clear:both
+}
+   
+/*-----------------PRICE SALONIER END-------------------------*/
+
+/*-----------------ABOUT US START-------------------------*/
+.about-us h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0;}
+.about-us .salon-scheduling{}
+.about-us .salon-scheduling h2{font-family: 'BebasNeue'; font-size:24px; margin:0; padding:0; color:#ec008c; font-weight:normal;}
+.about-us .meet-saloniers{ margin-top:30px;}
+.about-us .meet-saloniers h1{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#606060; margin:0; padding:5px 0 20px; background:url(../images/about-heading.png) no-repeat; font-weight:normal; text-align:center;}
+.meet-saloniers .every-saloniers .salonier{ float:left; width:400px; margin-top:20px; margin-right:90px}
+.meet-saloniers .every-saloniers .salonier img{ float:left; border:solid 1px #333; padding:2px; margin-right:5px;}
+.meet-saloniers .every-saloniers .salonier .salonier-content h2{ color:#38708a; font-size:24px; margin:0; padding:0; font-weight:normal;font-family: 'BebasNeue';;}
+.meet-saloniers .every-saloniers .salonier .salonier-content span{ color:#ec008c;}
+
+/*-----------------ABOUT US END-------------------------*/
+
+
+/*appointment book css */
+.appbook{
+    margin:0px;
+    
+}
+.appbook .appcalander{float:left;width:200px;margin-bottom:10px;}
+.appbook .appserviceselectbox{float:right;margin-bottom:10px;}
+.appbook table, tr, td{ border: 1px solid;background-color:#ffffff; clear:both;}
+.appbook table, tr, td{ padding:0px;}
+ul.box-link{ list-style:none; margin:0px; padding:0px; }
+ul.box-link li{ border-bottom:1px #999 solid; padding:5px 0; height:10px;}
+ul.box-link li.last{ border:none;}
+.highlighted_slot{background-color:#aaa !important;}
+.empty_slots{background-color : #fbf8b1;}
+.selected_slot{background-color:red !important;}
+.highlighted_slot_finish{border-bottom:1px #FF0000 solid !important;}
+.disable_slots{background-color:#3F3C3C;}
+table#appbook_table tr td div{height:70px; width:100px;text-align:center;border:1px solid #000000; font-size:30px;color:#918E8E;}
+ table#appbook_table tr td div span{color:#999;}
+ /*-------------5/11/12-----------------------*/
+ .ui-dialog .ui-dialog-title{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0;}
+ .dialog_input input.customer_field{  border: 1px solid #CCCCCC;padding: 7px;width: 350px; margin-bottom:10px;}
+ .double-process{ background:#cfe6f0;-moz-border-radius:10px;-webkit-border-radius:10px; border-radius:10px; color:#000; padding:10px; margin:10px 0;}
+ .check{ clear:both; margin:5px 0;}
+ .check span{ float:left; margin-right:10px;}
+ .check input{  display: block;float: left;margin-right: 5px;margin-top: 4px;}
+ .check label{float:left; margin-right:20px;}
+ input.lookup-button{ background:#f0057f; padding:5px; display:inline-block;color:#fff; border:none; cursor:pointer; margin:5px 10px;-moz-border-radius:5px;-webkit-border-radius:5px; border-radius:5px; font-size:12px; font-weight:bold;float:left;}
+  input.lookup-button:hover{ background:#5d8294}
+
+#customerDialog form .dialog_input img{ margin-top:10px;}
+.dialogtitle{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0;}
+
+
+
+
+
+/* New App book Css */
+.left-menu { width:158px; float:left; background:url(../images/left-block-bg.jpg) repeat-y; min-height:600px;}
+.appcalander-right { width:837px; float:right; }
+.appcalander-right .appcalander{float:left;width:200px;margin-bottom:10px;}
+.appcalander-right .appserviceselectbox{float:right;margin-bottom:10px;}
+.menu { margin:0px; padding:0px;}
+.menu ul { margin:0px; padding:0px; list-style:none;}
+.menu ul li { margin: 0; padding: 8px 15px;}
+.menu ul li a { text-decoration:none;}
+.menu ul li a.icon-1 { background:url(../images/icon-1.png) no-repeat left; padding:0 0 0 25px; font-size:14px; color:#fff; text-decoration:none;}
+.menu ul li a.icon-2 { background:url(../images/icon-2.png) no-repeat left; padding:0 0 0 25px; font-size:14px; color:#fff; text-decoration:none;}
+.menu ul li a.icon-3 { background:url(../images/icon-3.png) no-repeat left; padding:0 0 0 25px; font-size:14px; color:#fff; text-decoration:none;}
+.menu ul li a:hover { color:#CCC;}
+.sub-menu { display:none;}
+.sub-menu ul { margin:0px; padding:0px; list-style:none;}
+.sub-menu ul li { padding:4px 0;}
+.sub-menu ul li a { color: #FFFFFF; display: block; font-size: 12px; padding: 3px 2px 3px 25px; text-decoration: none;}
+.sub-menu ul li a:hover { background:#3D738D;}
+.appcalander-bottom{ margin:10px 0; background:#fff; border:2px #9b9b9b solid;}
+.top-link{  border:2px #949494 solid; padding:0 0 0 79px;  margin:0;
+   border-top:0; border-left:0;
+    width: 679px;}
+
+.top-link-box {
+    border-left: 2px solid #999999;
+    border-right: 0 none;
+    border-top: 2px solid #999999;
+    float: left;
+    width: 83px;
+}
+.top-heading tr td{ color:#003957;}
+.top-heading tr td{ border-right:2px #949494 solid; padding:5px;}
+.date{ border:2px #9b9b9b solid; border-top:0;  background:#fff; height:76px;}
+/*.date-bottom{ border-bottom:2px #9b9b9b solid; height:79px;}
+*/.date h1{ text-align:center; font-size:35px; color:#003957; margin:0px; padding:4px 0 0 0;}
+.date span{ font-size:20px;  color:#3a3a3a; text-align:center; display:block;}
+.column-inner{ margin:0px; padding:0px;}
+/*.column-inner tbody tr td{ border-right:2px #949494 solid; padding:0; height:18px;}*/
+.bottom-border{ border-bottom:1px #CCC dotted;}
+.bottom-border2{ border-bottom:2px #949494 solid;}
+.bg{ background:#f0f0f0;}
+/*.height-1{ height:79px; }*/
+/*.appcalander{ background:#fff;} */
+.date-block{ border-left: 2px solid #949494;
+border-right: 2px solid #949494;
+border-top: 2px solid #949494;}
+.date-block h1{ text-align:center; font-size:35px; color:#003957; margin:0px; padding:4px 0 0 0;}
+.date-block span{ font-size:20px;  color:#3a3a3a; text-align:center; margin:0 0 8px 0; display:block;}
+.bottom-border3{  border-bottom: 2px solid #949494;
+    display: block;}
+
+
+.date-left{ float:left; width:76px;}
+.date-right{ float:right; width:20px;}
+.appcalander2{ width:100px;}
+.appcalander3{ width:700px;}
+
+.date-box{ width:80px;}
+
+.new-td{ border-bottom: 1px dotted #CCCCCC; padding:0; height:19px;}
+.newappcalander {
+    border-top: 2px solid #949494;border-right: 2px solid #949494;
+    height: 76px; width:85px;
+}
+.dsd{ border-bottom: 2px solid #949494;}
+
+.left{ width:85px; border-right:0; border-left:0; display:block;}
+.right{ width:800px;border-bottom:2px #000 solid;
+border-top:2px #000 solid;
+border-right:2px #000 solid; }
+.new-block{ width:800px;   overflow-y: auto;
+    overflow-x: hidden; }
+
+.left-date-block {
+    border-top: 2px solid #949494;
+    float: left;
+    margin: 14px 0 0;
+    width: 85px;
+}
+
+
+.add-block {
+    float: left;
+    overflow: auto;
+    width: 751px;  
+}

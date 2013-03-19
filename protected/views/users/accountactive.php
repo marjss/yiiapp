@@ -1,0 +1,1 @@
+<div class='activecontent'>An activation email has been sent to your email address, please activate your account.</div>
