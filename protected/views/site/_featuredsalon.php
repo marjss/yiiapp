@@ -32,4 +32,17 @@
         </div>
     </div>
 </div>
-    
+<!--<div class="f-salons">
+    <div class="avtar">
+        <div class="img">
+            <?php  /*echo Yii::app()->request->baseUrl
+                    if($user_details->avtar):
+             $avtarimage = Yii::app()->request->baseUrl."/".$user_details->avtar;
+              else:
+            $avtarimage = Yii::app()->request->baseUrl."/avtar/no-image.png";
+             endif;
+              echo CHtml::image($avtarimage); */?>
+        </div>
+        <div class="spa-name"><?php //echo $user_details->name;?></div>
+    </div>
+</div>-->
