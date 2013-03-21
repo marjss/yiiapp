@@ -32,7 +32,7 @@
                                 <div class="landing_leftbgblk">
                                     <h2> <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/email_icon.jpg" alt="" >  Email: </h2>
 
-                                    <a href="#"><?php echo $users->email; ?>  </a>
+                                    <a href="mailto:<?php echo $users->email; ?> "><?php echo $users->email; ?>  </a>
 
                                 </div>
 
@@ -92,88 +92,54 @@
             <div class="tabingblock">
                 <div class="tab_bg">
                     <ul class="shadetabs" id="countrytabs">
-                        <li class="curve"><a class=""  href="#country1">  Photos              </a></li>
+                        <li class="curve"><a class=""  href="#country1" >  Photos              </a></li>
                         <li><a  href="#country2" class=""> Reviews        </a></li>
                         <li><a  href="#country3" class="">  Offers     </a></li>
                         <li><a  href="#country4" class="">   Menu   </a></li>
-                        <li><?php echo CHtml::link('view map', "#country5", array('id'=>'viewmap-'.$users->id,'class'=>'viewmap', 'onclick'=>'showmap('.$users->id.')')); ?></li>
+                        <li><?php echo CHtml::link('Map', "#country5", array('id'=>'viewmap-'.$users->id,'class'=>'viewmap', 'onclick'=>'showmap('.$users->id.')')); ?></li>
                     </ul> </div>
                 <div class="clear"> </div>                    
 
                 <div class="tabcontent" id="country1">
 
                     <div class="tab_photo"> 
-                        <ul>
-                            <li>  <a href="#">  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/photo_1.jpg" width="111" height="103"> </a> </li>
-                            <li>  <a href="#">  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/photo_2.jpg" width="111" height="103"> </a> </li>
-                            <li>  <a href="#">  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/photo_3.jpg" width="111" height="103"> </a> </li>
-                            <li>  <a href="#">  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/photo_4.jpg" width="111" height="103"> </a> </li>
-                            <li>  <a href="#">  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/photo_1.jpg" width="111" height="103"> </a> </li>
-
-                            <li>  <a href="#">  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/photo_2.jpg" width="111" height="103"> </a> </li>
-                            <li>  <a href="#">  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/photo_3.jpg" width="111" height="103"> </a> </li>
-                            <li>  <a href="#">  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/photo_4.jpg" width="111" height="103"> </a> </li>
+                        
+                        <ul><?php $pathh = Yii::app()->request->baseUrl.'/gallery/'.$users->username;
+                                foreach($gallery as $g) { ?>
+                            <li><?php $this->widget('application.extensions.fancybox.EFancyBox', array(
+                                                        'target'=>'a[rel=gallery]',
+                                                        'config'=>array(),
+                                                                                )
+                                                );?> 
+                                
+                                <a rel="gallery" href="<?php echo $pathh.'/'. $g->image; ?>" >  <img src="<?php echo $pathh.'/'. $g->image; ?>" width="111" height="103"> </a> </li>
+                        <?php }?>    
                         </ul>
                     </div>
 
 
                 </div>
                 <div class="tabcontent" id="country2">
-                    dddfD<br>
-                    <br>
-                    SDF<br>
-                    SDF<br>
-                    SD<br>
-                    FSD<br>
-                    FS<br>
-                    DF<br>SDF<br>
-                    SD<br>
-                    FSD<br>
-                    FS<br>
-                    DF<br>
-                    SD<br>
-                    FDS 
-                    SD<br>
-                    FDS 
-
-
-                </div>
+                   Reviews content placed here....<br>
+                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nisi lorem, molestie ut bibendum vestibulum, congue quis ligula. Praesent malesuada, justo et scelerisque ornare, eros purus facilisis ante, sed auctor sem sem quis enim. Vivamus malesuada est at nisl mattis sed ullamcorper est viverra. Pellentesque vitae ante vel elit aliquam rhoncus nec vitae nisl. Praesent non leo at quam congue hendrerit euismod eget leo. Vestibulum a congue velit. In at arcu sed nunc tempor mollis sit amet vitae ante. Quisque id risus nunc. Aliquam dapibus sem ut nisi viverra eu faucibus turpis euismod. Nulla convallis laoreet consectetur. Pellentesque nisl erat, rutrum et suscipit ac, tempor quis turpis. Duis diam ante, posuere a egestas at, rutrum eu mi. Cras egestas accumsan ullamcorper. Etiam convallis viverra erat sit amet pretium. Vestibulum vehicula, nibh eu mattis tempus, elit nunc posuere nisl, eu scelerisque neque nisl nec ligula. Nulla eu elit quis lorem ornare sagittis ac volutpat magna. 
+                   </div>
                 <div class="tabcontent" id="country3" >
-                    dddfD<br>
-                    <br>
-                    SDF<br>
-                    SDF<br>
-                    SD<br>
-                    FSD<br>
-                    FS<br>
-                    DF<br>SDF<br>
-                    SD<br>
-                    FSD<br>
-                    FS<br>
-                    DF<br>
-                    SD<br>
-                    FDS 
-                    SD<br>
-                    FDS 
+                     <?php foreach ($deals as $deal) { ?>
+                  <?php echo $deal->title;?>
+                    <?php }?>
                 </div>
                 
                 <div class="tabcontent" id="country4" >
-                   hello<br>
-                    <br>
-                    test<br>
-                    2<br>
-                    22222<br>
-                    FSD<br>
-                    FS<br>
-                    DF<br>SDF<br>
-                    SD<br>
-                    FSD<br>
-                    FS<br>
-                    DF<br>
-                    SD<br>
-                    FDS 
-                    SD<br>
-                    FDS 
+            
+                <table><th>Services</th><th>Duration</th><th>Price</th>
+            <?php foreach ($services as $service) { ?>
+           <tr><td><?php echo $service->name; ?></td>
+          <td><?php echo $service->duration; ?></td>
+           <td><?php echo $service->price; ?></td>
+           </tr>
+           <?php } ?>
+                </table>
+             
                 </div>
                 <div class="tabcontent" id="country5"  >
                    <?php $this->widget('RVMap');?>
@@ -273,16 +239,31 @@ function showpopup(merchantid)
 }
 </script>
 <script>
-$(function() {
-   
-$( ".tabingblock" ).tabs();
-// $('.tabingblock').removeClass('ui-tabs'); 
-// $('.tabingblock').removeClass('ui-tabs-nav');  
-// $('.tabingblock').removeClass('ui-tabs-panel'); 
-// $('.tabingblock').removeClass('ui-widget-header');
+$(document).ready(function(){
+  
+$( ".tabingblock" ).tabs({
+       
+	fx: { opacity: 'toggle' },
+        selected: 'country1',
+	select: function(event, ui) {
+		jQuery(this).css('height', jQuery(this).height());
+		jQuery(this).css('overflow', 'hidden');
+	},
+	show: function(event, ui) {
+		jQuery(this).css('height', 'auto');
+		jQuery(this).css('overflow', 'visible');
+	}
+});
+
+ $('.tabingblock').removeClass('ui-tabs'); 
+ $('.tabingblock').removeClass('ui-tabs-nav');  
+ $('.tabingblock').removeClass('ui-tabs-panel'); 
+ $('.tabingblock').removeClass('ui-widget-header');
+ $('tabingblock').removeClass('ui-widget ui-widget-content ui-corner-all');
+  $('.tabcontent').removeClass('ui-tabs-panel ui-widget-content ui-corner-bottom');
  $('#countrytabs').removeClass('shadetabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all').addClass('shadetabs');
- $('#countrytabs li').removeClass('curve ui-state-default ui-corner-top ui-tabs-active ui-state-active').addClass('curve');
+ $('#countrytabs li').removeClass('curve ui-state-default ui-corner-top ui-tabs-active ui-state-active').addClass('curve ');
  $('#countrytabs li').removeClass('curve ui-state-hover').addClass('curve');
- 
+ return false;
 });
 </script>
