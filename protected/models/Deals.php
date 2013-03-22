@@ -106,7 +106,7 @@ class Deals extends CActiveRecord
 //                    'pagination' => array('pageSize' => 2),
 		));
 	}
-        public function mersearch()
+	public function mersearch()
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
