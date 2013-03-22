@@ -472,8 +472,8 @@ a#service-select span{ background: url("../images/ui-icons_888888_256x240.png") 
 .searchsalon-results .list-view{background: none repeat scroll 0 0 #FFFFFF;width: 1000px;margin: 10px 0;}
 .items{  padding: 10px;}
 .list-view{ float:left;}
-.f-salons{ float:left;  width: 225px; margin:0 10px;}
-.avtar{ background: none repeat scroll 0 0 #FFFFFF;float: left;margin: 10px;}
+.f-salons{ float:left;  width: 170px; margin:0 10px;}
+.avtar{ background: none repeat scroll 0 0 #FFFFFF;float: left;margin: 10px; width: 160px;}
 .img{text-align: center;}
 .spa-details, .spa-name{color: #F10C82;padding:0 0 25px;font-size: 24px; font-family: BebasNeue;}	
 .search-form .cities{  background: none repeat scroll 0 0 #FFFFFF;border: 0 none;border-radius:5px 5px 5px 5px;font-size: 16px;line-height: 1;padding: 7px 5px;width: 225px;} .
@@ -497,7 +497,13 @@ a#service-select span{ background: url("../images/ui-icons_888888_256x240.png") 
 .searchsalon-results, .list-view, .s-action a.book-app{ color: #FFFFFF;}
 .searchsalon-results, .list-view, .s-action a.request-app{ color:#fff;}
 .salon-scheduling .searchsalon-results .list-view{background:none;width: 1000px;margin: 10px 0;}
-.avtar .spa-name{  color: #F10C82;font-family: BebasNeue;font-size: 16px; margin:0 14px;width: 160px;padding: 0 0 10px;}
+.avtar .spa-name{  
+    color: #F10C82;
+    font-family: BebasNeue;
+    font-size: 16px; 
+    margin:0 14px;
+    /*width: 160px;*/
+    padding: 0 0 10px;}
 .map_location_desc .user_img{ color: #F10C82;font-family: BebasNeue;font-size: 16px;}
 .map_location_desc .user_name{  color: #000000;font-family: Arial,Helvetica,sans-serif;font-size: 12px;}
 .map_location_desc .other_info{  color: #000000;font-family: Arial,Helvetica,sans-serif;font-size: 12px;}
@@ -572,6 +578,6 @@ line-height: 1.5;
 /*----------------Search page style Ends --------------------------*/
 /*----------------Home Featured section ---------------------------*/
 .img img{
-	height:200px;
-	width:200px; 
+	height:100px;
+	width:150px; 
 }
