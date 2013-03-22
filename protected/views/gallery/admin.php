@@ -51,7 +51,7 @@ $(function(){
     });
 });");
 
-echo CHtml::link('Upload', '#', array('id' => 'upload-image'));
+echo CHtml::link('Add Photo', '#', array('id' => 'upload-image'));
     
     $this->beginWidget('zii.widgets.jui.CJuiDialog',array(
                 'id'=>'gallery-form',
@@ -71,22 +71,55 @@ echo CHtml::link('Upload', '#', array('id' => 'upload-image'));
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
+    <style>
+        .thumbnail img{height: 100px; width:80%;}
+        .item-class{
+            width:200px;
+        }
+        .items li {
+            float: left;
+    height: 100px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 100px;list-style: none;}
+        .item-class th{
+            display: none;
+        }
+        .item-class .button-column{
+            
+        }
+    </style>
 </div><!-- search-form -->
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+
+
+<?php 
+$this->widget('zii.widgets.CListView', array(
+    'id'=>'gallery-grid',
+    'dataProvider'=>$model->galsearch(),
+//    'template'=>"{items}\n{pager}\n{delete}",
+    'itemView'=>'_view',
+)); 
+?>
+<?php /*$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'gallery-grid',
 	'dataProvider'=>$model->galsearch(),
+    'template'=>"{items}\n{pager}",
+    'loadingCssClass'=>'gallery',
+    'itemsCssClass'=>'item-class',
 //	'filter'=>$model,
 	'columns'=>array(
-		'id',
+//		'id',
 //		'user_id',
 		 array
 			    (   
-                     'type'=>'image',
+                     'type'=>'raw',
 //                     'header'=>'image',
 //                                
                                 'name'=>'image',
-                               'value'=>'Yii::app()->request->baseUrl."/gallery/".$data->user->username."/".$data->image',
-                               'htmlOptions'=>array('class'=>'thumb'),
+                                'value'=>'CHtml::image("/gallery/".$data->user->username."/".$data->image)',
+
+//                               'value'=>array("/gallery/".$data->user->username."/".$data->image,'image'),
+                               'htmlOptions'=>array('class'=>'thumb','rel'=>'gallery'),
 				
 			    ),
 //		'description',
@@ -111,4 +144,4 @@ echo CHtml::link('Upload', '#', array('id' => 'upload-image'));
 			 'template'=>'{delete}',
 		),
 	),
-)); ?>
+));*/ ?>
