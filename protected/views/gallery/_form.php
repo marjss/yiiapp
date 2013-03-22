@@ -33,7 +33,7 @@
 		     'model'=>$model,
 		     'name'=>'image',
 //		     'attribute'=>'image',
-		     'accept'=>'jpg|gif|png',
+		     'accept'=>'jpeg|jpg|gif|png',
 		     /*'options'=>array(
 			'onFileSelect'=>'function(e, v, m){ alert("onFileSelect - "+v) }',
 			'afterFileSelect'=>'function(e, v, m){ alert("afterFileSelect - "+v) }',
