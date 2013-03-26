@@ -6,7 +6,7 @@
     
 'columns'=>array(       
                 array('name'=>'Service','value'=>$data->Service),
-    'Price','Duration',
+                        'Price','Duration','Seat',
 //		array('name'=>'customer_contact_no','value'=>$data->customer_contact_no),
 //                array('name'=>'customerorder.service_duration','value'=>$data->customerorder->service_duration),
                 array('name'=>'Appointment', 'type' => 'raw','value'=>  $data->Appointment),
