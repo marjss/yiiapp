@@ -6,6 +6,7 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 //ini_set("session.cookie_domain", ".salonchimp.com");
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
         
@@ -48,9 +49,14 @@ return array(
                 ),
 		
 	),
-
+        
 	// application components
 	'components'=>array(
+            'bootstrap' => array(
+	    'class' => 'ext.bootstrap.components.Bootstrap',
+	    'responsiveCss' => false,
+                'coreCss' => false,
+	),
             'session'=>array(
             'class' => 'CDbHttpSession',
             'connectionID' => 'db',
@@ -92,6 +98,7 @@ return array(
                                 'about/'=>'site/about',
                                 'terms'=>'site/terms',
                                 'privacy'=>'site/privacy',
+                                'search'=>'site/searchsalon',
 				'http://<user:\w+>.stuffuneedlocal.com/<controller:\w+>/<id:\d+>/'=>'<controller>/view',
 				'http://<user:\w+>.stuffuneedlocal.com/<controller:\w+>/<action:\w+>/<id:\d+>/'=>'<controller>/<action>',
 				'http://<user:\w+>.stuffuneedlocal.com/<controller:\w+>/<action:\w+>'=>'<controller>/<action>',      
