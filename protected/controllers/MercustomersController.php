@@ -28,7 +28,7 @@ class MercustomersController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','index','view'),
+				'actions'=>array('create','update','admin','delete','index','view','Appointments'),
 				'users'=>array('@'),
 				'expression'=>'Yii::app()->user->isMerchant()'
 			),
@@ -179,4 +179,20 @@ class MercustomersController extends Controller
 			     
 		     }
 	}
+        public function actionAppointments($id){
+         $count=Yii::app()->db->createCommand('SELECT COUNT(*) FROM dt_customer_orders')->queryScalar();
+         $sql='SELECT co.service_name as Service, co.service_price as Price, co.service_duration as Duration ,cod.appointment_date_time as Appointment FROM dt_customer_orders cod, dt_customer_order_details co WHERE cod.id = co.customer_order_id and cod.customer_id='.$id;
+	       $dataProvider=new CSqlDataProvider($sql, array(
+//               'totalItemCount'=>$count,
+                'pagination'=>array(
+                    'pageSize'=>30,
+                ),
+            )); 
+               
+            $this->renderPartial('_orders', array(
+                                    'id' => Yii::app()->getRequest()->getParam('id'),
+                                    'dataProvider'=>$dataProvider,
+                                    'order' => $order),false,false);
+        
+        }
 }
