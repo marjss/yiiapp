@@ -34,8 +34,39 @@ $user_id = Yii::app()->user->id;
 
 ?>
 </div><!-- search-form -->
+<?php $this->widget('bootstrap.widgets.TbExtendedGridView', array(
+                'filter'=>$model,
+//              'type'=>'striped bordered',
+                'dataProvider' => $model->search(),
+                //'template' => "{items}",
+                'columns' => array_merge(array(
+                                            array(
+                                            'class'=>'bootstrap.widgets.TbRelationalColumn',
+                                            'name' => 'name',
+                                            'url' => $this->createUrl('mercustomers/appointments'),
+                                            'value'=> $data->name,
+//                                            'afterAjaxUpdate' => 'js:function(tr,rowid,data){
+//                                            bootbox.alert("Following are the Details of the selected record:"+data); }'
+                                                  )
+                                            ),array(
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+		'mobile_no',
+		'email',
+		array(
+			'class'=>'CButtonColumn',
+			'template'=>'{update}',
+			'buttons'=>array
+			(
+			  'update' => array
+			    (
+				'label'=>'',
+				'imageUrl'=>Yii::app()->request->baseUrl.'/images/update.png',
+                            ),
+                         ),
+		),
+	)),
+));?>
+<?php /*$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'mercustomers-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -47,7 +78,7 @@ $user_id = Yii::app()->user->id;
 		'email',
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{update}',
+			'template'=>'{update}{appointments}',
 			'buttons'=>array
 			(
 			    
@@ -57,7 +88,13 @@ $user_id = Yii::app()->user->id;
 				'imageUrl'=>Yii::app()->request->baseUrl.'/images/update.png',
 				//'url'=>'Yii::app()->createUrl("users/email", array("id"=>$data->id))',
 			    ),
+                            'appointments' => array
+			    (
+				'label'=>'',
+				'imageUrl'=>Yii::app()->request->baseUrl.'/images/update.png',
+				'url'=>'Yii::app()->createUrl("mercustomers/appointments", array("id"=>$data->id))',
+			    ),
 			),
 		),
 	),
-)); ?>
+));*/ ?>
