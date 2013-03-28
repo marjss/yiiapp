@@ -74,8 +74,11 @@ foreach($roles as $val){
          echo CHTML::dropDownList('Pricingplansusers[pricing_plan_id]',$planmodel->pricing_plan_id, $list,array('id'=>'Pricingplansusers_pricing_plan_id',)); 
           echo CHtml::ajaxButton('Send Mail', array('users/changeplan','id'=>$model->id) , 
                   array('data' => array('plan'=> 'js: $("#Pricingplansusers_pricing_plan_id option:selected").val()'),
+                          'beforeSend'=>'function(){
+                                        $("#mail").replaceWith("<p id=\"update_info\"><img src=\"/images/loading.gif\"></p>");
+                                    }',
 //                        'update' => '#dataToUpdate',
-                            'success'=>'function(data){$("#mail").html(data)}'
+                            'success'=>'function(data){$("#update_info").replaceWith("<p id=\"update_info\">Mail Sent Successfully.</p>")}'
     ));
        echo $form->error($planmodel,'pricing_plan_id'); 
               }
@@ -86,8 +89,11 @@ foreach($roles as $val){
                     echo $form->dropDownList($planmodel,'pricing_plan_id',$list);  
                     echo CHtml::ajaxButton('Send Mail', array('users/changeplan','id'=>$model->id) , 
                             array('data' => array('plan'=> 'js: $("#Pricingplansusers_pricing_plan_id option:selected").val()'),
+                                'beforeSend'=>'function(){
+                                        $("#mail").replaceWith("<p id=\"update_info\"><img src=\"/images/loading.gif\"></p>");
+                                    }',
 //                                  'update' => '#dataToUpdate'
-                                    'success'=>'function(data){$("#mail").html(data)}'
+                                     'success'=>'function(data){$("#update_info").replaceWith("<p id=\"update_info\">Mail Sent Successfully.</p>")}'
     ));
          }
          ?><div id="mail"></div>
