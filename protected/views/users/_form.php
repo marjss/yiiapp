@@ -60,9 +60,9 @@ foreach($roles as $val){
 	</div>
         
         <div class="row">
-            <?php echo $form->labelEx($usermodel,'city'); ?>
-            <?php echo $form->dropDownList($usermodel, 'city',Citylist::model()->getCityuserDropDown(), array('empty'=>'Select City'));  ?>
-            <?php echo $form->error($usermodel,'city'); ?>
+            <?php //echo $form->labelEx($usermodel,'city'); ?>
+            <?php //echo $form->dropDownList($usermodel, 'city',Citylist::model()->getCityuserDropDown(), array('empty'=>'Select City'));  ?>
+            <?php //echo $form->error($usermodel,'city'); ?>
 	</div>
             <div class="row">
          
@@ -72,6 +72,11 @@ foreach($roles as $val){
               echo $form->labelEx($planmodel,'pricing_plan_id');
              $list = CMap::mergeArray(array(''=>'- Select -'), CHtml::listData(Pricingplans::model()->findAll(array('order' => 'name')), 'id', 'name'));
          echo CHTML::dropDownList('Pricingplansusers[pricing_plan_id]',$planmodel->pricing_plan_id, $list,array('id'=>'Pricingplansusers_pricing_plan_id',)); 
+          echo CHtml::ajaxButton('Send Mail', array('users/changeplan','id'=>$model->id) , 
+                  array('data' => array('plan'=> 'js: $("#Pricingplansusers_pricing_plan_id option:selected").val()'),
+//                        'update' => '#dataToUpdate',
+                            'success'=>'function(data){$("#mail").html(data)}'
+    ));
        echo $form->error($planmodel,'pricing_plan_id'); 
               }
               else {
@@ -79,11 +84,17 @@ foreach($roles as $val){
           echo $form->labelEx($planmodel,'pricing_plan_id'); 
           $list = CMap::mergeArray(array(''=>'- Select -'), CHtml::listData(Pricingplans::model()->findAll(array('order' => 'name')), 'id', 'name'));
                     echo $form->dropDownList($planmodel,'pricing_plan_id',$list);  
+                    echo CHtml::ajaxButton('Send Mail', array('users/changeplan','id'=>$model->id) , 
+                            array('data' => array('plan'=> 'js: $("#Pricingplansusers_pricing_plan_id option:selected").val()'),
+//                                  'update' => '#dataToUpdate'
+                                    'success'=>'function(data){$("#mail").html(data)}'
+    ));
          }
-         ?>
+         ?><div id="mail"></div>
       <?php echo $form->error($planmodel,'pricing_plan_id'); ?>
 
     </div>
+        
         <div class="row">
             <?php echo $form->labelEx($usermodel,'avtar'); ?>
             <?php echo $form->fileField($usermodel,'avtar',array('size'=>38)); ?>
