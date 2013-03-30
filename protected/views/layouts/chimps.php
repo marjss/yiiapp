@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-         <script language="javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/2.js" type="text/javascript"></script>
         <title>salonier</title>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/landing.css" media="screen, projection" />
         
@@ -16,7 +16,7 @@
         <![endif]-->
          
 	  <?php $this->widget('RVMap');?>
-	 <?php $this->widget('Contactus');?>
+	 <?php $this->widget('Shopcontact');?>
     </head>
     <body>
 
