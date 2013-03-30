@@ -43,20 +43,21 @@ $active = array(1=>'Active',0=>'Inactive');
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'deals-grid',
 	'dataProvider'=>$model->mersearch(),
-	'filter'=>$model,
+//	'filter'=>$model,
 	'columns'=>array(
             /*array(
                 'header'=>'Number',
                 'value'=>'$row+1',       //  row is zero based
-                    ),*/
+                    ),
 
-		'id',
+		'id',*/
 //		'merchant_id',
 		'title',
 		'description',
                 'price',
 		'offer_price',
-		'valid',
+		//'valid',
+		array('header'=>'Valid Till','name'=>'valid','value'=>$data->valid),
 		array('name' => 'status','value'=>array($this,'getStatus'),'filter' => $active,'sortable'=>TRUE),
 		
 		array(
