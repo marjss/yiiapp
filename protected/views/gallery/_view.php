@@ -1,11 +1,7 @@
 <?php
 /* @var $this GalleryController */
 /* @var $data Gallery */?>
-    <?php $this->widget('application.extensions.fancybox.EFancyBox', array(
-                                                        'target'=>'a[rel=tooltip]',
-                                                        'config'=>array(),
-                                                                                )
-                                                );?> 
+    
 <li class="span3" >
     <a href="<?php echo "/gallery/".CHtml::encode($data->user->username)."/".CHtml::encode($data->image) ;?>" class="thumbnail" rel="tooltip" data-title="Tooltip">
         <?php  echo CHtml::image("/gallery/".CHtml::encode($data->user->username)."/".CHtml::encode($data->image),array('height'=>100,'width'=>150));
