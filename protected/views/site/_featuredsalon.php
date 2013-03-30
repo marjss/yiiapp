@@ -1,8 +1,8 @@
 <?php $merchant_id = $data->id;?>
 <?php $user_details = UserDetails::model()->findByAttributes(array('user_id'=>$merchant_id));?>
-<div class="f-salons">
+<div class="f-salonsf">
     <div class="avtar">
-        <div class="img">
+        <div class="imgs">
             <input type="hidden" name ="hidd" id="hidd" value="<?php echo $user_details->user_id;?>" class="hidd">
            
             <?php if($user_details->avtar):?>
@@ -20,7 +20,7 @@
 //        )
                     ); ?>
         </div>
-        <div class="spa-name"><?php $dets =  $user_details->name;
+        <div class="spa-namef"><?php $dets =  $user_details->name;
         echo CHtml::Link($dets,
         $this->createUrl(('site/details'),array('id'=>$data->id))
 //        array(
