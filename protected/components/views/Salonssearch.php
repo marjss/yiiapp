@@ -1,5 +1,6 @@
 <div class="salon-search">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+    <script src="<?php echo Yii::app()->request->baseUrl;?>/js/bootstrap.js" />
      
     <?php 
                 function CityFromIP($ipAddr)
@@ -68,12 +69,22 @@
     jQuery.noConflict();
     jQuery(document).ready(function($) {
         // Code that uses jQuery's $ can follow here.
-        
+       $(function(){
+           var serv = $("#service_autocomplete").val();
+           var near = $('#search-service').val();
+           var city = $('#Merservices_city').val();
+           if(serv != 'e.g. Hair Cut'){$("#service_autocomplete").addClass('newserv');}
+           if(near != 'e.g. Raja Park'){$("#search-service").addClass('newserv');}
+           if(near != 'Select City'){$("#Merservices_city").addClass('newserv');}
+       });
+       
         $.widget( "custom.catcomplete", $.ui.autocomplete, {
+            
             _renderMenu: function( ul, items ) {
                 var that = this,
                 
                 currentCategory = "";
+                
                 $.each( items, function( index, item ) {
                     if (index < 10 ){
                         
@@ -105,13 +116,14 @@
     <?php
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'search-form',
-        'action' => Yii::app()->request->baseUrl . '/site/searchsalon',
+        'action' => Yii::app()->request->baseUrl . '/search',
         'enableAjaxValidation' => true,
             )
     );
     ?>  <ul>
             <li>
              <?php   echo $form->textField($model, 'name', array('size' => 40, 'maxlength' => 150, 'id' => 'service_autocomplete', 'class' => 'service_field', 'value' => $servicename)); ?>
+                 <?php  //echo $form->textField($model, 'name', array('size' => 40, 'maxlength' => 150, 'id' => 'service_autocomplete', 'class' => '', 'onblur'=>"if(this.value==''){this.value='e.g. Hair Cut'}", 'onclick'=>"if(this.value=='e.g. Hair Cut'){this.value=''}",'value' => $servicename)); ?>
                 <!--<input id="service_autocomplete" class="service_field">-->
                
         <?php
@@ -223,7 +235,7 @@ jQuery(document).ready(function($) {
     {
         if(jQuery("#search-form").validate())
         {
-            alert('hi');
+            alert('No Output');
         }
         return false;
     }});
