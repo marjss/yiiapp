@@ -117,6 +117,7 @@ class Users extends CActiveRecord
 		$criteria->condition = "t.featured=1 AND t.status = 1";
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+                        'pagination'=>array('pageSize'=>30),
 		));
 	}
 }
