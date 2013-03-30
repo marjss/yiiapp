@@ -90,7 +90,11 @@ echo CHtml::link('Add Photo', '#', array('id' => 'upload-image'));
         }
     </style>
 </div><!-- search-form -->
-
+<?php $this->widget('application.extensions.fancybox.EFancyBox', array(
+                                                        'target'=>'a[rel=tooltip]',
+                                                        'config'=>array(),
+                                                                                )
+                                                );?> 
 
 <?php 
 $this->widget('zii.widgets.CListView', array(
@@ -98,6 +102,7 @@ $this->widget('zii.widgets.CListView', array(
     'dataProvider'=>$model->galsearch(),
 //    'template'=>"{items}\n{pager}\n{delete}",
     'itemView'=>'_view',
+     'afterAjaxUpdate'=>"function(id,data){ $('a[rel=tooltip]').fancybox(); }",
 )); 
 ?>
 <?php /*$this->widget('zii.widgets.grid.CGridView', array(
@@ -106,23 +111,23 @@ $this->widget('zii.widgets.CListView', array(
     'template'=>"{items}\n{pager}",
     'loadingCssClass'=>'gallery',
     'itemsCssClass'=>'item-class',
-//	'filter'=>$model,
+	'filter'=>$model,
 	'columns'=>array(
-//		'id',
-//		'user_id',
+		'id',
+		'user_id',
 		 array
 			    (   
                      'type'=>'raw',
-//                     'header'=>'image',
-//                                
+                     'header'=>'image',
+                                
                                 'name'=>'image',
                                 'value'=>'CHtml::image("/gallery/".$data->user->username."/".$data->image)',
 
-//                               'value'=>array("/gallery/".$data->user->username."/".$data->image,'image'),
+                               'value'=>array("/gallery/".$data->user->username."/".$data->image,'image'),
                                'htmlOptions'=>array('class'=>'thumb','rel'=>'gallery'),
 				
 			    ),
-//		'description',
+		'description',
 		array(
 			'class'=>'CButtonColumn',
 			'buttons'=>array
