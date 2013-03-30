@@ -2,10 +2,18 @@
 <script type="text/javascript"> 
 jQuery(document).ready(function($) 
 {
-
+$(".list").click(function(){
+    $('.grid').removeClass('opac');
+   $('.list').addClass('opac');
+});
+$(".grid").click(function(){
+    $('.list').removeClass('opac');
+   $('.grid').addClass('opac');
+})
     
 //----------List Click Function-----------------//
 $(".layouts .list").click(function () {
+    $('.bookbutton').css('visibility','visible');
      <?php Yii::app()->session['layout']='straightDown';?>
             jQuery(function() {
                 var jQuerycontainer = jQuery('.items');
@@ -16,7 +24,7 @@ $(".layouts .list").click(function () {
                     layoutMode: '<?php echo Yii::app()->session['layout'];?>',
                     itemSelector: '.view',
                     straightDown: {
-                        columnWidth: 100
+                        columnWidth: 50
                     } 
                 });
                 $(document).ajaxComplete(function() {
@@ -29,6 +37,8 @@ $(".layouts .list").click(function () {
         
 //-----------------Grid Click Function---------------//   
         $(".layouts .grid").click(function () {
+        $('.bookbutton').css('visibility','hidden');
+        
        <?php Yii::app()->session['layout']='masonry';?>
             jQuery(function() {
                 var jQuerycontainer = jQuery('.items');
@@ -40,7 +50,7 @@ $(".layouts .list").click(function () {
                     itemSelector: '.view',
                     
                     masonry: {
-                        columnWidth: 100
+                        columnWidth: 50
                     }
                 });
                 $(document).ajaxComplete(function() {
@@ -60,8 +70,19 @@ $(".layouts .list").click(function () {
      <?php //$layout= 'width:500px'; ?>
      <?php $this->widget('Salonssearch'); ?>
     <div class="layouts">
-     <div class="list"><a href="#"><img src="<?php echo Yii::app()->request->baseUrl."/images/list-icon.png";?>" /></a></div>
-      <div class="grid"><a href="#"><img src="<?php echo Yii::app()->request->baseUrl."/images/grid-icon.png";?>" /></a></div>
+        <div class="btn-group" data-toggle="buttons-radio" >
+  <button type="button" class="list" data-toggle="button">
+   <input type="radio" name="is_private" value="0" />
+  </button>
+  <button type="button" class="grid" data-toggle="button">
+    
+    <input type="radio" name="is_private" value="1" />
+  </button>
+             
+</div>
+</div>
+<!--     <div class="list"><a href="#"><img src="<?php echo Yii::app()->request->baseUrl."/images/list-icon.png";?>" /></a></div>
+      <div class="grid"><a href="#"><img src="<?php echo Yii::app()->request->baseUrl."/images/grid-icon.png";?>" /></a></div>-->
     </div>
 <?php   
 ?>
@@ -81,7 +102,21 @@ $(".layouts .list").click(function () {
                                                  'finishedMsg' => 'Reached End of Page!')
                                     ),
             )); ?>
-         <div class="clear"></div>
+       <div class="ads">
+            <a href="http://affiliates.icubeswire.com/z/3747/iwire635/">
+                <img src="http://affiliates.icubeswire.com/42/635/3747/" alt="weekend offer" border="0" width="250">
+            </a>
+            <a href="http://www.officeyes.com/" title="Officeyes">
+                <img src="http://img.directtrack.com/icubes/3465.gif" width="250" alt="" border="0">
+            </a>
+           <a href="http://linksredirect.com?pub_id=123CL104&amp;url=http%3A//www.freecultr.com/" title="Freecultr">
+                <img src="http://img.directtrack.com/icubes/3405.gif" width="250" alt="" border="0">
+            </a>
+            <a href="http://www.slassy.com" title="Slassy">
+                <img src="http://img.directtrack.com/icubes/3483.gif" width="250" alt="" border="0">
+            </a>
+        </div>
+         <div class="clear"></div> 
          
     </div>
 
