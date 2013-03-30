@@ -32,6 +32,7 @@ class UserRegister extends CFormModel
 			array(' name,username,email, password, confirm_password,mobile_no,city','required'),
 			array('email','email'),
 			array('username','checkuniquename'),
+                    array('username','UnameOk'),
 			array(' email','checkuniqueemail'),
 			array('confirm_password', 'compare', 'compareAttribute'=>'password'),
 			array('username','match' ,'pattern'=>'/^[A-Za-z0-9_]+$/u', 'message'=>'Username can contain only alphanumeric characters and hyphens(-).'),
@@ -77,4 +78,15 @@ class UserRegister extends CFormModel
 			 $this->addError($attribute, 'You must agree to the Terms.');
 		
 	}
+        public function UnameOk($attribute, $params)
+            {
+            // default to true
+            $valid = true;
+            // at least one capital letter
+            $valid = $valid && preg_match
+            ('/.*[A-Z].*/', $this->$attribute);
+            if ($valid)
+            $this->addError($attribute, "Caps letters are not allowed");
+            return $valid;
+            }
 }
