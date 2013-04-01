@@ -4,7 +4,8 @@
                 <div class="blk">
                     <h1><a href="#">  <?php echo $model->name; ?></a></h1>
 
-                    <div class="logo"> <a href="#"><img src="<?php echo Yii::app()->request->baseUrl.'/'.$model->avtar; ?>" width="135" height="59"> </a></div>
+                    <div class="logo"> <a href="#"><img src="<?php 
+                    if($model->avtar){ echo Yii::app()->request->baseUrl.'/'.$model->avtar;}else{echo Yii::app()->request->baseUrl."/avtar/no-image.png" ;} ?>" width="135" height="59"> </a></div>
                 </div>
 
             </div>
@@ -51,7 +52,7 @@
 
 
                             </div>
-                                <?php echo CHtml::button('Request Appointments', array('id'=>'viewmap-'.$users->id,'class'=>'button', 'onclick'=>'showpopup('.$users->id.')')); ?>
+                                <?php echo CHtml::button('Request Appointment', array('id'=>'viewmap-'.$users->id,'class'=>'button', 'onclick'=>'showpopup('.$users->id.')')); ?>
                             <!--<input name="" type="button" class="button" value="Book Appointment">-->
 
                         </div>
@@ -75,10 +76,18 @@
                                 </div> 
 
                                 <div class="hournav">
-                                    <ul> <?php 
+                                    <ul> <?php if($time){
+                                        
                                     foreach($time as $t) { ?>
-                                        <li> <?php  echo date("l", strtotime($t->day)) ;  ?> <span> <?php echo $t->opening_at.'-'.$t->closing_at;;} ?></span> </li>
-                                    </ul>
+                                        <?php echo $time->opening_at;
+                                        $tmo = explode(":", $t->opening_at);
+                                        $tco = explode(":", $t->closing_at);
+                                        ?>
+                                        <li> <?php  echo date("l", strtotime($t->day)) ;  ?> <span> <?php echo $tmo[0].':'.$tmo[1].'-'.$tco[0].':'.$tco[1];} ?></span> </li>
+                                     <?php }else{
+                                        echo '<div class="No-Time">No Time Filled by the salon</div>';?>
+                                        
+                                        <?php }?></ul>
                                 </div>
                             </div>
                          </div>
@@ -103,7 +112,7 @@
                 <div class="tabcontent" id="country1">
 
                     <div class="tab_photo"> 
-                        
+                        <?php if($gallery){?>
                         <ul><?php $pathh = Yii::app()->request->baseUrl.'/gallery/'.$users->username;
                                 foreach($gallery as $g) { ?>
                             <li><?php $this->widget('application.extensions.fancybox.EFancyBox', array(
@@ -113,31 +122,48 @@
                                                 );?> 
                                 
                                 <a rel="gallery" href="<?php echo $pathh.'/'. $g->image; ?>" >  <img src="<?php echo $pathh.'/'. $g->image; ?>" width="111" height="103"> </a> </li>
-                        <?php }?>    
+                        <?php } } else { echo '<div class="No-Time">Coming Soon!</div>'; }?>    
                         </ul>
+                       
                     </div>
 
 
                 </div>
                 <div class="tabcontent" id="country2">
-                   Reviews content placed here....<br>
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nisi lorem, molestie ut bibendum vestibulum, congue quis ligula. Praesent malesuada, justo et scelerisque ornare, eros purus facilisis ante, sed auctor sem sem quis enim. Vivamus malesuada est at nisl mattis sed ullamcorper est viverra. Pellentesque vitae ante vel elit aliquam rhoncus nec vitae nisl. Praesent non leo at quam congue hendrerit euismod eget leo. Vestibulum a congue velit. In at arcu sed nunc tempor mollis sit amet vitae ante. Quisque id risus nunc. Aliquam dapibus sem ut nisi viverra eu faucibus turpis euismod. Nulla convallis laoreet consectetur. Pellentesque nisl erat, rutrum et suscipit ac, tempor quis turpis. Duis diam ante, posuere a egestas at, rutrum eu mi. Cras egestas accumsan ullamcorper. Etiam convallis viverra erat sit amet pretium. Vestibulum vehicula, nibh eu mattis tempus, elit nunc posuere nisl, eu scelerisque neque nisl nec ligula. Nulla eu elit quis lorem ornare sagittis ac volutpat magna. 
+                  <div class="No-Time">No Reviews !</div>
                    </div>
                 <div class="tabcontent" id="country3" >
-                     <?php foreach ($deals as $deal) { ?>
-                  <?php echo $deal->title;?>
-                    <?php }?>
+                     <?php 
+                     if($deals){
+                         $path = Yii::app()->request->baseUrl.'/offer/'; 
+                     foreach ($deals as $deal) { ?>
+                    <div class="deals">
+                        <div class="image">
+                            <img src="<?php echo Yii::app()->request->baseUrl.'/'.$deal->image?>">
+                        </div>
+                        <div class="content">
+                        <div class="title"><h2><?php echo $deal->title; ?></h2></div>
+                        <div class="description"><?php echo $deal->description; ?></div>
+                        <div class="valid">Valid Till: <?php echo date('l jS F (d-m-Y)', strtotime($deal->valid));?></div>
+                        </div>
+                    </div>
+                  <?php  }?>
+                    <?php }else{echo '<div class="No-Time">No Offers available right now !</div>';}?>
                 </div>
                 
                 <div class="tabcontent" id="country4" >
-            
-                <table><th>Services</th><th>Duration</th><th>Price</th>
-            <?php foreach ($services as $service) { ?>
+            <?php 
+            if($services){?>
+                <table><th>Services</th>
+                    <!--<th>Duration</th>-->
+                    <th>Price (in Rs.)</th>
+            <?php
+            foreach ($services as $service) { ?>
            <tr><td><?php echo $service->name; ?></td>
-          <td><?php echo $service->duration; ?></td>
-           <td><?php echo $service->price; ?></td>
+          <!--<td><?php //echo $service->duration; ?></td>-->
+           <td><?php echo $service->price;} ?></td>
            </tr>
-           <?php } ?>
+           <?php }else{ echo '<div class="No-Time">No Services Registered!</div>';} ?>
                 </table>
              
                 </div>
@@ -147,7 +173,8 @@
             </div>
 
             </div>
-<script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8cvb2pD-gdpMCnEJpTQ-dsVm61Aftjc8&sensor=false"> </script>
+<script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8cvb2pD-gdpMCnEJpTQ-dsVm61Aftjc8&sensor=false"> 
+</script>
 <script type="text/javascript">
     
 function showmap(merId)
@@ -231,10 +258,10 @@ function showpopup(merchantid)
     jQuery("#div_com_form").show();
     jQuery("#contactname").val('Name');
     jQuery("#mobileno").val('Mobile No');
-    jQuery("#subject").val('Subject');
-    jQuery("#contactemail").val('Email');
+    
+   
     jQuery("#date").val('Date');
-    jQuery("#msgbox").val('Message');
+    jQuery("#msgbox").val('Comment/Remark');
     jQuery("#contacts").dialog("open");
 }
 </script>
@@ -255,10 +282,10 @@ $( ".tabingblock" ).tabs({
 	}
 });
 
- $('.tabingblock').removeClass('ui-tabs'); 
- $('.tabingblock').removeClass('ui-tabs-nav');  
- $('.tabingblock').removeClass('ui-tabs-panel'); 
- $('.tabingblock').removeClass('ui-widget-header');
+// $('.tabingblock').removeClass('ui-tabs'); 
+// $('.tabingblock').removeClass('ui-tabs-nav');  
+// $('.tabingblock').removeClass('ui-tabs-panel'); 
+// $('.tabingblock').removeClass('ui-widget-header');
  $('tabingblock').removeClass('ui-widget ui-widget-content ui-corner-all');
   $('.tabcontent').removeClass('ui-tabs-panel ui-widget-content ui-corner-bottom');
  $('#countrytabs').removeClass('shadetabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all').addClass('shadetabs');
