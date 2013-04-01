@@ -180,8 +180,8 @@ class SiteController extends Controller
 				if($record->masrole->name == 'Merchant'){
                                     
 					
-                                    $this->redirect(array('/users/appointment','user'=>$record->username));
-					//$this->redirect(array('//users/settings','user'=>$record->username));
+//                                        $this->redirect(array('/users/appointment','user'=>$record->username));
+					$this->redirect(array('//users/settings','user'=>$record->username));
 					//$this->redirect(array('//users/appointment'));
 				}
 				
@@ -314,6 +314,8 @@ class SiteController extends Controller
             $services= Merservices::model()->findAllByattributes(array('merchant_id'=>$id,'status'=>1));
             $users = Users::model()->findByPk($id);
             $time = Mertimings::model()->findAllByAttributes(array('merchant_id'=>$id));
+            $gallery= Gallery::model()->findAllByAttributes(array('user_id'=>$id));
+            $deals= Deals::model()->findAllByAttributes(array('merchant_id'=>$id));
             
 //             if( Yii::app()->request->isAjaxRequest )
                         
@@ -322,7 +324,7 @@ class SiteController extends Controller
             
 //             Yii::app()->clientScript->scriptMap['jquery-ui.min.js'] = false;
 //             Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
-            $this->render('shops',array('model'=>$model,'users'=>$users ,'services'=>$services,'time'=> $time));
+            $this->render('shops',array('model'=>$model,'users'=>$users ,'services'=>$services,'time'=> $time,'gallery'=>$gallery,'deals'=>$deals));
                         
         }
 	public function actionAjaxRequestAppointment()
