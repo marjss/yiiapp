@@ -8,6 +8,7 @@
  * @property integer $merchant_id
  * @property string $title
  * @property string $description
+ * @property string $image
  * @property integer $price
  * @property string $valid
  * @property integer $status
@@ -40,13 +41,13 @@ class Deals extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('merchant_id, title, offer_price', 'required'),
+			array('merchant_id, title', 'required'),
 			array('merchant_id,offer_price, price, status', 'numerical', 'integerOnly'=>true),
 			array('title, description,terms', 'length', 'max'=>255),
 			array('valid', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, merchant_id, title, description,offer_price, price, valid,terms, status', 'safe', 'on'=>'search'),
+			array('id, merchant_id, title, description,image,offer_price, price, valid,terms, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +73,7 @@ class Deals extends CActiveRecord
 			'merchant_id' => 'Merchant',
 			'title' => 'Title',
 			'description' => 'Description',
+                    'image' => 'Promo Image',
                         'offer_price' => 'Offer Price',
 			'price' => 'Price',
 			'valid' => 'Valid',
@@ -95,6 +97,7 @@ class Deals extends CActiveRecord
 		$criteria->compare('merchant_id',$this->merchant_id);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
+                $criteria->compare('image',$this->image,true);
                 $criteria->compare('offer_price',$this->offer_price);
 		$criteria->compare('price',$this->price);
 		$criteria->compare('valid',$this->valid,true);
@@ -117,6 +120,7 @@ class Deals extends CActiveRecord
 		$criteria->compare('merchant_id',$id);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
+                $criteria->compare('image',$this->image,true);
                 $criteria->compare('offer_price',$this->offer_price);
 		$criteria->compare('price',$this->price);
 		$criteria->compare('valid',$this->valid,true);
