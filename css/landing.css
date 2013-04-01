@@ -487,3 +487,26 @@ border-top-right-radius: 15px;}
 .deals .description{text-align: left;margin-left: 10px;}
 .deals .valid{text-align: left;margin-left: 10px;}
 /******* Shop Deals Tab Style Ends**********/
+/******** Shop Menu Tab Style************/
+.merchant-services .mservices{}
+.merchant-services .mservices .category-service{ background: none repeat scroll 0 0 #CCCCCC;  border-radius: 4px 4px 4px 4px;  font-weight: bold;  padding: 4px 0 4px 13px; margin: 5px 0;}
+.merchant-services .mservices ul{ list-style: none outside none;  margin: 0; padding: 0 0 0 13px;}
+.merchant-services .mservices ul li{ display: inline-block;  margin: 5px 13px 0 0;  padding: 5px;  width: 211px; height: 32px;}
+.mservices ul li .service-label{ float: left;  padding-right: 5px; width: 173px;}
+.mservices ul li .service-input{ float: right; width: 25px;}
+/*.mservices ul li:hover{ background: #828282; border-radius: 4px; }
+.mservices ul li:hover .service-label span.service-detail{ color: #FFF;}*/
+.mservices ul li.setected{  background: #828282; border-radius: 4px; }
+.clear{ clear: both;}
+.merchant-services .ui-widget-header{ margin: 0 0 11px;  padding: 5px 5px 5px 8px;}
+.merchant-services .ui-widget-header ul li{ float: left; width: 100px;}
+.merchant-services .ui-widget-header ul li span{ display: inline-block;}
+.merchant-services .ui-widget-header ul li span.ui-icon-closethick{ background-position: -98px -125px;}
+.merchant-services .ui-widget-header ul li span.ui-icon-check{ background-position: -66px -142px;}
+.merchant-services .ui-widget-header ul li.ui-multiselect-close{ float: right; text-align: right;}
+a#service-select{ background: #FFFFFF; border: 1px solid #CCCCCC;  border-radius: 4px 4px 4px 4px;   display: block;   padding: 4px 0 5px 6px;  text-align: left;  width: 198px}
+a#service-select span{ background: url("../images/ui-icons_888888_256x240.png") no-repeat -64px 0px #FFFFFF;  display: inline-block;float: right;height: 17px;margin-right: 5px;width: 17px;}
+.service-label spanservice{ display: block;}
+.service-label span.service-detail{ display: block; font-size: 9px; color: #252525;}
+.service-done{background: none repeat scroll 0 0 #252525;border-radius: 5px 5px 5px 5px;color: #FFFFFF;height: 20px;text-align: center;width: 50px;}
+/******** Shop Menu Tab Style Ends************/	
