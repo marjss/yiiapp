@@ -1,4 +1,3 @@
-
 <div class="landing_header">
 
                 <div class="blk">
@@ -152,18 +151,58 @@
                 </div>
                 
                 <div class="tabcontent" id="country4" >
-            <?php 
+                    <?php 
             if($services){?>
-                <table><th>Services</th>
-                    <!--<th>Duration</th>-->
-                    <th>Price (in Rs.)</th>
-            <?php
-            foreach ($services as $service) { ?>
-           <tr><td><?php echo $service->name; ?></td>
-          <!--<td><?php //echo $service->duration; ?></td>-->
-           <td><?php echo $service->price;} ?></td>
-           </tr>
-           <?php }else{ echo '<div class="No-Time">No Services Registered!</div>';} ?>
+                    <div class="mservices-wrapper">
+                    <div class="merchant-services">
+                    <div class="mservices" id="m-service">
+                   
+		<?php 
+               
+                foreach($categoryservice as $cat_service):?>
+				<?php $cat_id	=	$cat_service->id;?>
+				
+				<?php $services	=	$this->getMerchantServices($users->id, $cat_id);?>
+				<?php $servicecounter = 0;?>
+				<?php //echo "<pre>"; print_r($services);die;?>
+				<?php if($services):?>
+				<div class="category-service"><?php echo $cat_service->title?></div>
+				<ul>
+				<?php foreach($services as $service):?>
+						<li>
+								<div class="service-label">
+										<span class="service"><?php echo $service->name?></span>
+										<span class="service-detail">
+												<?php
+												if($service->duration >= 60)
+												{
+														$duration = ($service->duration / 60). ' hrs';
+												}
+												else
+												{
+														$duration = $service->duration. ' mins';
+												}
+												?>
+												<?php echo $duration.' / Rs. '.$service->price;?>
+										</span>
+										<?php $label = $service->name.' ('.$service->duration.') Rs '.$service->price;?>
+										<?php //echo $label;?>
+								</div>
+								
+								<div class="clear"></div>
+						</li>
+						<?php $servicecounter++;?>
+				<?php endforeach;?>
+				</ul>
+				<?php endif;?>
+		<?php endforeach;?>
+			</div>	
+		</div>
+		<?php //endif;?>
+		</div>
+            <?php 
+          
+           }else{ echo '<div class="No-Time">No Services Registered!</div>';} ?>
                 </table>
              
                 </div>
