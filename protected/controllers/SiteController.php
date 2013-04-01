@@ -316,7 +316,7 @@ class SiteController extends Controller
             $time = Mertimings::model()->findAllByAttributes(array('merchant_id'=>$id));
             $gallery= Gallery::model()->findAllByAttributes(array('user_id'=>$id));
             $deals= Deals::model()->findAllByAttributes(array('merchant_id'=>$id));
-            
+            $categoryservice = CategoryService::model()->findAll();
 //             if( Yii::app()->request->isAjaxRequest )
                         
                  
@@ -324,9 +324,15 @@ class SiteController extends Controller
             
 //             Yii::app()->clientScript->scriptMap['jquery-ui.min.js'] = false;
 //             Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
-            $this->render('shops',array('model'=>$model,'users'=>$users ,'services'=>$services,'time'=> $time,'gallery'=>$gallery,'deals'=>$deals));
+            $this->render('shops',array('model'=>$model,'users'=>$users ,'services'=>$services,'time'=> $time,'gallery'=>$gallery,'deals'=>$deals,'categoryservice'=>$categoryservice));
                         
         }
+        public function getMerchantServices($merchantid,$cat_id)
+    {
+       
+      $criteria=array('condition'=>'merchant_id='.$merchantid.' AND cat_id='.$cat_id.' AND status =1','order'=>'t.name ASC');
+      return Merservices::model()->findAll($criteria);
+    }
 	public function actionAjaxRequestAppointment()
 	{
             
