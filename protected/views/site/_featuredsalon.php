@@ -20,15 +20,20 @@
 //        )
                     ); ?>
         </div>
-        <div class="spa-namef"><?php $dets =  $user_details->name;
-        echo CHtml::Link($dets,
+        <div class="spa-namef"><?php $char = 20;
+        
+        if (strlen($user_details->name) >= $char) {
+            $dets = substr($user_details->name, 0, $char); 
+        echo CHtml::Link($dets.'...',
         $this->createUrl(('site/details'),array('id'=>$data->id))
 //        array(
 //            'success'=>'function(r){
 //                $("#details").html(r).dialog("open"); 
 //                return false;}'
 //        )
-                );?>
+                ); }else { echo CHtml::Link($user_details->name,
+        $this->createUrl(('site/details'),array('id'=>$data->id))); }
+        ?>
         </div>
     </div>
 </div>
