@@ -32,7 +32,7 @@ class DealsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete'),
+				'actions'=>array('create','update','admin','delete','DeleteImage'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -85,7 +85,38 @@ class DealsController extends Controller
 
 		if(isset($_POST['Deals']))
 		{
+                        $offerimg = $model->image;
 			$model->attributes=$_POST['Deals'];
+                        if($_FILES['Deals']['name']['image'] != '')
+			{ 
+                             
+                            $model->image = CUploadedFile::getInstanceByName('Deals[image]');
+                            if($model->validate()) 
+                            {
+                               
+                                if ($model->image instanceof CUploadedFile) 
+                                        {
+                                        $rand = rand(0,3000);
+                                        $imagename = 'offer' .'/'.  $merchantid .'_'.$rand. '_' . $_FILES['Deals']['name']['image'];
+                                        $thumbimagename = 'offer' .'/thumb/'.  $merchantid.'_'.$rand . '_' . $_FILES['Deals']['name']['image'];
+//                                        echo $thumbimagename;die;
+                                        $model->image->saveAs($imagename);
+                                        copy($imagename,$thumbimagename);
+                                        //list($width, $height, $type, $attr) = getimagesize($filename);
+                                        $image = Yii::app()->image->load($imagename);
+                                        $image->resize(200, 200,Image::HEIGHT);
+                                        $image->save();
+                                        $image = Yii::app()->image->load($thumbimagename);
+                                        $image->resize(100, 110);
+                                        $image->save();
+                                        $model->image = $imagename;
+					}
+                            }
+                          }
+			else
+			{
+				$model->image = $offerimg;
+			}
 			if($model->save())
 				$this->redirect(array('admin','id'=>$model->id));
 		}
@@ -95,7 +126,26 @@ class DealsController extends Controller
                         'merchant'=>$merchant,
 		));
 	}
-
+         /**
+         * Delete the avtar image from admin view
+         */
+        public function actionDeleteImage($id){
+            $this->layout = 'admin_layout';
+            $model =$this->loadModel($id);
+            $offerimg = $model->image;
+		$filename = $offerimg;
+		$thumbavtar    = explode("/",$filename);
+		$thumbfilename = $thumbavtar[0]."/thumb/".$thumbavtar[1];
+		unlink($filename);
+		unlink($thumbfilename); 
+		$model->image = '';
+		if($model->save()){
+                $avtarimage = Yii::app()->request->baseUrl."/avtar/no-image.png";
+            echo '<img src='.$avtarimage.'>';  // this message will appear when ajax call finish.
+                }else{
+                    echo 'Error Removing image!';
+                }
+            }
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -104,13 +154,42 @@ class DealsController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+                $merchantid= Yii::app()->user->id;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+                $offerimg = $model->image;
 		if(isset($_POST['Deals']))
 		{
-			$model->attributes=$_POST['Deals'];
+			$model->attributes=$_POST['Deals'];if($_FILES['Deals']['name']['image'] != '')
+			{ 
+                             
+                            $model->image = CUploadedFile::getInstanceByName('Deals[image]');
+                            if($model->validate()) 
+                            {
+                               
+                                if ($model->image instanceof CUploadedFile) 
+                                        {
+                                        $rand = rand(0,3000);
+                                        $imagename = 'offer' .'/'.  $merchantid .'_'.$rand. '_' . $_FILES['Deals']['name']['image'];
+                                        $thumbimagename = 'offer' .'/thumb/'.  $merchantid.'_'.$rand . '_' . $_FILES['Deals']['name']['image'];
+//                                        echo $thumbimagename;die;
+                                        $model->image->saveAs($imagename);
+                                        copy($imagename,$thumbimagename);
+                                        //list($width, $height, $type, $attr) = getimagesize($filename);
+                                        $image = Yii::app()->image->load($imagename);
+                                        $image->resize(200, 200,Image::HEIGHT);
+                                        $image->save();
+                                        $image = Yii::app()->image->load($thumbimagename);
+                                        $image->resize(100, 110);
+                                        $image->save();
+                                        $model->image = $imagename;
+					}
+                            }
+                          }
+			else
+			{
+				$model->image = $offerimg;
+			}
 			if($model->save())
 				$this->redirect(array('admin','id'=>$model->id));
 		}
@@ -127,10 +206,19 @@ class DealsController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+                $model =$this->loadModel($id);
+                $offerimg = $model->image;
+		$filename = $offerimg;
+		$thumbavtar    = explode("/",$filename);
+		$thumbfilename = $thumbavtar[0]."/thumb/".$thumbavtar[1];
+		unlink($filename);
+		unlink($thumbfilename); 
 		$this->loadModel($id)->delete();
-
+                
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
+                
+		
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
@@ -204,4 +292,13 @@ class DealsController extends Controller
 			     
 		     }
 	}
+        
+        public function imagePath($data,$row)
+        {
+            $no= "No Image";
+            if($data->image){
+            $path = "/".$data->image;
+            return $path;}
+            else{ echo $no; }
+        }
 }
