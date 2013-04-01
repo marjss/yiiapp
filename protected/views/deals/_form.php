@@ -9,6 +9,7 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'deals-form',
 	'enableAjaxValidation'=>false,
+    'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
 	<table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -36,16 +37,39 @@
 		<?php echo $form->textArea($model,'description',array('size'=>60,'cols'=>20,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
-        <div class="row">
-		<?php echo $form->labelEx($model,'price'); ?>
-		<?php echo $form->textField($model,'price'); ?>
-		<?php echo $form->error($model,'price'); ?>
+                    
+       <div class="row">
+		<?php echo $form->labelEx($model,'image'); ?>
+		 <?php echo $form->fileField($model,'image',array('size'=>33)); ?>
+		<?php echo $form->error($model,'image'); ?>
+	</div>
+                    <div class="row">
+         <?php if($model->image):?>
+                <?php $offerimg = Yii::app()->request->baseUrl."/".$model->image;?>
+             <div class="actionresponse">
+                <?php echo CHtml::ajaxButton( "Delete",
+                                            array('deals/DeleteImage','id'=>$model->id),
+                                            array('success'=>'function(data){ jQuery(".actionresponse").html(data) }'),
+                                            array('style'=>'display:block')
+                                    );              
+                ?>
+                <?php else:?>
+                <?php $offerimg = Yii::app()->request->baseUrl."/avtar/no-image.png";?>
+                 
+            <?php endif;?>
+             <?php echo CHtml::image($offerimg);?>
+             
+         </div>
+        <!--<div class="row">
+		<?php //echo $form->labelEx($model,'price'); ?>
+		<?php// echo $form->textField($model,'price'); ?>
+		<?php //echo $form->error($model,'price'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'offer_price'); ?>
-		<?php echo $form->textField($model,'offer_price'); ?>
-		<?php echo $form->error($model,'offer_price'); ?>
-	</div>
+		<?php// echo $form->labelEx($model,'offer_price'); ?>
+		<?php// echo $form->textField($model,'offer_price'); ?>
+		<?php //echo $form->error($model,'offer_price'); ?>
+	</div>-->
 
 	<div class="row">
                 <?php echo $form->labelEx($model,'valid'); ?>
