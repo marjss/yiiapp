@@ -234,22 +234,35 @@ border-bottom-left-radius: 15px;}
 .landing_page{ clear:both; display:block; width:1000px; padding-top:7px;}
 .landing_page_left{ float:left; display:block; width:495px; margin-right:10px; padding-bottom:10px;}  
 .landing_page_left:last-child{ margin-right:0px;}
-.landing_left{ background-color:#fff; border:solid 1px #d5d5d5; clear:both; border-radius: 15px; display:block;}
+.landing_left{ background-color:#fff; border:solid 1px #d5d5d5; clear:both; border-radius: 15px; display:block; min-height: 440px;}
 
 .landing_leftblk{ width:440px; clear:both; display:block; padding:27px; padding-bottom:15px;}
-.landing_leftblk .button{  background-color: #F10C82;
+.landing_leftblk .button{  
+/*    background-color: #F10C82;
     border: medium none !important;
     border-radius: 3px 3px 3px 3px;
     color: #FFFFFF; cursor:pointer;
     font-family: 'Conv_avenirltstd-heavy';
     font-size: 21px;
+    */
+     background: none repeat scroll 0 0 #EC008C;
+    border: medium none;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: 'BebasNeue';
+    font-size: 20px;
+    letter-spacing: 2px;
+    padding: 5px 10px;
     margin-left: 110px;
     padding: 3px 13px;
-    text-align: center;}
+    text-align: center;
+}
 .landing_leftblk .button:hover{ 
-   background: none repeat scroll 0 0 #356d87;
-    transform: scale(1.2);
-    transition: background 0.5s ease-in-out 0s;}
+   background: none repeat scroll 0 0 #38708A;
+    /*transform: scale(1.2);*/
+    /*transition: background 0.5s ease-in-out 0s;*/
+}
 .landing_leftblkbg{ background-color:#fbfbfb; border:solid 1px #e3e3e3; margin-bottom:17px; clear:both; display:block;border-radius: 6px;}
 @font-face {
 	font-family: 'Conv_avenirltstd-heavy';
@@ -308,9 +321,11 @@ border-bottom-left-radius: 15px;}
     padding: 9px 39px !important;
     text-decoration: none !important;
     } 
-.ui-widget-content{   background: url("images/ui-bg_flat_75_ffffff_40x100.png") repeat-x scroll 50% 50% #FFFFFF;
+.tabcontent {   background: url("images/ui-bg_flat_75_ffffff_40x100.png") repeat-x scroll 50% 50% #FFFFFF;
     border: none !important;
-    color: #222222;}
+    color: #222222;
+    margin: 10px;
+}
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{border: none !important;}
 .ui-state-active .ui-state-hover .ui-widget-content .ui-state-active, .ui-widget-header{ border: none !important;}
 shadetabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all{background: none}
@@ -320,17 +335,40 @@ shadetabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-cor
     display: inline-block;
     letter-spacing: -0.4px;
 }
-.shadetabs li a.selected:first-child {
-    background-color: #fff;
+/*.shadetabs li a .curve:first-child {
+    background-color: #fff!important;
     border-bottom: medium none;
     color: #F10C82;
     display: inline-block;
     letter-spacing: -0.4px;
-}
+}*/
 .shadetabs li a span .selected { background-color:#4e97f5; color: #fff; display:block; }
+.home{width: 30em;margin-bottom: 1em;}
+.home li{float: left;  width: 10em; margin-top: 10px;}
+br{clear: left;}
+.listcontainer{float: left; margin-bottom: 18px;margin-top: 10px; width: 31em;}
+/*-------Pop Up Form Styling--------*/
+.popupforms input[type="text"]{ background: #FFFFFF;  border: 1px solid #CCC;  border-radius: 5px;  display: block;   margin: 0 0 18px; padding: 10px 5px; width: 300px;}
+.popupforms textarea{  background: #FFFFFF;  border: 1px solid #CCC;  border-radius: 5px;  display: block;   margin: 0 0 18px; padding: 10px 5px; width: 300px; height: 115px;}
+.popupforms .captcha-relative-right{ margin: 0 0 18px;}
+.popupforms input[type="submit"]{ background: url("../images/Try-it-for-free.png") no-repeat scroll 0 0 transparent;  border: medium none;  color: #FFFFFF; font-family: 'BebasNeue'; font-size: 24px;
+    height: 51px;  margin: 0 0 0 0px;  width: 125px;}
+.popupforms .captcha-relative-right a{ color: #EC008C;}
+.popupforms .errorSummary{ margin-bottom: 10px;}
+.errorMessage{color: red;}
 
+.ui-dialog .ui-dialog-title {
+    color: #38708A;
+    font-family: 'Freehand521BT-RegularC';
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+}
 #countrytabs{ float:left;}
- 
+ #customerDialog form .dialog_input img{   margin-bottom: -16px;}
+.dialogtitle{font-family:'Freehand521BT-RegularC'; font-size:30px; color:#38708a; margin:0; padding:0;}
+
+/*--------Pop style ends----------*/
 /*tabing css stop*/
 .map_location_desc .user_img {
     color: #F10C82;
@@ -339,7 +377,7 @@ shadetabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-cor
 }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {color: #F10C82;}
 #map_canvas{width: 675px !important;}
-.tabingblock{ background-color:#fff; clear:both; display:block ;border-radius: 9px; border:solid 1px #d5d5d5; margin-bottom:20px; }
+.tabingblock{ background-color:#fff; clear:both; display:block ;border-radius: 9px; border:solid 1px #d5d5d5; margin-bottom:20px; min-height: 240px;}
 .tab_bg{    background-color: #F10C82;
             height: 40px;
     clear: both;
@@ -431,3 +469,21 @@ border-top-right-radius: 15px;}
 
  input, textarea, select {outline-style:none;}
  
+ .No-Time{
+      font-family: 'Conv_avenirltstd-heavy';
+    font-size: 18px;
+    font-weight: 700 ;
+    letter-spacing: -0.4px ;
+    margin-left: -1px ;
+    padding: 9px 39px ;
+    text-decoration: none;
+ }
+ /*****Shops Deals Tab Style*********/
+.deals{border:1px solid #D1D1D1;padding:8px 0px 118px 11px;margin:0 0 10px;}
+.deals .image {float: left; width: 150px;}
+.deals .image img { border: 3px solid #BEBEBE; height:100px;  width:150px;   }
+.deals .content{ float: left; width: 500px;margin-left: 10px;}
+.deals .title{ height: 26px; position: relative;margin-left: 10px;}
+.deals .description{text-align: left;margin-left: 10px;}
+.deals .valid{text-align: left;margin-left: 10px;}
+/******* Shop Deals Tab Style Ends**********/
