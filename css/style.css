@@ -473,7 +473,13 @@ a#service-select span{ background: url("../images/ui-icons_888888_256x240.png") 
 .items{  padding: 10px;}
 .list-view{ float:left;}
 .f-salons{ float:left;  width: 225px; margin:0 10px;}
-.f-salonsf{ float:left;  width: 170px; margin:0 10px;}
+
+.f-salonsf {
+    float: left;
+    margin: 0 25px;
+    text-align: center;
+    width: 140px;
+}
 .avtar{ background: none repeat scroll 0 0 #FFFFFF;float: left;margin: 10px;}
 .img{text-align: center;}
 .spa-details, .spa-name{color: #F10C82;padding:0 0 25px;font-size: 24px; font-family: BebasNeue;}	
@@ -492,7 +498,7 @@ a#service-select span{ background: url("../images/ui-icons_888888_256x240.png") 
 .s-action{ background: none repeat scroll 0 0 #F10B82;border-radius: 5px 5px 5px 5px;float: right;margin: 160px 40px 0 0;padding: 10px;}	
 .searchsalon-results, .list-view{ width:1000px; clear: both; background: #FFFFFF}
 
-.searchsalon-results .even, .searchsalon-results .odd {border: 1px solid #ccc;margin: 10px 0px 0px 0px;padding:0px;border-radius: 5px 5px 5px 5px;}
+.searchsalon-results .even, .searchsalon-results .odd {border: 1px solid #ccc;margin: 10px 0px 0px 0px;padding:0px;border-radius: 5px 5px 5px 5px;width: 720px;}
 .searchsalon-results .even:hover, .searchsalon-results .odd:hover{ background: #f0f0f0;}
 
 .searchsalon-results, .list-view, .s-action a.book-app{ color: #FFFFFF !important;}
@@ -566,7 +572,7 @@ z-index:9999 !important;
 .large {
     position: absolute;
     /*height: auto !important;*/
-    width:auto !important;
+    width:720px !important;
     /*overflow: visible !important;*/
     /*clear: both;*/
 }
