@@ -378,13 +378,14 @@ br{clear: left;}
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {color: #F10C82;}
 #map_canvas{width: 675px !important;}
 .tabingblock{ background-color:#fff; clear:both; display:block ;border-radius: 9px; border:solid 1px #d5d5d5; margin-bottom:20px; min-height: 240px;}
-.tab_bg{    background-color: #F10C82;
-            height: 40px;
+.tab_bg{    
+    background-color: #F10C82;
+    height: 40px;
     clear: both;
     display: inline-block;
     width: 100%;border-top-left-radius: 6px;
-border-top-right-radius: 6px;}
-
+    border-top-right-radius: 6px;
+    }
 .tab_photo{ clear:both; display:block; }
 .tab_photo ul{ list-style-type:none; padding-bottom:30px; display:inline-block;}
 .tab_photo li{ float:left; display:inline-block; margin-right:0px !important; margin:15px; background-image:url(../images/photo_bg.jpg); width:118px; height:110px;}
@@ -421,14 +422,14 @@ border-top-right-radius: 15px;}
     padding: 5px;
     width: 227px;}
 	
-.user_id{ background-color: #FFFFFF;
+.user_id{ 
+    background-color: #FFFFFF;
     border-top: 1px solid #E0E0E0;
     clear: both;
     display: block;}
 .user_id ul{ list-style-type:none; margin-left:119px;}
 .user_id li{ float:left; display:inline-block; color:#f10c82; font-size:17px; padding:17px 30px; font-family: 'Conv_avenirltstd-heavy';}
 .user_id li:last-child{padding:17px 0px; }
-
 .timingnav{ clear:both; display:block;}
 .timingnav ul{ list-style-type:none; position:relative; left:2px;}
 .timingnav li{  background-color: #F5F5F5;
@@ -442,48 +443,22 @@ border-top-right-radius: 15px;}
 .timingnav li dd{ color:#646464;  font-family: 'Conv_avenirltstd-heavy'; font-size:18px; margin-top:43px;}
 .timingnav li span{ background-image:url(../images/table_bg.jpg); clear:both; display:block; height:107px; border:solid 1px #fff; width:107px;}
 .timingnav li span.active, .timingnav li span:hover{background-image:url(../images/table_bg1.jpg); cursor:pointer;}
-
 .status{ clear:both; float: right; display:block;}
 .status ul{ list-style-type:none;}
-.status li{  background-image: url("../images/book.jpg");
-    background-position: left center;
-    background-repeat: no-repeat;
-    color: #161616; float:right;
-    display: inline-block ; margin-top:7px;
-    font-size: 14px;
-    height: 25px;
-    line-height: 25px; 
-    margin-left: 20px;
-    padding-left: 28px;}
+.status li{ background-image: url("../images/book.jpg");background-position:left center;background-repeat:no-repeat;color:#161616;float:right;display:inline-block;margin-top:7px;font-size:14px;height:25px;line-height:25px;margin-left:20px;padding-left: 28px;}
 .bookimg{ background-image: url("../images/book_1.jpg")!important;}
 .avaimg{ background-image: url("../images/ava.jpg")!important ;}
-
-
-.copyright{  clear: both;
-    display: block;
-    float: right;
-    padding-bottom: 12px;
-    padding-top: 6px;}
+.copyright{ clear: both;display: block;float: right;padding-bottom: 12px;padding-top: 6px;}
 .copyright p{ color:#161616; font-size:14px; float:left; display:block; line-height:25px;}
 .copyright img{ float:right; display:inline-block;}
-
  input, textarea, select {outline-style:none;}
- 
- .No-Time{
-      font-family: 'Conv_avenirltstd-heavy';
-    font-size: 18px;
-    font-weight: 700 ;
-    letter-spacing: -0.4px ;
-    margin-left: -1px ;
-    padding: 9px 39px ;
-    text-decoration: none;
- }
+.No-Time{ font-family: 'Conv_avenirltstd-heavy';font-size: 18px;font-weight: 700;letter-spacing: -0.4px;margin-left: -1px;padding: 9px 39px ;text-decoration: none;}
  /*****Shops Deals Tab Style*********/
 .deals{border:1px solid #D1D1D1;padding:8px 0px 118px 11px;margin:0 0 10px;}
 .deals .image {float: left; width: 150px;}
 .deals .image img { border: 3px solid #BEBEBE; height:100px;  width:150px;   }
 .deals .content{ float: left; width: 500px;margin-left: 10px;}
-.deals .title{ height: 26px; position: relative;margin-left: 10px;}
+.deals .title, .revtitle{ height: 26px; position: relative;margin-left: 10px;}
 .deals .description{text-align: left;margin-left: 10px;}
 .deals .valid{text-align: left;margin-left: 10px;}
 /******* Shop Deals Tab Style Ends**********/
@@ -510,3 +485,12 @@ a#service-select span{ background: url("../images/ui-icons_888888_256x240.png") 
 .service-label span.service-detail{ display: block; font-size: 9px; color: #252525;}
 .service-done{background: none repeat scroll 0 0 #252525;border-radius: 5px 5px 5px 5px;color: #FFFFFF;height: 20px;text-align: center;width: 50px;}
 /******** Shop Menu Tab Style Ends************/	
+/******** Shop Review Tab Style************/
+#country2 input[type=button] { background: none repeat scroll 0 0 #EC008C ;border: medium none ;border-radius: 5px 5px 5px 5px ;color:#FFFFFF;cursor:pointer;font-family:'BebasNeue';font-size:20px;letter-spacing: 2px;margin-left:110px;padding: 3px 13px;text-align: center;float:right;    }
+#country2 input[type=button]:hover {background: none repeat scroll 0 0 #38708A ;}
+.revtitle h2{float: left;}
+.revspan2{font-style:italic;line-height:50px;position:relative;vertical-align:text-bottom;}
+.revspan{font-size:108%;font-style:italic;line-height:30px;margin-left:10px;position:relative;vertical-align:text-bottom;}
+.review{text-align:left;margin-left: 10px;margin-top: 10px;}
+.errorMessagerev{color:red;margin-bottom:13px;margin-top:-15px;}
+/******** Shop Review Tab Style Ends************/
