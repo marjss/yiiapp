@@ -14,7 +14,7 @@
                 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/html5.js"></script>
                 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" type="text/css" media="screen">
         <![endif]-->
-         
+             <?php $this->widget('Reviews');?>
 	  <?php $this->widget('RVMap');?>
 	 <?php $this->widget('Shopcontact');?>
     </head>
