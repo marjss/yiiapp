@@ -129,7 +129,21 @@
 
                 </div>
                 <div class="tabcontent" id="country2">
-                  <div class="No-Time">No Reviews !</div>
+<!--                  <div class="No-Time">-->
+                    <?php if($review){
+                        foreach($review as $rev){?>
+                        <div class="deals">
+                          <div class="content">
+                            <div class="revtitle"><h2><?php echo $rev->name; ?></h2><sup class="revspan">wrote:</sup></div>
+                        <div class="review"><?php echo $rev->review; ?></div>
+                        <div class="valid"><span class="revspan2">On: <?php echo date('d-m-Y', $rev->date);?></span></div>
+                        </div></div>  
+                        <?} ?>
+                   <?php }else{?><div class="deals">
+                          <div class="content"><h2>No Reviews right now !</h2></div></div> <?php } ?>
+                    <?php echo CHtml::button('Your Review', array('id'=>'viewmap-'.$users->id,'class'=>'button', 'onclick'=>'showpopup1('.$users->id.')')); ?>
+                   
+                  <!--</div>-->
                    </div>
                 <div class="tabcontent" id="country3" >
                      <?php 
@@ -141,7 +155,7 @@
                             <img src="<?php echo Yii::app()->request->baseUrl.'/'.$deal->image?>">
                         </div>
                         <div class="content">
-                        <div class="title"><h2><?php echo $deal->title; ?></h2></div>
+                            <div class="title"><h2><?php echo $deal->title; ?></h2></div>
                         <div class="description"><?php echo $deal->description; ?></div>
                         <div class="valid">Valid Till: <?php echo date('l jS F (d-m-Y)', strtotime($deal->valid));?></div>
                         </div>
@@ -286,7 +300,19 @@ function EGMapContainer2_init(clat,clong,salonname, address, city,state)
      jQuery("#ui-dialog-title-rvmap").html(salonname);
      
 }
-
+function showpopup1(merchantid)
+{
+   
+    
+    jQuery("#div_com_forms .errorMessage").hide();
+    jQuery("#update_infos").hide();
+    jQuery("#div_com_forms").show();
+    jQuery("#name").val('Name');
+    jQuery("#email").val('Email');
+//    jQuery("#date").val('Date');
+    jQuery("#review").val('Review');
+    jQuery("#reviewform").dialog("open");
+}
 
 function showpopup(merchantid)
 {
@@ -297,8 +323,6 @@ function showpopup(merchantid)
     jQuery("#div_com_form").show();
     jQuery("#contactname").val('Name');
     jQuery("#mobileno").val('Mobile No');
-    
-   
     jQuery("#date").val('Date');
     jQuery("#msgbox").val('Comment/Remark');
     jQuery("#contacts").dialog("open");
