@@ -309,6 +309,9 @@ class SiteController extends Controller
 			Yii::app()->end();
 		//$this->render('map' , array('model'=>$model));
 	}
+        /**
+         * Function for Shop details 
+         */
 	public function actionDetails($id){
             $this->layout = 'chimps';
             $services= Merservices::model()->findAllByattributes(array('merchant_id'=>$id,'status'=>1));
@@ -316,6 +319,7 @@ class SiteController extends Controller
             $time = Mertimings::model()->findAllByAttributes(array('merchant_id'=>$id));
             $gallery= Gallery::model()->findAllByAttributes(array('user_id'=>$id));
             $deals= Deals::model()->findAllByAttributes(array('merchant_id'=>$id));
+            $review = Review::model()->findAllByAttributes(array('merchant_id'=>$id));
             $categoryservice = CategoryService::model()->findAll();
 //             if( Yii::app()->request->isAjaxRequest )
                         
@@ -324,7 +328,7 @@ class SiteController extends Controller
             
 //             Yii::app()->clientScript->scriptMap['jquery-ui.min.js'] = false;
 //             Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
-            $this->render('shops',array('model'=>$model,'users'=>$users ,'services'=>$services,'time'=> $time,'gallery'=>$gallery,'deals'=>$deals,'categoryservice'=>$categoryservice));
+            $this->render('shops',array('model'=>$model,'users'=>$users ,'services'=>$services,'time'=> $time,'gallery'=>$gallery,'deals'=>$deals,'categoryservice'=>$categoryservice,'review'=>$review));
                         
         }
         public function getMerchantServices($merchantid,$cat_id)
@@ -388,4 +392,32 @@ class SiteController extends Controller
 		}
 	}
 	*/
+        /**
+         * Function for submitting the review from the Shop page
+         */
+       public function actionReviewsub($id){
+           if (isset($_POST['Review'])){
+               $model = new Review;
+               $model->setAttributes($_POST['Review']);
+					$error = CActiveForm::validate($model, array('name','email','review',));
+//					
+					if($error=='[]'){
+                                             $timezone = "Asia/Calcutta";
+                                            date_default_timezone_set($timezone);
+                                            $time= mktime();
+//                                          echo $time;
+                                            $model->setAttribute('date', $time);
+                                             $model->setAttribute('status',1);
+//                                         print_r($model->attributes);die;
+                                           if($model->save()){
+							  echo 'sent';die;
+							}else{
+									 echo 'fail';die;
+							}  
+                                            
+                                        }else{
+						 echo $error;
+					}
+           }
+       }
 }
