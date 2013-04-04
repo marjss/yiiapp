@@ -32,7 +32,7 @@ class DealsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','DeleteImage'),
+				'actions'=>array('create','update','admin','delete','DeleteImage','Sendmail','Sendsms'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -300,5 +300,70 @@ class DealsController extends Controller
             $path = "/".$data->image;
             return $path;}
             else{ echo $no; }
+        }
+        /**
+         * Sending deals / offer to the customers via data grid
+         */
+        public function actionSendmail($id){
+           $merchant_id= Yii::app()->user->id;
+           $customer = Mercustomers::model()->findAllByAttributes(array('merchant_id'=>$merchant_id));
+           $model=$this->loadModel($id);
+           $salon = UserDetails::model()->findByAttributes(array('user_id'=>$merchant_id));
+           $salondet= Users::model()->findByPk($merchant_id);
+           foreach($customer as $cus){
+           $message= new YiiMailMessage;
+		$model_emailtemplate=Emailtemplate::model()->findByPk(1);
+		$body   =	$model_emailtemplate->body;
+		$body	=	str_replace('$CustomerName', $cus->name, $body);
+		$create_body	=' 
+		 <div>As a valuable customer we offer you <b> '.$model->title.' </b> .</div>
+		 <br />
+                 <div class="deals" style="border: 1px solid #D1D1D1; margin: 0 0 10px; padding: 8px 0 118px 11px;">
+                        <div class="image" style="float: left;width: 150px;">
+                            <img src="'.Yii::app()->request->baseUrl."/".$model->image.'" style=" border: 3px solid #BEBEBE; height: 100px; width: 150px;">
+                        </div>
+                        <div class="content" style="float: left; margin-left: 10px; width: 500px;">
+                        <div class="title" style="   height: 26px;    margin-left: 10px; position: relative;"><h2>'.$model->title.'</h2></div>
+                        <div class="description" style=" margin-left: 10px; text-align: left;">'.$model->description.'</div>
+                        <div class="valid" style="margin-left: 10px; text-align: left;">Valid Till: '.date('l jS F (d-m-Y)', strtotime($model->valid)).'</div>
+                        </div>
+                    </div>
+		<br />';
+			$body	=str_replace('$body', $create_body, $body);
+			$body	=str_replace('$SalonName', $salon->name, $body);
+			$message->setBody($body, 'text/html');
+			$message->subject= $model->title;
+			$message->to 	= 'marjss21@gmail.com';
+			$message->from	= $salondet->email;
+//                        print_r($body);die;
+			if(Yii::app()->mail->send($message))
+			{
+			  echo 'sent';die;
+			}else{
+			echo 'fail';die;
+			}
+           }
+        }
+        /**
+         * Sending deals / offer to the customers Mobile via data grid
+         */
+        public function actionSendsms($id){
+//         
+           $merchant_id= Yii::app()->user->id;
+           $customer = Mercustomers::model()->findAllByAttributes(array('merchant_id'=>$merchant_id));
+           $model=$this->loadModel($id);
+           $salon = UserDetails::model()->findByAttributes(array('user_id'=>$merchant_id));
+           $salondet= Users::model()->findByPk($merchant_id);
+           foreach($customer as $cus){
+                        $mobile= $cus->mobile_no;
+                        $message= 'Dear '.$cus->name.",\n".$model->description."\n".'vldtill:'.date('d-m-Y', strtotime($model->valid))."\nBy, \n".$salon->name;
+//                        echo $message;die;
+           		if($model->sendSms($mobile,$message))
+			{
+			  echo 'sent';die;
+			}else{
+			echo 'fail';die;
+			}
+           }
         }
 }
