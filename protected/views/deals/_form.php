@@ -9,6 +9,7 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'deals-form',
 	'enableAjaxValidation'=>false,
+        'enableClientValidation'=>true,
     'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
