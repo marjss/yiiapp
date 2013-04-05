@@ -426,7 +426,7 @@ QTip::qtip($jsSelector, $opts);
     </div>
  <?php $this->widget('CustomerLookup');  //echo $disabletoday; die;?>
  <?php $this->widget('UpdateOrder');  ?>
-       <?php $this->widget('AppointmentSuccess'); ?>
+  <?php $this->widget('AppointmentSuccess'); ?>
     <input type="hidden" id = "service_duration" name="service_duration" value = "0">
     <input type="hidden" id = "selectable_slots" name="selectable_slots" value = "0">
      <input type="hidden" id = "updated_order" name="updated_order" value = "0">
