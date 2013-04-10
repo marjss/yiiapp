@@ -73,14 +73,21 @@ $active = array(1=>'Active',0=>'Inactive');
 //                'price',
 //		'offer_price',
 		//'valid',
-                
+                array(
+     'value' => '$data->id',
+     'headerHtmlOptions' => array('style' => 'display:none'),
+     'htmlOptions' => array('style' => 'display:none'),
+     ),
 		array('header'=>'Valid Till','name'=>'valid','value'=>$data->valid),
-		array('name' => 'status',
+		array(
+                    'class'=>'DataColumn',
+                    'name' => 'status',
                     'value'=>array($this,'getStatus'),
                     'filter' => $active,'sortable'=>TRUE,
 //                    'cssClassExpression'=>'$data->id',
-
-                    'htmlOptions'=>array('class'=>'status'),
+                     'evaluateHtmlOptions'=>true,
+            'htmlOptions'=>array('id'=>'"ordering_{$data->id}"','class'=>'classs'),
+                    
                     ),
 		array
 			    (   
@@ -120,22 +127,26 @@ $active = array(1=>'Active',0=>'Inactive');
                                     'url'=>'Yii::app()->createUrl("deals/sendmail", array("id"=>$data->id))',
                                     'options' => array( 'ajax' => array(
                                                                     'url'=>'js:$(this).attr("href")',
-                                                                    //'data'=> "js:$(this).serialize()",
-//                                                                    'success' => 'js:function(data) { $.fn.yiiGridView.update("deals-grid")}',
-                                                                    'beforeSend'=>'function(){
-                                                                       $("#mail").replaceWith("<div id=\"mail\"><img src=\"/images/loading.gif\"></div>");
-                                                                       
-
-
-                                                                        /* var obj= $(".mail");
-                                                                     obj.parent().parent("tr").find(".status").replaceWith("<td class=\"status\"><img src=\"/images/loading.gif\"></td>");*/
-                                                                     }',
-                                                                    'success'=>'function(data){
-                                                                        $("#mail").replaceWith("<div id=\"mail\">Mail Sent Successfully.</p>")
+                                                                    'id'=>'js:$(this).parent().parent().find(".classs")',
+                                                                    'data'=> "js:$(this).serialize()",
+                                                                    //'dataType'=> "json",
+//                                                                  'success' => 'js:function(data) { $.fn.yiiGridView.update("deals-grid")}',
+                                                                    'beforeSend'=>'function(xhr,data){
+                                                                       var obj = data.id.attr("id");
+                                                                        xhr.setRequestHeader("id",obj)
+                                                                       $("#"+obj).html("<img src=\"/images/loading.gif\">");
+                                                                       $("#mail").attr("class",obj);
+                                                                            }',
+                                                                    'success'=>'function(data,status,xhr){
+                                                                        var obj = $("#mail").attr("class");
+                                                                        $("#"+obj).html("Mail Sent Successfully.")
+                                                                        }',
+                                                                        'error'=>'function(){
+                                                                            var obj = $("#mail").attr("class");
+                                                                        $("#"+obj).html("Error Sending Mail!");    
+                                                                        }'
                                                                         
-
-                                                                        /*$("#update_info").replaceWith("<p id=\"update_info\">Mail Sent Successfully.</p>")*/
-                                                                        }'),
+                                        ),
                                                          'class'=>'mail',
                                         )),                                 
                             'sms' => array
@@ -145,22 +156,26 @@ $active = array(1=>'Active',0=>'Inactive');
                                     'url'=>'Yii::app()->createUrl("deals/sendsms", array("id"=>$data->id))',
                                     'options' => array( 'ajax' => array(
                                                                     'url'=>'js:$(this).attr("href")',
-                                                                    //'data'=> "js:$(this).serialize()",
+                                                                    'id'=>'js:$(this).parent().parent().find(".classs")',
+                                                                    'data'=> "js:$(this).serialize()",
 //                                                                    'success' => 'js:function(data) { $.fn.yiiGridView.update("deals-grid")}',
-                                                                    'beforeSend'=>'function(){
-                                                                       $("#mail").replaceWith("<div id=\"mail\"><img src=\"/images/loading.gif\"></div>");
+                                                                    'beforeSend'=>'function(xhr,data){
+                                                                       var obj = data.id.attr("id");
+                                                                        xhr.setRequestHeader("id",obj)
+                                                                       $("#"+obj).html("<img src=\"/images/loading.gif\">");
+                                                                       $("#mail").attr("class",obj);
+                                                                            }',
+                                                                    'success'=>'function(data,status,xhr){
+                                                                        var obj = $("#mail").attr("class");
+                                                                        $("#"+obj).html("SMS Sent Successfully.")
+                                                                        }',
+                                                                        'error'=>'function(){
+                                                                            var obj = $("#mail").attr("class");
+                                                                        $("#"+obj).html("Error Sending SMS!");    
+                                                                        }'
                                                                         
-
-                                                                        /* var obj= $(".mail");
-                                                                     obj.parent().parent("tr").find(".status").replaceWith("<td class=\"status\"><img src=\"/images/loading.gif\"></td>");*/
-                                                                     }',
-                                                                    'success'=>'function(data){
-                                                                        $("#mail").replaceWith("<div id=\"mail\">SMS Sent Successfully.</p>")
-                                                                        
-
-                                                                        /*$("#update_info").replaceWith("<p id=\"update_info\">SMS Sent Successfully.</p>")*/
-                                                                        }'),
-                                                         'class'=>'mail',
+                                        ),
+                                                         'class'=>'sms',
                                         )),
 			),
 			 'template'=>'{update}{delete}{mail}{sms}',
