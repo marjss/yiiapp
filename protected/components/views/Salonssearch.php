@@ -1,6 +1,10 @@
+<style>
+    .newserv{
+        color: black !important;
+    }
+</style>
 <div class="salon-search">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
-    <script src="<?php echo Yii::app()->request->baseUrl;?>/js/bootstrap.js" />
      
     <?php 
                 function CityFromIP($ipAddr)
@@ -14,6 +18,7 @@
                         //$json = file_get_contents("http://api.hostip.info/get_json.php?ip=".$ipAddr."&position=true");
                         $json= file_get_contents("http://api.ipinfodb.com/v3/ip-city/?key=".$key."&ip=".$ipAddr."&format=json");
                         $data=  CJSON::decode($json);
+                  
                         return $data;
                         }
     
@@ -69,7 +74,7 @@
     jQuery.noConflict();
     jQuery(document).ready(function($) {
         // Code that uses jQuery's $ can follow here.
-       $(function(){
+         $(function(){
            var serv = $("#service_autocomplete").val();
            var near = $('#search-service').val();
            var city = $('#Merservices_city').val();
@@ -77,14 +82,11 @@
            if(near != 'e.g. Raja Park'){$("#search-service").addClass('newserv');}
            if(near != 'Select City'){$("#Merservices_city").addClass('newserv');}
        });
-       
         $.widget( "custom.catcomplete", $.ui.autocomplete, {
-            
             _renderMenu: function( ul, items ) {
                 var that = this,
                 
                 currentCategory = "";
-                
                 $.each( items, function( index, item ) {
                     if (index < 10 ){
                         
@@ -104,7 +106,7 @@
                 source: data,
                 select: 
                     function( event, ui ) {
-//                        alert(ui.item.value);
+                    //    alert(ui.item.value);
                     jQuery("#service_autocomplete").val(ui.item["id"]);
                 }
                 
@@ -123,7 +125,6 @@
     ?>  <ul>
             <li>
              <?php   echo $form->textField($model, 'name', array('size' => 40, 'maxlength' => 150, 'id' => 'service_autocomplete', 'class' => 'service_field', 'value' => $servicename)); ?>
-                 <?php  //echo $form->textField($model, 'name', array('size' => 40, 'maxlength' => 150, 'id' => 'service_autocomplete', 'class' => '', 'onblur'=>"if(this.value==''){this.value='e.g. Hair Cut'}", 'onclick'=>"if(this.value=='e.g. Hair Cut'){this.value=''}",'value' => $servicename)); ?>
                 <!--<input id="service_autocomplete" class="service_field">-->
                
         <?php
@@ -158,7 +159,7 @@
             </li>
             <li>
                 <?php 
-            $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
             'attribute' => 'nearby',
             'model' => $model,
             'sourceUrl' => array('merservices/near'),
@@ -199,7 +200,7 @@
                     else{                                                       //Default city load by the users IP Address. 
                         $ip= $_SERVER['REMOTE_ADDR'];
                         $ipAddr = '122.176.83.11' ;                             //Constant IP Address for the debugging purpose.Mark Comment while not testing.
-                        $citydata= CityFromIP($ipAddr);                         //Change the $ipAddr to $ip  while running the real world application
+                        $citydata= CityFromIP($ip);                         //Change the $ipAddr to $ip  while running the real world application
                         $city1= $citydata['cityName'];                          //Replace cityName to city in case of hostip.info
                         $output= Citylist::model()->getCitylist($city1);
                         echo CHTML::dropDownList('Merservices[city]', $output, Citylist::model()->getCitylistDropDown(), array('prompt' => 'Select City'));  
@@ -235,7 +236,7 @@ jQuery(document).ready(function($) {
     {
         if(jQuery("#search-form").validate())
         {
-            alert('No Output');
+            alert('hi');
         }
         return false;
     }});
