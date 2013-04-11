@@ -84,8 +84,7 @@
             });
             $("#service_autocomplete").focusout(function(){
            if(serv = 'e.g. Hair Cut'){
-               alert(serv);
-               $("#service_autocomplete").removeClass('newserv'); }else {alert("hello");}
+               $("#service_autocomplete").removeClass('newserv'); }
             });
             $("#search-service").focusin(function(){
            if(near = 'e.g. Raja Park'){
