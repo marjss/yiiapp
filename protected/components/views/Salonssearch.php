@@ -78,7 +78,24 @@
            var serv = $("#service_autocomplete").val();
            var near = $('#search-service').val();
            var city = $('#Merservices_city').val();
-           if(serv != 'e.g. Hair Cut'){$("#service_autocomplete").addClass('newserv');}
+            $("#service_autocomplete").focusin(function(){
+           if(serv = 'e.g. Hair Cut'){
+               $("#service_autocomplete").addClass('newserv'); }
+            });
+            $("#service_autocomplete").focusout(function(){
+           if(serv = 'e.g. Hair Cut'){
+               alert(serv);
+               $("#service_autocomplete").removeClass('newserv'); }else {alert("hello");}
+            });
+            $("#search-service").focusin(function(){
+           if(near = 'e.g. Raja Park'){
+               $("#search-service").addClass('newserv'); }
+            });
+            $("#search-service").focusout(function(){
+           if(near = 'e.g. Raja Park'){
+               $("#search-service").removeClass('newserv'); }
+            });
+           if(serv != 'e.g. Hair Cut'){$("#service_autocomplete").addClass('newserv'); }
            if(near != 'e.g. Raja Park'){$("#search-service").addClass('newserv');}
            if(near != 'Select City'){$("#Merservices_city").addClass('newserv');}
        });
@@ -124,7 +141,7 @@
     );
     ?>  <ul>
             <li>
-             <?php   echo $form->textField($model, 'name', array('size' => 40, 'maxlength' => 150, 'id' => 'service_autocomplete', 'class' => 'service_field', 'value' => $servicename)); ?>
+             <?php   echo $form->textField($model, 'name', array('size' => 40, 'maxlength' => 150, 'id' => 'service_autocomplete', 'class' => 'service_field', 'value' => $servicename,'onblur'=>"if(this.value==''){this.value='e.g. Hair Cut'}", 'onclick'=>"if(this.value=='e.g. Hair Cut'){this.value=''}")); ?>
                 <!--<input id="service_autocomplete" class="service_field">-->
                
         <?php
@@ -184,6 +201,8 @@
                 'class' => 'required service_field',
                 'id' => 'search-service',
                 'value' => $servicenearby,
+                'onblur'=>"if(this.value==''){this.value='e.g. Raja Park'}", 
+                'onclick'=>"if(this.value=='e.g. Raja Park'){this.value=''}"
             ),
         ));
                 
@@ -219,11 +238,12 @@
     jQuery.noConflict();
 jQuery(document).ready(function($) {
 // Code that uses jQuery's $ can follow here.
-    $('input.service_field').focus(function(){
-        if($(this).val() == this.defaultValue){$(this).val('');$(this).css("color","#000000");}
-    }).blur(function(){
-        if($(this).val() == ''){$(this).val(this.defaultValue);$(this).css("color","#CCCCCC");}
-    });
+//    $('input.service_field').focus(function(){
+//        
+//        if($(this).val() == this.defaultValue){$(this).val('');$(this).css("color","#CCCCCC");}
+//    }).blur(function(){
+//        if($(this).val() == ''){$(this).val(this.defaultValue);$(this).css("color","#CCCCCC");}
+//    });
     $('#Merservices_city').focus(function(){
         $(this).css("color","#000000");
     }).blur(function(){
