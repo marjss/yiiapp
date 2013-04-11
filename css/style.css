@@ -604,7 +604,7 @@ line-height: 1.5;
 .account-atvar img{ 
 width: 300px;
 }
-.isotope-item .button , .bookbutton{  
+.isotope-item .button, .isotope-item  .bookbutton{  
 
     background: none repeat scroll 0 0 #EC008C;
     border: medium none;
@@ -626,18 +626,16 @@ width: 300px;
 }
 .isotope-item .button:hover{
     background: #356c85;
-}
-.isotope-item .bookbutton:hover{
-    background: #356c85;
-}
+    }
+.bookbutton:hover{
+    background: #356c85 ;
+    }
 .isotope-item .bookbutton{  
-
-
     right: 200px;
-}
+    }
 .newserv{
         color: black !important;
-}
+    }
 
 .ads {
     float: right;
@@ -659,8 +657,7 @@ width: 300px;
 
     }
 .grid {
-  height: 50px;
-  width: 52px;
+  height: 34px;
   background: url("../images/grid-icon.png") no-repeat scroll 0 0 transparent;
   /*display: inline-block;*/
   display: inline;
@@ -675,9 +672,10 @@ width: 300px;
   border-bottom-color: #b3b3b3;
   float: right;
   margin-right: 15px;
-  outline: none;
+  outline: none !important;
   opacity: 0.4;
   cursor: pointer;
+  background-size: 30px;
 
 }
 
@@ -692,16 +690,21 @@ width: 300px;
   outline: none;
    opacity: 1;
 }
+.grid:hover,
+.grid:focus {
+  color: #333333;
+  text-decoration: none;
+  outline: none;
+}
 .list{
   margin-left: 0;
   background: url("../images/list-icon.png") no-repeat scroll 0 0 transparent;
-  height: 50px;
-  width: 52px;
+  height: 34px;
   float: right;
   display: inline;
   padding: 4px 12px;
   font-size: 14px;
-outline: none;
+  outline: none !important;
   border: 0;
   border-color: #e6e6e6 #e6e6e6 #bfbfbf;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
@@ -710,13 +713,7 @@ outline: none;
   margin-right: 15px;
     opacity: 0.4;
     cursor: pointer;
-}
-
-.grid:hover,
-.grid:focus {
-  color: #333333;
-  text-decoration: none;
-  outline: none;
+    background-size: 30px;
 }
 .list:hover,
 .list:focus {
@@ -724,14 +721,18 @@ outline: none;
   text-decoration: none;
      opacity: 1;
 }
+
+.list:hover,
+.list:focus,
+.list:active,
+.list.active,
+.list.disabled,
+.list[disabled] {
+  color: #333333;
+}
 .opac{
      opacity: 1;
 }
-.list.active,
-.list:active {
-  background-image: none;
-  outline: none;
-  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-     -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+.searchsalon-results {
+    min-height: 922px;
 }
