@@ -88,12 +88,26 @@ class Orderdetails extends CActiveRecord
 		$criteria->compare('service_name',$this->service_name,true);
 		$criteria->compare('service_price',$this->service_price);
 		$criteria->compare('service_duration',$this->service_duration);
-
+                
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-	
+	/*public function service()
+	{
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('customer_order_id',$this->customer_order_id);
+		$criteria->compare('service_name',$this->service_name,true);
+		$criteria->compare('service_price',$this->service_price);
+		$criteria->compare('service_duration',$this->service_duration);
+//                $criteria->compare('customerorder',$this->customerorder,true);
+               
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}*/
 	public function getBookedorderdetails($model){
 		$bookedorders = array();
 		$i = 0;
@@ -187,5 +201,78 @@ class Orderdetails extends CActiveRecord
 		$message->to 			=  $order->customer_email;
 		$message->from 		= $usercustomer->email;
 		Yii::app()->mail->send($message);
+	}
+        public function sendEmailfeedback($id){
+		$order = Customerorders::model()->findByPk($id);
+		$order_cred = $this->getBookedorder($id);
+		$usercustomer =	Users::model()->findByPk($order->merchant_id );
+		$customerdetail =UserDetails::model()->findByAttributes(array('user_id'=>$order->merchant_id));
+		$model_emailtemplate =	Emailtemplate::model()->findByPk(1);
+		$body=	$model_emailtemplate->body;
+		$body=	str_replace('$CustomerName', $order->customer_name, $body);
+		$create_body=	'<br />Thank you for your visit at '.$customerdetail->name.' Salon. Please reply this mail with your feedback and suggestions to help us improve our services.
+				<br /><div>For any further assistance, please reply to this email or call us at '.$customerdetail->mobile_no.'.</div>
+											';
+		$body	=	str_replace('$body', $create_body, $body);
+		$body	=	str_replace('$SalonName', $customerdetail->name, $body);
+		
+		$message = new YiiMailMessage;
+		$message->setBody($body, 'text/html');
+		$message->subject 	= 'Service feedback with '.$customerdetail->name;
+		$message->to 		=  $order->customer_email;
+		$message->from 		= $usercustomer->email;
+		Yii::app()->mail->send($message);
+	}
+        public function sendSms($mobileno,$message){
+		
+		$request =""; //initialise the request variable
+		
+		$param[method]= "sendMessage";
+		
+		$param[send_to] = "91".$mobileno;
+		
+		$param[msg] = $message;
+		
+		$param[userid] = "2000033245";
+		
+		$param[password] = "shyam012";
+		
+		$param[v] = "1.1";
+		
+		$param[msg_type] = "TEXT"; //Can be "FLASH?/"UNICODE_TEXT"/?BINARY?
+		
+		$param[auth_scheme] = "PLAIN";
+		
+		//Have to URL encode the values
+		
+		foreach($param as $key=>$val) {
+		
+			$request.= $key."=".urlencode($val);
+			
+			//we have to urlencode the values
+			
+			$request.= "&";
+			
+			//append the ampersand (&) sign after each parameter/value pair
+		
+		}
+		
+		$request = substr($request, 0, strlen($request)-1);
+		
+		//remove final (&) sign from the request
+		
+		$url =
+		
+		"http://enterprise.smsgupshup.com/GatewayAPI/rest?".$request;
+		
+		$ch = curl_init($url);
+		
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		
+		$curl_scraped_page = curl_exec($ch);
+		
+		curl_close($ch);
+		
+		//echo $curl_scraped_page;
 	}
 }
