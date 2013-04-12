@@ -1,3 +1,4 @@
+<input type="hidden" id="abc" value="" />
 <div class="merchant-services">
 		<?php $categoryservice = $this->getCategoryService()?>
 		<?php if(count($categoryservice) > 0):?>
@@ -20,7 +21,7 @@
 				</ul>
 		</div>
 		<div class="mservices" id="m-service">
-                    <div class="errors"> You cannot select more than available time</div>
+                    
 		<?php foreach($categoryservice as $cat_service):?>
 				<?php $cat_id	=	$cat_service->id;?>
 				
@@ -204,7 +205,7 @@ jQuery(document).ready(function() {
 				}
 				serviceduration 	= 	0;
 				selectvalues 		= 	'';
-				serviceids			=	'';
+				serviceids		=	'';
 				jQuery('input.check-service:checked').each(function () {
 						serviceduration 	= parseInt(jQuery(this).val()) + parseInt(serviceduration);
                                                  
@@ -219,17 +220,39 @@ jQuery(document).ready(function() {
 						}
 						
 				});
-				if(serviceduration>= '600'){
-                                    alert("You cannot select more than available time.");
+                                var Jtime = jQuery("#selectdate").attr('value');
+                                var days= ["sun","mon","tue","wed","thu","fri","sat"];
+                                var today = new Date( Jtime ) ;
+                                var dayy= (days[today.getDay()]);
+                                    jQuery.ajax({
+                                        url: '<?php echo Yii::app()->request->baseUrl; ?>/users/gettime',     //controller action url
+					type: "POST",
+					data: {day: dayy},
+                                        async: false,
+                                        success:function(resp){
+                                           function parsedTime(s) {
+                                                                    var c = s.split(":");
+                                                                    return parseInt(c[0] * 60) ; 
+                                                                  }
+                                            var obj =	jQuery.parseJSON(resp);
+                                            var closetime = obj.closing_at;
+                                            var opentime = obj.opening_at;
+                                            var minutes = parsedTime(closetime) - parsedTime(opentime);
+                                            jQuery('#abc').val(minutes);
+                                            //return minutes;
+                                            }});
+                                   var mint= jQuery('#abc').val();
+				 if(serviceduration>= mint){
+                                   alert("You cannot select more than available time.");
                                     jQuery('.errors').css("visibility", "visible");
                                     var lastChecked = $(this);
                                     serviceselected = serviceselected-1;
                                     jQuery('a#service-select').html(serviceselected+' service(s) selected');
-                                    jQuery(lastChecked).attr( 'checked', false );
+                                    jQuery(this).attr( 'checked', false );
                                     jQuery(this).parents('li').removeClass('setected');
                                     serviceduration 	=  parseInt(serviceduration) - parseInt(jQuery(lastChecked).val());
-                                     }   
-				
+                                     }
+                                   
 				booked	=	Math.floor(serviceduration/15);
 				
 				if(booked > 0)
@@ -516,6 +539,66 @@ jQuery(document).ready(function() {
 								});
 							}
 					
+						},
+                                                "Mark Completed":function(){
+//							if(confirm("Are you sure you want to Complete this appointment?")){
+								
+								
+								//jQuery("#ajaxloader").show();
+								jQuery(".appbook").css("opacity","0.5");
+								jQuery.ajax({
+									url: '<?php echo Yii::app()->request->baseUrl; ?>/users/feedback',     //controller action url
+									type: "POST",
+									data: {date : today,orderid:orderid, cancelid: cancelid},
+                                                                        beforeSend:function(){
+                                                                           
+                                                                            jQuery("#booked_dialog_wrapper").append("<div id=\"booked_dialog_feedback\"><img src=\"/images/loading.gif\"></div>");
+                                                                        },
+									success:function(resp){
+                                                                                var but = $(this);
+                                                                                var obj =	jQuery.parseJSON(resp);
+										if(obj.result == 'success')
+										{
+												jQuery('#'+obj.cancelid).html('');
+												var selectedblocks =  parseInt(obj.totaltime) / 15;
+												var cancelledbolk  =  obj.cancelid;
+												var cancelblkarray =  cancelledbolk.split("-");
+												var starttime      =  parseInt(cancelblkarray[2]);
+												var seatid         =  parseInt(cancelblkarray[1]);
+												var loopinnertime  =  starttime;
+												var oneslottime	   =  900;
+												for(looptime = 0; looptime < selectedblocks; looptime++)
+												{
+														
+														if(looptime != 0)
+														{
+															  var customtooltip  = "#slot-"+seatid+"-"+loopinnertime;
+															  jQuery("#slot-"+seatid+"-"+loopinnertime).css('visibility','visible');
+															  var time1 			 = jQuery(customtooltip).attr('time1');
+															  var newajaxclass 	 = 'ajax'+loopinnertime;
+															  jQuery(customtooltip).addClass(newajaxclass);
+															  
+														}
+														jQuery("#slot-"+seatid+"-"+loopinnertime).html('');
+														jQuery("#slot-"+seatid+"-"+loopinnertime).removeClass('booked_slots');
+														jQuery("#slot-"+seatid+"-"+loopinnertime).addClass('empty_slots');
+														loopinnertime = loopinnertime +  oneslottime;
+														var time2 = jQuery("#slot-"+seatid+"-"+loopinnertime).attr('time1');
+													 
+												}
+//												//empty_slots
+												 jQuery("#booked_dialog_wrapper").html("The Appointment has been marked completed and mail/sms is sent.");
+                                                                                                 jQuery(this).children('span').html("Mail Sent Successfully.");
+                                                                                                 jQuery('.ui-dialog-buttonset').css("visibility","hidden");
+                                                                                                 jQuery(".appbook").css("opacity","1");
+                                                                                                 jQuery('#booked_dialog_wrapper').remove();
+                                                                                                       
+										}   
+
+									 }    
+								});
+//							}
+					
 						}
 				
 					},
@@ -543,20 +626,20 @@ jQuery(document).ready(function() {
 
 function resetgrid()
 {
-		
-		jQuery('input.check-service').attr( 'checked', false );
-		jQuery('.new-td').removeClass('selectable')
-		jQuery('.new-td').removeClass('highlighted_slot');
-		serviceselected	=	0;
-		serviceduration 	= 	0;
-		selectvalues 		= 	'';
-		serviceids			=	'';
-		booked				=	0;
-		jQuery(".new-td").removeClass("empty_slots");
-		jQuery(".new-td").removeClass("selectable");
-		jQuery('.new-td').removeClass('selected_slot');
-		jQuery("a#service-select").html("-- Select Services --<span></span>");
-		jQuery("#m-service ul li").removeClass("setected");
+
+            jQuery('input.check-service').attr( 'checked', false );
+            jQuery('.new-td').removeClass('selectable')
+            jQuery('.new-td').removeClass('highlighted_slot');
+            serviceselected	=	0;
+            serviceduration 	= 	0;
+            selectvalues 		= 	'';
+            serviceids			=	'';
+            booked				=	0;
+            jQuery(".new-td").removeClass("empty_slots");
+            jQuery(".new-td").removeClass("selectable");
+            jQuery('.new-td').removeClass('selected_slot');
+            jQuery("a#service-select").html("-- Select Services --<span></span>");
+            jQuery("#m-service ul li").removeClass("setected");
 		
 		
 }
