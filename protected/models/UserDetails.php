@@ -6,8 +6,12 @@
  * The followings are the available columns in table 'dt_user_details':
  * @property integer $id
  * @property integer $user_id
+ * @property string $avtar
  * @property string $name
  * @property string $mobile_no
+ * @property string $description
+ * @property string $street
+ * @property string $address
  * @property string $city
  */
 class UserDetails extends CActiveRecord
@@ -44,7 +48,7 @@ class UserDetails extends CActiveRecord
 			array('address','safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, name, mobile_no, address, city, avtar, description', 'safe', 'on'=>'search'),
+			array('id, user_id, name, mobile_no, address, street, city, avtar, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +75,7 @@ class UserDetails extends CActiveRecord
 			'name' => 'Name',
 			'mobile_no' => 'Mobile No',
 			'address'	=>	'Address',
+                        'street'	=>	'Street',
 			'city' => 'City',
 			'avtar'		=>	'Company Logo',
                         'description' => 'Desciption',
@@ -94,7 +99,7 @@ class UserDetails extends CActiveRecord
 		$criteria->compare('mobile_no',$this->mobile_no,true);
 		$criteria->compare('city',$this->city,true);
                 $criteria->compare('description',$this->description,true);
-
+                $criteria->compare('street',$this->street,true);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
