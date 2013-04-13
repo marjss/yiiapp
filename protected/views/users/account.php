@@ -16,7 +16,29 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 </div>
 <?php endif; ?>
 <div id="merchant-setting-form">
-		<div class="form">
+    <?php
+/*    Yii::app()->clientScript->registerScript('changeDialog', "
+    $(function(){
+        $('#change-pass').click(function(){
+        $('#cpwd-form').load('".Yii::app()->createUrl('users/changepassword')."', function(){
+            $('#cpwd-form').dialog('open');
+        });
+        return false;
+        });
+    });");
+    echo CHtml::link('Change Password', 'changepassword', array('id' => 'change-pass'));
+    $this->beginWidget('zii.widgets.jui.CJuiDialog',array(
+                'id'=>'cpwd-form',
+                'options'=>array(
+                    'title'=>Yii::t('password','Change Password'),
+                    'autoOpen'=>false,
+                    'model'=>'true',
+                    'width'=>'auto',
+                    'height'=>'auto',
+                ),
+                ));
+    $this->endWidget('zii.widgets.jui.CJuiDialog'); */ ?>
+    <div class="form">
 				<?php $form=$this->beginWidget('CActiveForm', array(
 						  'id'=>'account-form',
 						  'enableAjaxValidation'=>false,
@@ -42,6 +64,11 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 											<?php echo $form->labelEx($model,'address'); ?>
 											<?php echo $form->textField($model,'address',array('size'=>60,'maxlength'=>255)); ?>
 											<?php echo $form->error($model,'address'); ?>
+										</div>
+                                                                                <div class="row">
+											<?php echo $form->labelEx($model,'street'); ?>
+											<?php echo $form->textField($model,'street',array('size'=>60,'maxlength'=>255)); ?>
+											<?php echo $form->error($model,'street'); ?>
 										</div>
 										<div class="row">
 											<?php echo $form->labelEx($model,'city'); ?>
