@@ -76,13 +76,18 @@
 
                                 <div class="hournav">
                                     <ul> <?php if($time){
-                                        
-                                    foreach($time as $t) { ?>
+
+                                        foreach($time as $t) { ?>
                                         <?php echo $time->opening_at;
                                         $tmo = explode(":", $t->opening_at);
                                         $tco = explode(":", $t->closing_at);
-                                        ?>
-                                        <li> <?php  echo date("l", strtotime($t->day)) ;  ?> <span> <?php echo $tmo[0].':'.$tmo[1].'-'.$tco[0].':'.$tco[1];} ?></span> </li>
+                                         ?>
+                                        <li>
+                                            <?php  echo date("l", strtotime($t->day)) ;  ?> 
+                                            <span> <?php 
+                                            if($t->off){echo 'We are Closed';}else{
+                                            echo $tmo[0].':'.$tmo[1].'-'.$tco[0].':'.$tco[1];}} ?></span> 
+                                        </li>
                                      <?php }else{
                                         echo '<div class="No-Time">No Time Filled by the salon</div>';?>
                                         
@@ -303,7 +308,7 @@ function EGMapContainer2_init(clat,clong,salonname, address, city,state)
 function showpopup1(merchantid)
 {
    
-    
+    jQuery("#merchant-id").val(merchantid);
     jQuery("#div_com_forms .errorMessage").hide();
     jQuery("#update_infos").hide();
     jQuery("#div_com_forms").show();
@@ -313,7 +318,6 @@ function showpopup1(merchantid)
     jQuery("#review").val('Review');
     jQuery("#reviewform").dialog("open");
 }
-
 function showpopup(merchantid)
 {
     
