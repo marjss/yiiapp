@@ -12,8 +12,26 @@ $(".grid").click(function(){
 })
     
 //----------List Click Function-----------------//
+//------New Code--------//
+$( function() {
+    var $container = $('.items    ');
+    $('.layouts .list').click( function() {
+        var neww = true;
+        var sizeStyle = neww ?
+      {  height: '100%', height: $container.width() } :
+      {  height: '100%', height: $container.width() };
+    $container.addClass('no-transition').css( sizeStyle );
+    $container.removeClass('no-transition')
+      .isotope({
+        layoutMode: 'straightDown'
+      });
+    return false;
+  });
+  
+});
+//--------End New Code---------//
 $(".layouts .list").click(function () {
-    $('.bookbutton').css('visibility','visible');
+$('.bookbutton').css('visibility','visible');
      <?php Yii::app()->session['layout']='straightDown';?>
             jQuery(function() {
                 var jQuerycontainer = jQuery('.items');
@@ -21,13 +39,13 @@ $(".layouts .list").click(function () {
                     jQuery(this).addClass('large');
                 });
                 jQuerycontainer.isotope({
-                    layoutMode: '<?php echo Yii::app()->session['layout'];?>',
+                    layoutMode: 'straightDown',
                     itemSelector: '.view',
                     straightDown: {
-                        columnWidth: 50
-                    } 
+                    columnWidth: 50
+                     }
                 });
-                $(document).ajaxComplete(function() {
+                 $(document).ajaxComplete(function() {
                     jQuery(".layouts .list").click();
                 });
                 jQuerycontainer.find('.view').removeClass('small');
@@ -46,7 +64,7 @@ $(".layouts .list").click(function () {
                     jQuery(this).addClass('small');
                 });
                 jQuerycontainer.isotope({ 
-                    layoutMode: '<?php echo Yii::app()->session['layout'];?>',
+                    layoutMode: 'masonry',
                     itemSelector: '.view',
                     
                     masonry: {
@@ -71,7 +89,7 @@ $(".layouts .list").click(function () {
      <?php $this->widget('Salonssearch'); ?>
     <div class="layouts">
         <div class="btn-group" data-toggle="buttons-radio" >
-  <button type="button" class="list" data-toggle="button">
+  <button type="button" class="list opac" data-toggle="button">
    <input type="radio" name="is_private" value="0" />
   </button>
   <button type="button" class="grid" data-toggle="button">
@@ -93,7 +111,8 @@ $(".layouts .list").click(function () {
             'template' => '{items}{pager}',
             'itemSelectorClass'=>'view',
             'options'=>array(
-                'layoutMode' => Yii::app()->session['layout'],
+//                'layoutMode' => Yii::app()->session['layout'],
+                'layoutMode'=>'straightDown'
                 ), // options for the isotope jquery
            'infiniteScroll'=>true, // default to true
            'infiniteOptions'=>array(
