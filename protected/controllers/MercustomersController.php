@@ -168,20 +168,42 @@ class MercustomersController extends Controller
 	
 	public function getStatus($data,$row)
 	{
-	   switch($data->status)
+           switch($data->status)
+            {
+               case 1:
+		return 'Active';
+		break;
+		case 0:
+		return 'Inactive';
+		break;
+             }
+	}
+        public function getAppStatus($data,$row)
+	{
+           switch($data['Status'])
+            
+           
 		     {
+               
 			     case 1:
 				     return 'Active';
 			     break;
 			     case 0:
 				     return 'Inactive';
 			     break;
+                            case 4:
+				     return 'Completed';
+			     break;
+			     case 2:
+				     return 'Pending';
+			     break;
+                         
 			     
 		     }
 	}
         public function actionAppointments($id){
          $count=Yii::app()->db->createCommand('SELECT COUNT(*) FROM dt_customer_orders')->queryScalar();
-         $sql='SELECT co.service_name as Service, co.service_price as Price, co.service_duration as Duration ,cod.appointment_date_time as Appointment FROM dt_customer_orders cod, dt_customer_order_details co WHERE cod.id = co.customer_order_id and cod.customer_id='.$id;
+         $sql='SELECT co.service_name as Service, co.service_price as Price, co.service_duration as Duration ,cod.appointment_date_time as Appointment,cod.status as Status,st.name as Seat FROM dt_customer_orders cod, dt_customer_order_details co, dt_merchant_seats st WHERE cod.id = co.customer_order_id and cod.merchant_seat_id=st.id  and cod.customer_id='.$id;
 	       $dataProvider=new CSqlDataProvider($sql, array(
 //               'totalItemCount'=>$count,
                 'pagination'=>array(
