@@ -17,8 +17,8 @@ class ChangePassword extends CFormModel
         {
                 return  array(
                         array('oldpassword, newpassword, id, retypepassword', 'required'),
-                        array('newpassword', 'length', 'max'=>20, 'min' => 4,
-                                'message' => "Incorrect password (minimal length 4 charactors)."),
+                        array('newpassword', 'length', 'max'=>20, 'min' => 8,
+                                'message' => "Incorrect password (minimal length 8 charactors)."),
                         array('retypepassword', 'compare', 'compareAttribute'=>'newpassword',
                                 'message' => "Retype password is incorrect."),
 			     );
