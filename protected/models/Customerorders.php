@@ -112,15 +112,56 @@ class Customerorders extends CActiveRecord
 		$criteria->compare('customer_contact_no',$this->customer_contact_no,true);
 		$criteria->compare('appointment_date_time',$this->appointment_date_time,true);
 		$criteria->compare('status',$this->status,true);
-
+                
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-	
+	public function service()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+                $criteria->compare('customer_id',$this->customer_id);
+		
+		
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
 	public function gettodayBookedApp($date){
 		
 		$merchant_id = Yii::app()->user->id;
+		
+		$crit = new CDbCriteria;
+		//$crit->with = 
+		$crit->condition = "merchant_id = '".$merchant_id."' AND
+					DATE_FORMAT(appointment_date_time, '%Y-%m-%d') = '".$date."' AND status = '1' OR status = '4'";
+		$crit->order = " merchant_seat_id ASC,appointment_date_time ASC";
+		//$crit->group = 'merchant_seat_id';
+		$order_on_day = Customerorders::model()->findAll($crit);
+		$merchant_orders = array();
+		$i = 0;
+		
+		
+		foreach($order_on_day as $merorder){
+			$details = new Orderdetails;
+			$services = $details->getBookedorder($merorder->id);
+			//echo $services; die;
+			$merchant_orders[$merorder->merchant_seat_id][$i] = $merorder->attributes;
+			$merchant_orders[$merorder->merchant_seat_id][$i]['duration'] = $merorder->duration;
+			$merchant_orders[$merorder->merchant_seat_id][$i]['services1'] = $services['services1'];
+			$merchant_orders[$merorder->merchant_seat_id][$i]['starttimestamp'] = strtotime($merorder->appointment_date_time);
+			$merchant_orders[$merorder->merchant_seat_id][$i]['endtimestamp'] = strtotime($merorder->appointment_date_time) + $merorder->duration*60;
+			$i++;
+		}
+		
+		return $merchant_orders;
+	}
+        public function gettodayBookedAppPub($merchant_id,$date){
+		
+//		$merchant_id = Yii::app()->user->id;
 		
 		$crit = new CDbCriteria;
 		//$crit->with = 
@@ -144,9 +185,37 @@ class Customerorders extends CActiveRecord
 			$merchant_orders[$merorder->merchant_seat_id][$i]['endtimestamp'] = strtotime($merorder->appointment_date_time) + $merorder->duration*60;
 			$i++;
 		}
-		
 		return $merchant_orders;
 	}
+       public function gettodayupdatedAppPub($merchant_id,$date){
+		
+//		$merchant_id = Yii::app()->user->id;
+		
+		$crit = new CDbCriteria;
+		//$crit->with = 
+		$crit->condition = "merchant_id = '".$merchant_id."' AND
+					DATE_FORMAT(appointment_date_time, '%Y-%m-%d') = '".$date."' AND status = '3'";
+		$crit->order = " merchant_seat_id ASC,appointment_date_time ASC";
+		//$crit->group = 'merchant_seat_id';
+		$order_on_day = Customerorders::model()->findAll($crit);
+		$merchant_orders = array();
+		$i = 0;
+		
+		
+		foreach($order_on_day as $merorder){
+			$details = new Orderdetails;
+			$services = $details->getBookedorder($merorder->id);
+			//echo $services; die;
+			$merchant_orders[$merorder->merchant_seat_id][$i] = $merorder->attributes;
+			$merchant_orders[$merorder->merchant_seat_id][$i]['duration'] = $merorder->duration;
+			$merchant_orders[$merorder->merchant_seat_id][$i]['services1'] = $services['services1'];
+			$merchant_orders[$merorder->merchant_seat_id][$i]['starttimestamp'] = strtotime($merorder->appointment_date_time);
+			$merchant_orders[$merorder->merchant_seat_id][$i]['endtimestamp'] = strtotime($merorder->appointment_date_time) + $merorder->duration*60;
+			$i++;
+		}
+		
+		return $merchant_orders;
+	} 
 	public function gettodayupdatedApp($date){
 		
 		$merchant_id = Yii::app()->user->id;
