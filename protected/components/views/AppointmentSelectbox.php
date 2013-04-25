@@ -1,4 +1,35 @@
 <input type="hidden" id="abc" value="" />
+<style>
+    #textarea{}
+    
+</style>
+
+<script src="../js/autoservice.js" type="text/javascript"></script>
+ 
+<script type="text/javascript">
+    $(document).ready(function()
+    
+    { var globalData = null;
+        $('#textarea')
+        .textext({
+            plugins : 'autocomplete filter tags ajax',
+            ajax : {
+                url : '<?php echo CHtml::normalizeUrl(array('users/Getservices','id'=>332));?>',
+//                dataType : 'json',
+                type:'POST',
+                cacheResults : false,
+                async: false,
+                 success:function(data){
+                     var obj = $.parseJSON(data);
+                 $('.mservices li:contains('+obj.name+')').css('background-color', 'red');
+                   
+                     }
+            }
+            
+        });
+        
+        });
+</script>
 <div class="merchant-services">
 		<?php $categoryservice = $this->getCategoryService()?>
 		<?php if(count($categoryservice) > 0):?>
@@ -14,10 +45,16 @@
 										<span class="ui-icon ui-icon-closethick"></span><span>Uncheck all</span>
 								</a>
 						</li>
+                                                <li class="ui-multiselect-input">
+<!--								<a class="auto" href="javascript: void(0);">-->
+										<textarea id="textarea" class="example" rows="1" ></textarea>
+                                                                                <!--</a>-->
+						</li>
 						<li class="ui-multiselect-close">
 								<a class="ui-multiselect-close" href="javascript: void(0);">
 										<span class="service-done">Done</span></a>
 						</li>
+                                                
 				</ul>
 		</div>
 		<div class="mservices" id="m-service">
@@ -477,8 +514,16 @@ jQuery(document).ready(function() {
 		
 				return false;
 		});
-		
+		jQuery('#appbook_table td#appbook_table_seat div.complete_slots').live("click",function(event){
+                    
+                    e.stopPropagation();
+                
+                
+            });
+                
+                
 		jQuery('#appbook_table td#appbook_table_seat div.booked_slots').live("click",function(){
+                   
 				var today 		= jQuery("#selectdate").attr('value');
 				var orderid 	= jQuery(this).attr('orderid');
 				var cancelid	= jQuery(this).attr('id');
@@ -535,9 +580,11 @@ jQuery(document).ready(function() {
 												//empty_slots
 												jQuery(".appbook").css("opacity","1");
 										}
+                                                                                resetgrid();
 									 }    
 								});
 							}
+                                                        
 					
 						},
                                                 "Mark Completed":function(){
@@ -549,7 +596,7 @@ jQuery(document).ready(function() {
 								jQuery.ajax({
 									url: '<?php echo Yii::app()->request->baseUrl; ?>/users/feedback',     //controller action url
 									type: "POST",
-									data: {date : today,orderid:orderid, cancelid: cancelid},
+									data: {date : today,orderid:orderid, completeid: cancelid},
                                                                         beforeSend:function(){
                                                                            
                                                                             jQuery("#booked_dialog_wrapper").append("<div id=\"booked_dialog_feedback\"><img src=\"/images/loading.gif\"></div>");
@@ -557,17 +604,21 @@ jQuery(document).ready(function() {
 									success:function(resp){
                                                                                 var but = $(this);
                                                                                 var obj =	jQuery.parseJSON(resp);
+                                                                                
 										if(obj.result == 'success')
 										{
-												jQuery('#'+obj.cancelid).html('');
+                                                                                    var a = '#'+obj.completeid;
+												jQuery('#'+obj.completeid).html('');
+                                                                                                
 												var selectedblocks =  parseInt(obj.totaltime) / 15;
-												var cancelledbolk  =  obj.cancelid;
-												var cancelblkarray =  cancelledbolk.split("-");
-												var starttime      =  parseInt(cancelblkarray[2]);
-												var seatid         =  parseInt(cancelblkarray[1]);
+                                                                                                var height = selectedblocks * 19;
+												var completebolk  =  obj.completeid;
+												var completeblkarray =  completebolk.split("-");
+												var starttime      =  parseInt(completeblkarray[2]);
+												var seatid         =  parseInt(completeblkarray[1]);
 												var loopinnertime  =  starttime;
 												var oneslottime	   =  900;
-												for(looptime = 0; looptime < selectedblocks; looptime++)
+                                                                                                for(looptime = 0; looptime < selectedblocks; looptime++)
 												{
 														
 														if(looptime != 0)
@@ -576,16 +627,21 @@ jQuery(document).ready(function() {
 															  jQuery("#slot-"+seatid+"-"+loopinnertime).css('visibility','visible');
 															  var time1 			 = jQuery(customtooltip).attr('time1');
 															  var newajaxclass 	 = 'ajax'+loopinnertime;
-															  jQuery(customtooltip).addClass(newajaxclass);
-															  
+															  //jQuery(customtooltip).addClass(newajaxclass);
+															 
 														}
 														jQuery("#slot-"+seatid+"-"+loopinnertime).html('');
-														jQuery("#slot-"+seatid+"-"+loopinnertime).removeClass('booked_slots');
-														jQuery("#slot-"+seatid+"-"+loopinnertime).addClass('empty_slots');
+                                                                                                                
+                                                                                                                
+//														jQuery("#slot-"+seatid+"-"+loopinnertime).removeClass('booked_slots');
+														jQuery("#slot-"+seatid+"-"+loopinnertime).addClass('complete_slots');
 														loopinnertime = loopinnertime +  oneslottime;
+                                                                                                                resetgrid();
 														var time2 = jQuery("#slot-"+seatid+"-"+loopinnertime).attr('time1');
 													 
-												}
+												} 
+                                                                                                jQuery("#"+completebolk).append('<div class="complete-space" style="height:'+height+'px" ><p>Marked<br>Completed</p></div>');
+												resetgrid();
 //												//empty_slots
 												 jQuery("#booked_dialog_wrapper").html("The Appointment has been marked completed and mail/sms is sent.");
                                                                                                  jQuery(this).children('span').html("Mail Sent Successfully.");
@@ -598,7 +654,7 @@ jQuery(document).ready(function() {
 									 }    
 								});
 //							}
-					
+                                            
 						}
 				
 					},
@@ -607,6 +663,7 @@ jQuery(document).ready(function() {
 						jQuery('#booked_dialog_wrapper').remove();
 					}  
 				});
+           
 		});
 		
 		// If clicked on Select Services link
