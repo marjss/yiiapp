@@ -78,14 +78,14 @@
 
 
     <div class="row send">
-        <?php echo CHtml::ajaxSubmitButton('Submit',CHtml::normalizeUrl(array('site/reviewsub','id'=>$merchant_id)),array(
+        <?php echo CHtml::ajaxSubmitButton('Submit',CHtml::normalizeUrl(array('review/reviewsub','id'=>$merchant_id)),array(
                                     'beforeSend'=>'function(){
                                         $("#update_infos").replaceWith("<div id=\"update_infos\"><img src=\"/images/loading.gif\"></div>");
                                     }',
                                     'success'=>'function(data){
                                         if(data=="sent"){
                                         $("#div_com_forms").hide();
-                                            $("#update_infos").replaceWith("<div id=\"update_infos\"><h2>Thankyou</h2><br>Your review has been submitted for admin moderation.Check back soon to see your review here...</div>");
+                                            $("#update_infos").replaceWith("<div id=\"update_infos\"><h2>Thank you</h2><br>Your review has been submitted for admin moderation.Check back soon to see your review here...</div>");
                                         }else if(data=="fail"){
                                             $("#div_com_forms").hide();
                                             $("#update_infos").replaceWith("<div id=\"update_infos\">An error occured</div>");
@@ -121,4 +121,27 @@
     
     </div><!-- form -->
 </div>
+<script>
+    $(document).ready(function() 
+    { 
+        $('#name').change(function(){
+            if($('#contact').val != 'Name'){
+                $('#Review_name_em_').css('display','none');
+            }
+            
+        });
+        $('#email').change(function(){
+            if($('#email').val != 'Email'){
+                $('#Review_email_em_').css('display','none');
+            }
+            
+        });
+         $('#review').change(function(){
+            if($('#review').val != 'Review'){
+                $('#Review_review_em_').css('display','none');
+            }
+            
+        });
+    });
+</script>
 <?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
