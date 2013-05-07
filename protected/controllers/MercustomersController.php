@@ -392,7 +392,7 @@ class MercustomersController extends Controller
           $objPHPExcel->getActiveSheet()->getStyle('C2:C500')->applyFromArray($styleArrayalign);
           $objPHPExcel->getActiveSheet()->getStyle('A1:C1')->applyFromArray($styleArray);
           $objPHPExcel->getActiveSheet()->getStyle('A1:C1')->applyFromArray($styleBackColor);
-          
+          $objPHPExcel->getActiveSheet()->getStyle('B2:B500')->getNumberFormat()->setFormatCode('0');
           
           /*
            *  Underline on the selected cells to highlight
