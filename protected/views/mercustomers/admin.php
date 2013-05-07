@@ -2,7 +2,7 @@
 /* @var $this MerseatsController */
 /* @var $model Merseats */
 
-
+$this->pageTitle = 'Salon Chimp - Customers';
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -15,12 +15,35 @@ $('.search-form form').submit(function(){
 	});
 	return false;
 });
-");
+$('.export').click(function(){
+        var checked = $('input[name=\"ids[]\"]:checked').length > 0;
+        
+//    if (!checked)
+//        {       
+//        alert('Please select atleast one SKU to export');
+//        }else{
+            document.getElementById('checked-export').action='export';
+            document.getElementById('checked-export').submit();
+//        }
+       
+});");
 ?>
 
 <h1>Manage Customers</h1>
+<script>
 
+</script>
 <?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php 
+
+$form=$this->beginWidget('CActiveForm', array(
+	'id'=>'checked-export',
+	//'enableAjaxValidation'=>true,
+    'enableClientValidation'=>false,
+    'htmlOptions'=>array('enctype' => 'multipart/form-data')
+));
+
+?>
 <div class="createnew"><?php echo CHtml::link('Create New',array('create')); ?></div>
 <!--<div class="search-form" style="display:none">
 <?php //$this->renderPartial('_search',array(
@@ -34,11 +57,32 @@ $user_id = Yii::app()->user->id;
 
 ?>
 </div><!-- search-form -->
-<?php $this->widget('bootstrap.widgets.TbExtendedGridView', array(
+<div class="exportrep">		
+<?php 
+echo CHtml::button('Export', array('id'=>'export-button','class'=>'export')); 
+// $this->renderExportGridButton('Export',array('class'=>'submit',)); ?>
+    </div>
+<?php
+$this->widget('bootstrap.widgets.TbExtendedGridView', array(
                 'filter'=>$model,
+//    'id'=>'dates-grid',
+//    'itemsCssClass'=>'table table-striped table-bordered table-condensed',
 //              'type'=>'striped bordered',
                 'dataProvider' => $model->search(),
                 //'template' => "{items}",
+                 'pager'=>array(
+'header'=>'',
+'cssFile'=>true,
+'maxButtonCount'=>25,
+'selectedPageCssClass'=>'active',
+'hiddenPageCssClass'=>'disabled',
+'firstPageCssClass'=>'previous',
+'lastPageCssClass'=>'next',
+'firstPageLabel'=>'<<',
+'lastPageLabel'=>'>>',
+'prevPageLabel'=>'<',
+'nextPageLabel'=>'>',
+),
                 'columns' => array_merge(array(
                                             array(
                                             'class'=>'bootstrap.widgets.TbRelationalColumn',
@@ -98,3 +142,5 @@ $user_id = Yii::app()->user->id;
 		),
 	),
 ));*/ ?>
+<?php 
+$this->endWidget(); ?>
