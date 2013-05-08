@@ -274,14 +274,14 @@ class MercustomersController extends Controller
                    ;
                     //merging the cell in one     
 //                    $objPHPExcel->getActiveSheet()->mergeCells('A1:D1');
-                    $i =0;
+                    $i = 0;
                         foreach($model as $data){
                             $name[] = $data->name;
                             $mobile[] = $data->mobile_no;
                             $email[] =  $data->email;
                             $i++;
                         }
-                    for($k=2; $k<= $i; $k++){
+                    for($k=2; $k <= $i+1; $k++){
                         $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('A'.$k, $name[$k-2])
                         ->setCellValue('B'.$k, $mobile[$k-2])
