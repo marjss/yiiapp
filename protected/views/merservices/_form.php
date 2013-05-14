@@ -39,17 +39,23 @@ $active = array(1=>'Active',0=>'Inactive');
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'price'); ?>
-		<?php echo $form->textField($model,'price'); ?>(In ₹)
+		<?php echo $form->textField($model,'price'); ?>(In Rs.)
 		<?php echo $form->error($model,'price'); ?>
 	</div>
-
-	<div class="row">
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'isproduct'); ?>
+		<?php echo $form->checkBox($model,'isproduct',array('class'=>'isproduct')); ?>
+		<?php echo $form->error($model,'isproduct'); ?>
+	</div>
+        <div class="dynamics">
+        <div class="row">
 		<?php echo $form->labelEx($model,'duration'); ?>
-		<?php echo $form->textField($model,'duration'); ?>(In min)
+		<?php echo $form->textField($model,'duration'); ?>(In multiples of 15 mins )
 		<?php echo $form->error($model,'duration'); ?>
 	</div>
-
-	<div class="row">
+        </div>
+        <div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 		<?php echo $form->DropDownList($model,'status',$active); ?>
 		<?php echo $form->error($model,'status'); ?>
@@ -63,3 +69,20 @@ $active = array(1=>'Active',0=>'Inactive');
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<script>
+   $(document).ready(function() {
+       
+   if($('#Merservices_isproduct').attr("checked") == "checked"){
+       $('.dynamics').css('display','none');
+   }
+  $("#merchant-setting-form input[type=checkbox]").click(function(){
+    if ($(this).attr("checked") == "checked"){
+      $('.dynamics').css('display','none');
+    } else {
+      $('.dynamics').css('display','block');
+    }
+  });
+});
+
+
+</script>
