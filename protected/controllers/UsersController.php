@@ -156,9 +156,9 @@ class UsersController extends Controller
 				
                                         
                                         $userdetails = new UserDetails;
-					$userdetails->attributes =  $_POST['UserRegister'];;
+					$userdetails->attributes =  $_POST['UserRegister'];
 					$userdetails->user_id = $user->id;
-					if($userdetails->save()){
+                                        if($userdetails->save()){
 						$userplans = new Pricingplansusers;
 						$userplans->user_id = $user->id;
 						$userplans->pricing_plan_id = $_POST['pricingplan'];
@@ -519,6 +519,9 @@ class UsersController extends Controller
                     //Avtar image manipulation
                     $avtarimage = $usermodel->avtar;
                     $usermodel->attributes = $_POST['UserDetails'];
+                    echo '<pre>';
+                    print_r( $_POST['UserDetails']);
+                    echo '</pre>';die;
 			if($_FILES['UserDetails']['name']['avtar'] != '')
 			{ 
                             $usermodel->avtar = CUploadedFile::getInstanceByName('UserDetails[avtar]');
@@ -1197,7 +1200,11 @@ class UsersController extends Controller
 			//get merchant's seats
 			$merseats = new Merseats;
 			$seats = $merseats->getSeats();
-			
+			if($seats == null){
+                           Yii::app()->user->setFlash('style', "Please Add or Activate atleast one Stylist.");
+//			throw new CHttpException(411,'No Stylists are currently registered.');
+                        $this->redirect(array('merseats/admin'));
+                        }
 			
 			$model = new Mercustomers;
 			//get holidays's dates if exists
