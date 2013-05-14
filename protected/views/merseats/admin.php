@@ -30,7 +30,12 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Manage Stylists</h1>
-
+<?php if(Yii::app()->user->hasFlash('style')){ ?>
+        
+<div class="flash-success">
+   	<?php echo Yii::app()->user->getFlash('style'); ?>
+</div>
+<?php }?>
 <?php
 
 $active = array(1=>'Active',0=>'Inactive');
