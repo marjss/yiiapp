@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Settings'=>array('users/settings'),
-	'Update '.$model->name,
+	'Update ',
 );
 $this->widget('zii.widgets.CBreadcrumbs', array(
     'links'=>$this->breadcrumbs,
@@ -18,7 +18,7 @@ $this->menu=array(
 );
 ?>
 <div id="merchant-setting-form">
-<h1>Update Services <?php echo $model->name; ?></h1>
+<h1>Update Services <?php //echo $model->name; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
 </div>
