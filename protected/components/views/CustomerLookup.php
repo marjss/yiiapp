@@ -29,7 +29,7 @@
        $form1=$this->beginWidget('CActiveForm', array(
 		'id'=>'booking-form',
                 //'action'=>Yii::app()->request->baseUrl.'/evaluation/MyEvaluation/'.$_REQUEST['id'],
-		'enableAjaxValidation'=>true,
+		'enableAjaxValidation'=>false,
                 'enableClientValidation'=>true,
 	       'htmlOptions'=>array(
 		    'onsubmit'=>"return false;",/* Disable normal form submit */
@@ -92,17 +92,17 @@
                     echo CHtml::link($rightimg,'javascript:void(0)',array('onclick'=>'return getnewclientui()','id'=>"addcustomerimg"));
 	        ?>
 	   </div>
-	       <div id = "newcustomer" style="display:none;">
+	       <div id = "newcustomer" style="display:none;width: 420px;">
 		    <?php echo $form1->labelEx($customerform,'customer_name'); ?>
 		    <?php echo $form1->textField($customerform,'customer_name', array('size'=>40,'maxlength'=>150,'id'=>'customer_name','class'=>'customer_field required',)) ?>
 		     <?php echo $form1->error($customerform,'customer_name'); ?>
-		    <br /><br />
+		    <br />
 		    <?php echo $form1->labelEx($customerform,'customer_contact_no'); ?>
 		    <?php echo $form1->textField($customerform,'customer_contact_no', array('size'=>40,'maxlength'=>150,'id'=>'customer_contact_no','class'=>'customer_field required uniqueMobile','number'=>'true','minlength'=>10,'required'=>'true')) ?>
 		    <?php echo $form1->error($customerform,'customer_contact_no'); ?>
-		    <br /><br />
+		    <br />
 		    <?php echo $form1->labelEx($customerform,'customer_email'); ?>
-		    <?php echo $form1->textField($customerform,'customer_email', array('size'=>40,'maxlength'=>150,'id'=>'customer_email','class'=>'customer_field required email uniqueEmail')) ?>
+		    <?php echo $form1->textField($customerform,'customer_email', array('size'=>40,'maxlength'=>150,'id'=>'customer_email','class'=>'customer_field ','email'=>'true')) ?>
 		     <?php echo $form1->error($customerform,'customer_email'); ?>
 		     <br />
 	       </div>
@@ -113,11 +113,11 @@
     <div class="check">
     	<span>Intimate Customer via: </span>
 	 <?php //echo CHtml::checkBox('sms','sms', array('class'=>'checkbox require-one', 'checked'=>'checked','value'=>1, 'uncheckValue'=>NULL));?>
-	 <input type="checkbox" value="sms" class="checkbox smsemail required" checked='checked' id="sendsms" name="sms" />
+	 <input type="checkbox" value="sms" class="checkbox smsemail " checked='checked' id="sendsms" name="sms" />
         <label>SMS</label>
         
          <?php //echo CHtml::checkBox('email','email', array('class'=>'checkbox require-one', 'checked'=>'checked','value'=>1, 'uncheckValue'=>NULL));?>
-	 <input type="checkbox" value="email" class="checkbox smsemail required" checked='checked' id="sendsmsemal" name="smsemail" />
+	 <input type="checkbox" value="email" class="checkbox smsemail " checked='checked' id="sendsmsemal" name="smsemail" />
         <label>Email</label>
         <div class="cl"></div>
         
@@ -125,7 +125,7 @@
 	  <input type="button" value="Cancel" class="lookup-button" onclick = "return cancelpopup()"/>
 	  <!--<input type="button" value="Time Off" class="lookup-button" /> -->
 	  <input type="button" value="+New Client" class="lookup-button" onclick="return getnewclientui()" id="newclientbutton" />
-	  <input type="submit" value="Book" class="lookup-button" id="bookbutton" style="display:none;" onclick="return send()"/>
+	  <input type="submit" value="Book" class="lookup-button" id="bookbutton" style="display:none;" onclick="js:send();"/>
 	  <input type="button" value="Book" class="lookup-button" onclick="return afterValidates()" id="bookbutton1" style="display:none;" />
    </div>      
        
@@ -139,6 +139,7 @@
 
 
 <script type="text/javascript">
+   
      function getnewclientui()
      {
 		  $('#customerautocomplete').css('display','none');
@@ -180,16 +181,21 @@
 		  $("#customerid").val(0);
 		  $(".errorSummary").css('display','none');
      }
-      
+    $('#customer_contact_no').change(function(){
+         $('#CustomerForm_customer_contact_no_em_').css('display','none');  
+    })
      function send()
 	  {
+                //removed validation on urgent basis
 		  jQuery("#booking-form").validate()
 		  var validornot = jQuery("#booking-form").valid();
+//                   var validornot = true;
 		  if(validornot)
 		  {
-				
-				if(checkmobile())
-				{
+				 
+				if(checkmobile()) //removed validation
+				{ 
+                                    
 					 /*if(checkemail())
 					 {*/
 						  var url = "<?php echo Yii::app()->request->baseUrl; ?>/users/bookappointment";
@@ -265,28 +271,31 @@
 					 {
 						  $.validator.addMethod("uniqueEmail", function(value, element) { }, "Email is already taken.");
 					 }*/
+                                //removed validation on urgent basis
 				}
 				else
 				{
-					 $.validator.addMethod("uniqueMobile", function(value, element) { }, "Mobile is already taken.");
+//					 $.validator.addMethod("uniqueMobile", function(value, element) { }, "Mobile is already taken.");
+                                          $('#CustomerForm_customer_contact_no_em_').html('Mobile is already taken.').css('display','block');  
 				}
+                                //Validation ends
 		  }
 	  }
 	  
 	  function checkmobile()
 	  {
-                 var isSuccess = false;
-		  jQuery.ajax({ url: "<?php echo Yii::app()->request->baseUrl; ?>/appointmentbook/getuniqueemail", 
+		   var isSuccess = false;
+		  jQuery.ajax({ url: "<?php echo Yii::app()->request->baseUrl; ?>/appointmentbook/getuniquemobile", 
 					  data: "checkmoble="+$("#customer_contact_no").val(), 
 					  async: false, 
 					  success: 
 							function(msg) { isSuccess = msg === "true" ? true : false }
 					});
 			return isSuccess;
-            	  
+		  
 	  }
-//	  function checkemail()
-//	  {
+	  function checkemail()
+	  {
 //		  var isSuccess = false;
 //		  jQuery.ajax({ url: "<?php echo Yii::app()->request->baseUrl; ?>/appointmentbook/getuniqueemail", 
 //					  data: "checkEmail="+$('#customer_email').val(), 
@@ -296,10 +305,9 @@
 //					});
 //			return isSuccess;
 //		  
-//	  }
+	  }
      function afterValidates()
      {
-       
 		  jQuery(".errorSummary").css('display','none');
 		  jQuery('#customerDialog').dialog('close');
 		  //jQuery("#ajaxloader").show();
@@ -375,4 +383,5 @@
      }
      
 
+    
 </script>
