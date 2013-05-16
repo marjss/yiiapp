@@ -7,6 +7,7 @@
  * @property integer $id
  * @property integer $merchant_id
  * @property string $name
+ * @property string $email
  * @property string $mobile_no
  * @property string $city
  */
@@ -42,8 +43,9 @@ class Mercustomers extends CActiveRecord
                         array('mobile_no','length', 'min'=>10 ),
                         array('email','email'),
                         array('mobile_no','numerical', 'integerOnly'=>true),
-			array('name, mobile_no,email', 'required'),
+			array('name, mobile_no', 'required'),
 			array('merchant_id', 'numerical', 'integerOnly'=>true),
+                        array('mobile_no','UniqueAttributesValidator', 'with'=>'merchant_id','message'=>'{value} has already been taken.'),
 			array('name, mobile_no,email, city', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -156,5 +158,42 @@ class Mercustomers extends CActiveRecord
 		curl_close($ch);
 		
 		//echo $curl_scraped_page;
+	}
+}
+class UniqueAttributesValidator extends CValidator {
+
+	public $with;
+
+	/**
+	 * Validates the attribute of the object.
+	 * If there is any error, the error message is added to the object.
+	 */
+	protected function validateAttribute($object,$attribute) {
+		$with = explode(",", $this->with);
+//                print_r($with) ;
+		if (count($with) < 1)
+			throw new Exception("Attribute 'with' not set");
+		$uniqueValidator = new CUniqueValidator();
+		$uniqueValidator->attributes = array($attribute);
+		$uniqueValidator->message = $this->message;
+//                echo'<pre>';
+//                print_r($uniqueValidator);
+//                echo'</pre>';
+		$uniqueValidator->on = $this->on;
+		$conditionParams = array();
+		$params = array();
+		foreach ($with as $attribute) {
+//                    echo $object->$attribute;
+			$conditionParams[] = "`{$attribute}`=:{$attribute}";
+			$params[":{$attribute}"] = $object->$attribute;
+//                        print_r($params);
+		}
+		$condition = implode(" AND ", $conditionParams);
+//                print_r($condition);
+		$uniqueValidator->criteria = array(
+			'condition'=>$condition,
+			'params'=>$params
+		);
+		$uniqueValidator->validate($object);
 	}
 }
