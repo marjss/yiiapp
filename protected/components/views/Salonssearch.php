@@ -1,7 +1,5 @@
 <style>
-    .newserv{
-        color: black !important;
-    }
+    
 </style>
 <div class="salon-search">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
@@ -46,11 +44,12 @@
 //     $criteria->select = 'name,id';
 //     $criteria->limit = 5;
 //     $criteria->distinct = true;
-     $criteria->group = 'name';
+//     $criteria->group = 'name';
+     $criteria->condition = "title NOT LIKE  '%products%'";
 //     echo'<pre>';
 //     print_r($criteria);
 //     echo '</pre>';
-     $models= CategoryService::model()->findAll();
+     $models= CategoryService::model()->findAll($criteria);
      
      $users = UserDetails::model()->findAll();
      $out1 = array();
@@ -74,30 +73,27 @@
     jQuery.noConflict();
     jQuery(document).ready(function($) {
         // Code that uses jQuery's $ can follow here.
-         $(function(){
-           var serv = $("#service_autocomplete").val();
-           var near = $('#search-service').val();
-           var city = $('#Merservices_city').val();
-            $("#service_autocomplete").focusin(function(){
-           if(serv = 'e.g. Hair Cut'){
-               $("#service_autocomplete").addClass('newserv'); }
+            
+            if($("#Merservices_city").val() != 'Select City'){
+               $("#Merservices_city").css('color','#000'); 
+           }
+            
+            if($("#service_autocomplete").val() != 'e.g. Hair Cut'){
+               $("#service_autocomplete").css('color','#000'); 
+           }
+             if($("#search-service").val() != 'e.g. Raja Park'){
+               $("#search-service").css('color','#000'); 
+           }
+            $("#service_autocomplete").keypress(function(){
+            if($(this).val() != 'e.g. Hair Cut'){
+               $("#service_autocomplete").css('color','#000'); }
             });
-            $("#service_autocomplete").focusout(function(){
-           if(serv = 'e.g. Hair Cut'){
-               $("#service_autocomplete").removeClass('newserv'); }
+            $("#search-service").keypress(function(){
+            if($(this).val() != 'e.g. Raja Park'){
+               $("#search-service").css('color','#000'); }
             });
-            $("#search-service").focusin(function(){
-           if(near = 'e.g. Raja Park'){
-               $("#search-service").addClass('newserv'); }
-            });
-            $("#search-service").focusout(function(){
-           if(near = 'e.g. Raja Park'){
-               $("#search-service").removeClass('newserv'); }
-            });
-           if(serv != 'e.g. Hair Cut'){$("#service_autocomplete").addClass('newserv'); }
-           if(near != 'e.g. Raja Park'){$("#search-service").addClass('newserv');}
-           if(near != 'Select City'){$("#Merservices_city").addClass('newserv');}
-       });
+
+       
         $.widget( "custom.catcomplete", $.ui.autocomplete, {
             _renderMenu: function( ul, items ) {
                 var that = this,
@@ -122,7 +118,12 @@
                 source: data,
                 select: 
                     function( event, ui ) {
-                    //    alert(ui.item.value);
+                    jQuery("#category").val(ui.item["category"]);
+                    
+                    if( jQuery("#category").val() == 'Business'){
+                        jQuery("#service_autocomplete").val(ui.item["value"]);
+                        $(this).parents('form').find(':submit').click();
+                    }
                     jQuery("#service_autocomplete").val(ui.item["id"]);
                 }
                 
@@ -140,7 +141,8 @@
     );
     ?>  <ul>
             <li>
-             <?php   echo $form->textField($model, 'name', array('size' => 40, 'maxlength' => 150, 'id' => 'service_autocomplete', 'class' => 'service_field', 'value' => $servicename,'onblur'=>"if(this.value==''){this.value='e.g. Hair Cut'}", 'onclick'=>"if(this.value=='e.g. Hair Cut'){this.value=''}")); ?>
+               <?php echo $form->hiddenField($model,'cat_id', array('id' => 'category', 'class' => 'service_field')); ?>
+             <?php   echo $form->textField($model, 'name', array('size' => 40, 'maxlength' => 150, 'id' => 'service_autocomplete', 'class' => 'service_field', 'value' => $servicename,'onblur'=>"if(this.value==''){jQuery(this).css('color','#AAA');this.value='e.g. Hair Cut';}", 'onclick'=>"if(this.value=='e.g. Hair Cut'){this.value=''}")); ?>
                 <!--<input id="service_autocomplete" class="service_field">-->
                
         <?php
@@ -200,7 +202,7 @@
                 'class' => 'required service_field',
                 'id' => 'search-service',
                 'value' => $servicenearby,
-                'onblur'=>"if(this.value==''){this.value='e.g. Raja Park'}", 
+                'onblur'=>"if(this.value==''){jQuery(this).css('color','#AAA');this.value='e.g. Raja Park'}", 
                 'onclick'=>"if(this.value=='e.g. Raja Park'){this.value=''}"
             ),
         ));
@@ -218,7 +220,7 @@
                     else{                                                       //Default city load by the users IP Address. 
                         $ip= $_SERVER['REMOTE_ADDR'];
                         $ipAddr = '122.176.83.11' ;                             //Constant IP Address for the debugging purpose.Mark Comment while not testing.
-                        $citydata= CityFromIP($ip);                         //Change the $ipAddr to $ip  while running the real world application
+                        $citydata= CityFromIP($ipAddr);                         //Change the $ipAddr to $ip  while running the real world application
                         $city1= $citydata['cityName'];                          //Replace cityName to city in case of hostip.info
                         $output= Citylist::model()->getCitylist($city1);
                         echo CHTML::dropDownList('Merservices[city]', $output, Citylist::model()->getCitylistDropDown(), array('prompt' => 'Select City'));  
