@@ -9,12 +9,17 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 ?>
 <h1>Manage Account </h1>
 
-<?php if(Yii::app()->user->hasFlash('success')): ?>
+<?php if(Yii::app()->user->hasFlash('success')){ ?>
         
 <div class="flash-success">
    	<?php echo Yii::app()->user->getFlash('success'); ?>
 </div>
-<?php endif; ?>
+<?php }elseif(Yii::app()->user->hasFlash('error')){ ?>
+        
+<div class="flash-success">
+   	<?php echo Yii::app()->user->getFlash('error'); ?>
+</div>
+<?php } ?>
 <div id="merchant-setting-form">
     <?php
 /*    Yii::app()->clientScript->registerScript('changeDialog', "
@@ -42,18 +47,64 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 				<?php $form=$this->beginWidget('CActiveForm', array(
 						  'id'=>'account-form',
 						  'enableAjaxValidation'=>false,
+                                                  'enableClientValidation'=>true,
 						  'htmlOptions' => array('enctype' => 'multipart/form-data'),
 					 )); ?>
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 						<tr>
 		
 								<td valign="top">
-										<p class="note">Fields with <span class="required">*</span> are required.</p>
+                                                                    <p class="note">Fields with <span class="required">*</span> are required.</p>
+                                                                                <div class="row">
+											<?php echo $form->labelEx($user,'username'); ?>
+											<?php echo $form->textField($user,'username',array('size'=>38)); ?>
+											<?php echo $form->error($user,'username'); ?>
+										</div>
+                                                                                
+                                                                                 <div class="row">
+											<?php echo $form->labelEx($user,'email'); ?>
+											<?php echo $form->textField($user,'email',array('required'=>true,'size'=>38)); ?>
+											<?php echo $form->error($user,'email'); ?>
+										</div>
+										
 										<div class="row">
 											<?php echo $form->labelEx($model,'name'); ?>
-											<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
+											<?php echo $form->textField($model,'name',array('required'=>true,'size'=>60,'maxlength'=>255)); ?>
 											<?php echo $form->error($model,'name'); ?>
 										</div>
+                                                                                
+                                                                                <div class="row">
+											<?php echo $form->labelEx($model,'mobile_no'); ?>
+											<?php echo $form->textField($model,'mobile_no',array('required'=>true,'size'=>38)); ?>
+											<?php echo $form->error($model,'mobile_no'); ?>
+										</div>
+                                                                    
+                                                                                 <div class="row">
+                                                                                     <?php echo $form->labelEx($tax,'tax'); ?>
+                                                                                     <?php $tax = MerchantSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id)); ?>
+                                                                                     <?php if ($tax){?>
+											<?php echo $form->textField($tax,'tax',array('size'=>38)); ?>
+											<?php } else {?> 
+                                                                                         <?php $tax = new MerchantSettings;
+                                                                                         echo $form->textField($tax,'tax',array('size'=>38));
+                                                                                         ?>
+                                                                                         <?php }?>
+                                                                                     <?php echo $form->error($tax,'tax'); ?>
+										</div>
+                                                                    
+                                                                                <div class="row">
+                                                                                     <?php echo $form->labelEx($tax,'vat'); ?>
+                                                                                     <?php $tax = MerchantSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id)); ?>
+                                                                                     <?php if ($tax){?>
+											<?php echo $form->textField($tax,'vat',array('size'=>38)); ?>
+											<?php } else {?> 
+                                                                                         <?php $tax = new MerchantSettings;
+                                                                                         echo $form->textField($tax,'vat',array('size'=>38));
+                                                                                         ?>
+                                                                                         <?php }?>
+                                                                                     <?php echo $form->error($tax,'vat'); ?>
+										</div>
+                                                                                
 										<?php echo $form->hiddenField($model,'id',array('value'=>$uid)); ?>
 										<div class="row">
 											<?php echo $form->labelEx($model,'avtar'); ?>
@@ -99,7 +150,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 										<div class="buttons">
 											<?php echo CHtml::submitButton('Save'); ?>
 										</div>
-										<?php $this->endWidget(); ?>
+										
 				
 								</td>
 								<td valign="top">
@@ -120,5 +171,6 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 								</td>
 						</tr>
 				</table>
+        <?php $this->endWidget(); ?>
 		</div><!-- form -->
 </div>
