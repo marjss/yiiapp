@@ -52,8 +52,8 @@ QTip::qtip($jsSelector, $opts);
 				    'dateFormat'=>'yy-mm-dd',
 				    'changeMonth' => 'true',
 				    'changeYear' => 'true',
-				    'showButtonPanel' => 'false',
-	    
+//				    'showButtonPanel' => 'false',
+                                
 				    // this is useful to allow only valid chars in the input field, according to dateFormat
 				    'constrainInput' => 'false',
 				    // speed at which the datepicker appears, time in ms or "slow", "normal" or "fast"
@@ -71,7 +71,6 @@ QTip::qtip($jsSelector, $opts);
 				    font-size:0.9em;
 				    border: 1px solid #A80;
 				    padding-left: 4px; margin-top: 10px;',
-				    
 				'onchange'=>"return getappointmentbook()",
 			    )
 		    )
@@ -173,7 +172,13 @@ QTip::qtip($jsSelector, $opts);
         </tr>
       </table>
     </div>
-     <?php $tablewidth = 999; ?>
+     <?php 
+     $j=0;
+     foreach($seats as $seat){$j++;}
+      if($j<= 5){$tablewidth = 888;}
+        elseif($j>= 5 && $j<=10){$tablewidth = 1200;}
+            elseif($j>= 10 && $j<=20){$tablewidth = 1350;}
+     ?>
       <!--Appoinment table start -->
     <div class="add-block" style="overflow:auto;">
        <table width="<?php echo $tablewidth ?>px" border="0" cellspacing="0" cellpadding="0" style="overflow:scroll;" style="border-bottom: 2px solid #949494;" id="appbook_table">
@@ -289,7 +294,7 @@ QTip::qtip($jsSelector, $opts);
 				     
 				 }
 				 else{
-				     echo "<div class='new-td bottomnew-border booked_slots'  style='width:$width;visibility:hidden;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id'].">Already</div>";
+				     echo "<div class='new-td bottomnew-border booked_slots'  style='width:$width;visibility:hidden;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id']."></div>";
 				 }
 			    }
 			     elseif($slots['status'] == 3){
@@ -322,7 +327,8 @@ QTip::qtip($jsSelector, $opts);
 				 else{
 				     echo "<div class='new-td bottomnew-border empty_slots updated_slots'  style='width:$width; visibility:hidden;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id']."></div>";
 				 }
-			    }elseif($slots['status'] == 4){
+			    }
+                            elseif($slots['status'] == 4){
 //			       print_r($slots); die;
 				 if(!in_array($slots['id'],$process)){
 					$os= $slots['duration']/15;
@@ -332,23 +338,20 @@ QTip::qtip($jsSelector, $opts);
 					$custinfo = $slots['customer_name']."<br />".$slots['customer_contact_no'];
 					$tooltipinfo = date('h:i A',$slots['starttimestamp'])." - ".date('h:i A',$slots['endtimestamp'])."<br />".$slots['services1'];
 					
-					   echo "<div class='new-td bottomnew-border complete_slots' style='width:$width;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id'].">
+					   echo "<div class='new-td bottomnew-border complete_slots booked_slots' style='width:$width;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id'].">
 						 <div class='complete-space'  style='height:$height;width:$width;'>";
 				 ?>
 					 <!--<p onmouseover="ddrivetip('Taneja','#faf9f9', 265)" onmouseout='hideddrivetip()'><?php //echo $custinfo; ?></p> -->
 					 <p title="<?php echo $tooltipinfo; ?>"><?php echo $custinfo; ?></p>
 					 </div>
 					      </div>
-			     <?php
-				     
-				 }
+			     <?php }
 				 else{
-				     echo "<div class='new-td bottomnew-border booked_slots'  style='width:$width;visibility:hidden;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id'].">Already</div>";
-				 }
-			    }
+				     echo "<div class='new-td bottomnew-border booked_slots'  style='width:$width;visibility:hidden;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id']."></div>";
+                                     }
+                                }
 			       $process[] = $slots['id'];
-
-			 }
+                             }
 		     }
 		     else{
 			
@@ -381,9 +384,10 @@ QTip::qtip($jsSelector, $opts);
 				<?php
 				    }
 				    else{
-					echo "<div class='new-td booked_slots' style='width:$width; visibility:hidden;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id'].">Already</div>";
+					echo "<div class='new-td booked_slots' style='width:$width; visibility:hidden;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id']."></div>";
 				    }
-			    }if($slots['status'] == 4){
+			    }
+                            if($slots['status'] == 4){
 				   // echo date('h:i:s',$slots['endtimestamp']); die;
 				    if(!in_array($slots['id'],$process)){
 					
@@ -394,7 +398,7 @@ QTip::qtip($jsSelector, $opts);
 					$custinfo = $slots['customer_name']."<br />".$slots['customer_contact_no'];
 					$tooltipinfo = date('h:i A',$slots['starttimestamp'])." - ".date('h:i A',$slots['endtimestamp'])."<br />".$slots['services1'];
 					
-					    echo "<div class='new-td  complete_slots' style='width:$width;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id'].">
+					    echo "<div class='new-td  complete_slots booked_slots' style='width:$width;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id'].">
 						    <div class='complete-space'  style='height:$height;width:$width;'  >";
 				    ?>
 					   <!--<p onmouseover="ddrivetip('Taneja','#faf9f9', 265)" onmouseout='hideddrivetip()'><?php //echo $custinfo; ?></p> -->
@@ -404,7 +408,7 @@ QTip::qtip($jsSelector, $opts);
 				<?php
 				    }
 				    else{
-					echo "<div class='new-td booked_slots' style='width:$width; visibility:hidden;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id'].">Already</div>";
+					echo "<div class='new-td booked_slots' style='width:$width; visibility:hidden;' id='slot-$seat->id-$key' time=".$key." seat_id=".$seat->id." time1 = ".$time1." orderid = ".$slots['id']."></div>";
 				    }
 			    }
 			   elseif($slots['status'] == 3){
@@ -473,15 +477,16 @@ QTip::qtip($jsSelector, $opts);
  <?php $this->widget('CustomerLookup');  //echo $disabletoday; die;?>
  <?php $this->widget('UpdateOrder');  ?>
   <?php $this->widget('AppointmentSuccess'); ?>
+    <?php  $this->widget('Invoice'); ?>
     <input type="hidden" id = "service_duration" name="service_duration" value = "0">
     <input type="hidden" id = "selectable_slots" name="selectable_slots" value = "0">
      <input type="hidden" id = "updated_order" name="updated_order" value = "0">
      <input type="hidden" id = "updated_custinfo" name="updated_custinfo" value = "0">
 	<div class="color-ind">
 	    <?php echo CHtml::Image(Yii::app()->request->baseUrl.'/images/whitesmoke.png'); ?><p>Not Available</p>
-	   
-	      <?php echo CHtml::Image(Yii::app()->request->baseUrl.'/images/darkpink.png'); ?><p>Booked</p>
-	       <?php echo CHtml::Image(Yii::app()->request->baseUrl.'/images/lightyellow.png'); ?><p>Available</p>
+            <?php echo CHtml::Image(Yii::app()->request->baseUrl.'/images/darkgreen.png'); ?><p>Completed</p>
+	    <?php echo CHtml::Image(Yii::app()->request->baseUrl.'/images/darkpink.png'); ?><p>Booked</p>
+	    <?php echo CHtml::Image(Yii::app()->request->baseUrl.'/images/lightyellow.png'); ?><p>Available</p>
 	</div>
  
 </div>    
