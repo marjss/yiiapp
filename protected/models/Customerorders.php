@@ -67,6 +67,7 @@ class Customerorders extends CActiveRecord
 
 			'customer' => array(self::BELONGS_TO, 'Mercustomers', 'customer_id'),
 			'seat' => array(self::BELONGS_TO, 'Merseats', 'merchant_seat_id'),
+                        'invoices'=>array(self::HAS_MANY, 'CustomerInvoice', 'customer_order_id'),
 		);
 	}
 
