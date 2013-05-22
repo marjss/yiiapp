@@ -84,8 +84,8 @@ $this->breadcrumbs=array(
 	?>
 
 	<div class="signup-right">
-		<p>You've selected "<?php echo $pricingplan->name;?>" plan. It's FREE for 30 days and renews at Rs. <?php echo $pricingplan->cost;?> per <?php echo $pricingplan->validity_type;?>.</p><br />
-		<p>Your 30-days free trial continues until midnight on <?php echo date('F d, Y',strtotime('+30 days'));?>.</p><br />
+		<p>You've selected "<?php echo $pricingplan->name;?>" plan. It's FREE for 10 days and renews at Rs. <?php echo $pricingplan->cost;?> per <?php echo $pricingplan->validity_type;?>.</p><br />
+		<p>Your 10-days free trial continues until midnight on <?php echo date('F d, Y',strtotime('+10 days'));?>.</p><br />
 		<p>You may cancel, upgrade or modify your plan at any time.  </p><br />
 		<span>Thank you for choosing <br />SalonChimp! </span>
 	</div>
