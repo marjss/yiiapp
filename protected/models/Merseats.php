@@ -40,7 +40,7 @@ class Merseats extends CActiveRecord
 		return array(
 			array('merchant_id,name','required'),
 			array('merchant_id, stylist_id, status', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>255),
+			array('name', 'length', 'max'=>25),
                          array('name','UniqueAttributesValidator', 'with'=>'merchant_id','message'=>'{value} has already been taken.'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -107,43 +107,14 @@ class Merseats extends CActiveRecord
 		
 		return $seats;
 	}
-        
-}
-class UniqueAttributesValidator extends CValidator {
-
-	public $with;
-
-	/**
-	 * Validates the attribute of the object.
-	 * If there is any error, the error message is added to the object.
-	 */
-	protected function validateAttribute($object,$attribute) {
-		$with = explode(",", $this->with);
-//                print_r($with) ;
-		if (count($with) < 1)
-			throw new Exception("Attribute 'with' not set");
-		$uniqueValidator = new CUniqueValidator();
-		$uniqueValidator->attributes = array($attribute);
-		$uniqueValidator->message = $this->message;
-//                echo'<pre>';
-//                print_r($uniqueValidator);
-//                echo'</pre>';
-		$uniqueValidator->on = $this->on;
-		$conditionParams = array();
-		$params = array();
-		foreach ($with as $attribute) {
-//                    echo $object->$attribute;
-			$conditionParams[] = "`{$attribute}`=:{$attribute}";
-			$params[":{$attribute}"] = $object->$attribute;
-//                        print_r($params);
-		}
-		$condition = implode(" AND ", $conditionParams);
-//                print_r($condition);
-		$uniqueValidator->criteria = array(
-			'condition'=>$condition,
-			'params'=>$params
-		);
-		$uniqueValidator->validate($object);
+        public function getSeatsPub($merchant_id){
+            
+//		$merchant_id = Yii::app()->user->id;
+		$criteria1 = new CDbCriteria();
+		$criteria1->condition = "merchant_id = '".$merchant_id."' AND status = '1'";
+		$seats = Merseats::model()->findAll($criteria1);
+		
+		return $seats;
 	}
-
+        
 }
