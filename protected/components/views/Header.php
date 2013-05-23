@@ -32,6 +32,7 @@
 	<div class="manu">
       <ul>
 	<?php if(Yii::app()->user->isMerchant()){ ?>
+<!--          <li class="<?php if($actionId == 'reviews'  && $controller == 'users'){echo 'select';}?>"><?php echo CHtml::link('Reviews',Yii::app()->request->baseUrl.'/review/reviews');?></li>-->
 	 <li class="<?php if($actionId == 'appointment'  && $controller == 'users'){echo 'select';}?>"><?php echo CHtml::link('Appointments',Yii::app()->request->baseUrl.'/users/appointment');?></li>
 	 <li class="<?php if($actionId == 'admin'  && $controller == 'mercustomers'){echo 'select';}?>"><?php echo CHtml::link('Customers',Yii::app()->request->baseUrl.'/mercustomers/admin');?></li>
 	  <li class="<?php if($actionId == 'settings'  && $controller == 'users'){echo 'select';}?>"><?php echo CHtml::link('Settings',Yii::app()->request->baseUrl.'/users/settings');?></li>
