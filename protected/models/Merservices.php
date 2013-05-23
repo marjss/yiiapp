@@ -13,6 +13,7 @@
  * @property integer $duration
  * @property integer $status
  * @property integer $isproduct
+ * @property integer $stock
  */
 class Merservices extends CActiveRecord
 {
@@ -48,12 +49,12 @@ class Merservices extends CActiveRecord
 		// will receive user inputs.  
 		return array(
 			array('merchant_id, price,name, cat_id','required'),
-			array('merchant_id, price, duration, status,isproduct', 'numerical', 'integerOnly'=>true),
+			array('merchant_id, price, duration, status,isproduct,stock', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>50),
 			array('description,duration,isproduct', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, merchant_id, name, description, price, duration, status, cat_id,isproduct,merchants.name', 'safe', 'on'=>'search'),
+			array('id, merchant_id, name, description, price, duration, status, cat_id,isproduct,stock,merchants.name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,6 +86,7 @@ class Merservices extends CActiveRecord
 			'duration' => 'Duration',
 			'status' => 'Status',
                         'isproduct' => 'Is Product',
+                        'stock' => 'Stock',
 		);
 	}
 
@@ -108,6 +110,7 @@ class Merservices extends CActiveRecord
 		$criteria->compare('duration',$this->duration);
 		$criteria->compare('t.status',$this->status);
                 $criteria->compare('isproduct',$this->isproduct);
+                $criteria->compare('stock',$this->stock);
 //                $criteria->compare('merchants',$this->merchants,true);
 //                if(!empty($this->merchant_search)) $criteria->with[] = 'merchants';
 //                 if(!empty($this->merchant_search)) $criteria->together = true;
