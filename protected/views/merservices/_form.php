@@ -48,6 +48,13 @@ $active = array(1=>'Active',0=>'Inactive');
 		<?php echo $form->checkBox($model,'isproduct',array('class'=>'isproduct')); ?>
 		<?php echo $form->error($model,'isproduct'); ?>
 	</div>
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'stock'); ?>
+		<?php echo $form->textField($model,'stock',array('class'=>'stock')); ?>
+		<?php echo $form->error($model,'stock'); ?>
+	</div>
+        
         <div class="dynamics">
         <div class="row">
 		<?php echo $form->labelEx($model,'duration'); ?>
