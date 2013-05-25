@@ -12,7 +12,9 @@
  * @property string $status
  */
 class Users extends CActiveRecord
-{
+{   
+    
+    public $username_search;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -48,7 +50,7 @@ class Users extends CActiveRecord
 			array('status', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, mas_role_id, username, password, activation_key,merchant_id, status, email,featured, onlinebooking', 'safe', 'on'=>'search'),
+			array('id, mas_role_id, username, password, activation_key,merchant_id, status, email,featured, username_search, onlinebooking', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,8 +97,9 @@ class Users extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
+//                $criteria->together = true;
+                $criteria->with = array( 'userdetail' );
+                $criteria->compare('id',$this->id);
 		$criteria->compare('mas_role_id',$this->mas_role_id);
 		$criteria->compare('merchant_id',$this->merchant_id);
 		$criteria->compare('username',$this->username,true);
@@ -104,9 +107,19 @@ class Users extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('activation_key',$this->activation_key,true);
 		$criteria->compare('status',$this->status,true);
-
+                $criteria->compare( 'userdetail.name', $this->username_search, true );
+                
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+                    'sort'=>array(
+        'attributes'=>array(
+            'username_search'=>array(
+                'asc'=>'userdetail.name',
+                'desc'=>'userdetail.name DESC',
+            ),
+            '*',
+        ),
+    ),
 		));
 	}
 	
@@ -120,4 +133,30 @@ class Users extends CActiveRecord
                         'pagination'=>array('pageSize'=>30),
 		));
 	}
+//        public function afterFind()
+//    {
+//        //reset the password to null because we don't want the hash to be shown.
+////        $this->initialPassword = $this->password;
+//        $this->password = null;
+// 
+//        parent::afterFind();
+//    }
+//     public function saveModel($data=array())
+//    {
+//            //because the hashes needs to match
+//            if(!empty($data['password']))
+//            {
+//                $data['password'] = Yii::app()->user->MD5($data['password']);
+//                //$data['repeat_password'] = Yii::app()->user->hashPassword($data['repeat_password']);
+//            }
+// 
+//            $this->attributes=$data;
+// 
+//            if(!$this->save())
+//                return CHtml::errorSummary($this);
+// 
+//         return true;
+//    }
+ 
+
 }
