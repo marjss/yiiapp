@@ -108,9 +108,9 @@ class Citylist extends CActiveRecord
 	}
         public function getCityuserDropDown()
 	{
-		$query = "SELECT c.city_name FROM dt_citylist as c, dt_user_details as ud order by city_name";
-		$locations = Citylist::model()->findAllBySql($query);
-		$data['locations'] = CHtml::listData($locations, 'city_name', 'city_name');
+//		$query = "SELECT c.city_name FROM dt_citylist as c, dt_user_details as ud order by city_name";
+//		$locations = Citylist::model()->findAllBySql($query);
+		$data['locations'] = CHtml::listData(Citylist::model()->findAll(array('order'=>'city_name')), 'city_name', 'city_name');
 		return $data['locations'];
 	}
         public function getCitylist($city)
