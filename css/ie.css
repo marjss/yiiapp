@@ -1,3 +1,11 @@
 .mid-button a{behavior: url(js/PIE.htc);  border-radius: 10px 10px 10px 10px;}
 .manu ul li a:hover{ padding:24px 24px 14px; background:url(../images/hover.png) no-repeat bottom; color:#EC008C;}
 .footer-outer{behavior: url(js/PIE.htc);background:#252525; height:45px; width:100%;}
+.cal-icon { margin:12px 0 0 -30px;}
+.left-date-block {margin: 18px 0 0;}
+.manu {margin-top: 56px;}
+#merchant-setting-form form a {background: none repeat scroll 0 0 #EC008C;border: medium none;border-radius: 5px 5px 5px 5px;color: #FFFFFF;cursor: pointer;font-family: 'BebasNeue';font-size: 20px;letter-spacing: 2px;padding:5px 10px 2px; }
+#merchant-setting-form form input[type="submit"] {background: none repeat scroll 0 0 #EC008C;border: medium none;border-radius: 5px 5px 5px 5px;color: #FFFFFF;cursor: pointer;font-family: 'BebasNeue';font-size: 20px;letter-spacing: 2px;padding: 5px 10px 2px; }
+.exportrep input{ line-height:14px;}
+.top-right { width:  420px;
+}

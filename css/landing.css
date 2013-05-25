@@ -35,7 +35,7 @@ a:hover{ color:#EC008C}
 		}
 header {}
 .warrper{ margin:auto;width:1000px;}
-.logo{padding:5px 0 0; float:left;}
+.logo1{padding:5px 0 0; float:left;}
 .top{width:100%;}
 .top-right{padding:20px 0 0; float:right;}
 .top-right ul{ margin:0; padding:0;}
@@ -220,23 +220,23 @@ textarea {
 .landing_header{ clear:both; width:100%; display:block; position:relative; z-index:0; background-color:#fff; border:solid 1px #dadada; position:relative; top:-4px; margin-bottom:-4px;
 border-bottom-right-radius: 15px;
 border-bottom-left-radius: 15px;} 
-.landing_header .blk{  width:944px; margin:0 auto; clear:both; display:block;}
-.landing_header .blk h1 a{   color: #000000;
+.landing_header .blk{  width:944px; margin:0 auto; clear:both; display:block;text-align: center;}
+.landing_header .blk h1 {   color: #000000;
     display: inline-block;
-    float: left;
-    font-size: 42px;
+    /*float: left;*/
+    font-size: 25px;
     font-weight: 700;
-    margin-top: 12px;
+    margin-top: 20px;
     padding-bottom: 12px;
     padding-top: 7px;
     text-decoration: none;}
-.landing_header .blk .logo{padding-bottom:15px; float:right; padding-top:15px; display:inline-block;}
+.landing_header .blk .logo1{padding-bottom:15px; float:left; padding-top:15px; display:inline-block;}
 
 
 .landing_page{ clear:both; display:block; width:1000px; padding-top:7px;}
 .landing_page_left{ float:left; display:block; width:495px; margin-right:10px; padding-bottom:10px;}  
 .landing_page_left:last-child{ margin-right:0px;}
-.landing_left{ background-color:#fff; border:solid 1px #d5d5d5; clear:both; border-radius: 15px; display:block; min-height: 440px;}
+.landing_left{ background-color:#fff; border:solid 1px #d5d5d5; clear:both; border-radius: 15px; display:block; min-height: 450px;}
 
 .landing_leftblk{ width:440px; clear:both; display:block; padding:27px; padding-bottom:15px;}
 .landing_leftblk .button{  
@@ -285,7 +285,11 @@ border-bottom-left-radius: 15px;}
     font-size: 21px; font-family: 'Conv_avenirltstd-heavy';
     font-weight: 700;
     padding-bottom: 5px; color:#f10c82;}
-.landing_leftbgblk h2 img{ float:left; display:inline-block; margin-right:10px;}
+.landing_leftbgblk h2 img{ 
+    display:inline-block; 
+    /*margin-right:10px;
+    float:left;*/ 
+}
 
 
 .landing_left_shadow{ background-image:url(../images/shadow_left.jpg); width:494px; height:11px; clear:both; display:block;}
@@ -312,7 +316,7 @@ border-bottom-left-radius: 15px;}
 .shadetabs li{  border-right: 1px solid #F991C7;
     display: block;
     float: left;}
-.shadetabs li:last-child{ border:none;}
+/*.shadetabs li:last-child{ border:none;}*/
 .shadetabs li a{     color: #FFFFFF;
     display: inline-block;
     font-family: 'Conv_avenirltstd-heavy' !important;
@@ -465,27 +469,27 @@ border-top-right-radius: 15px;}
 .deals .valid{text-align: left;margin-left: 10px;}
 /******* Shop Deals Tab Style Ends**********/
 /******** Shop Menu Tab Style************/
-.merchant-services .mservices{}
-.merchant-services .mservices .category-service{ background: none repeat scroll 0 0 #CCCCCC;  border-radius: 4px 4px 4px 4px;  font-weight: bold;  padding: 4px 0 4px 13px; margin: 5px 0;}
-.merchant-services .mservices ul{ list-style: none outside none;  margin: 0; padding: 0 0 0 13px;}
-.merchant-services .mservices ul li{ display: inline-block;  margin: 5px 13px 0 0;  padding: 5px;  width: 211px; height: 32px;}
-.mservices ul li .service-label{ float: left;  padding-right: 5px; width: 173px;}
-.mservices ul li .service-input{ float: right; width: 25px;}
+.merchant-services1 .mservices1{}
+.merchant-services1 .mservices1 .category-service1{ background: none repeat scroll 0 0 #CCCCCC;  border-radius: 4px 4px 4px 4px;  font-weight: bold;  padding: 4px 0 4px 13px; margin: 5px 0;}
+.merchant-services1 .mservices1 ul{ list-style: none outside none;  margin: 0; padding: 0 0 0 13px;}
+.merchant-services1 .mservices1 ul li{ display: inline-block;  margin: 5px 13px 0 0;  padding: 5px;  width: 211px; height: 32px;font-size: 13px;}
+.mservices1 ul li .service-label1{ float: left;  padding-right: 5px; width: 173px;}
+.mservices1 ul li .service-input1{ float: right; width: 25px;}
 /*.mservices ul li:hover{ background: #828282; border-radius: 4px; }
 .mservices ul li:hover .service-label span.service-detail{ color: #FFF;}*/
-.mservices ul li.setected{  background: #828282; border-radius: 4px; }
+.mservices1 ul li.setected1{  background: #828282; border-radius: 4px; }
 .clear{ clear: both;}
-.merchant-services .ui-widget-header{ margin: 0 0 11px;  padding: 5px 5px 5px 8px;}
-.merchant-services .ui-widget-header ul li{ float: left; width: 100px;}
-.merchant-services .ui-widget-header ul li span{ display: inline-block;}
-.merchant-services .ui-widget-header ul li span.ui-icon-closethick{ background-position: -98px -125px;}
-.merchant-services .ui-widget-header ul li span.ui-icon-check{ background-position: -66px -142px;}
-.merchant-services .ui-widget-header ul li.ui-multiselect-close{ float: right; text-align: right;}
-a#service-select{ background: #FFFFFF; border: 1px solid #CCCCCC;  border-radius: 4px 4px 4px 4px;   display: block;   padding: 4px 0 5px 6px;  text-align: left;  width: 198px}
-a#service-select span{ background: url("../images/ui-icons_888888_256x240.png") no-repeat -64px 0px #FFFFFF;  display: inline-block;float: right;height: 17px;margin-right: 5px;width: 17px;}
-.service-label spanservice{ display: block;}
-.service-label span.service-detail{ display: block; font-size: 9px; color: #252525;}
-.service-done{background: none repeat scroll 0 0 #252525;border-radius: 5px 5px 5px 5px;color: #FFFFFF;height: 20px;text-align: center;width: 50px;}
+.merchant-services1 .ui-widget-header{ margin: 0 0 11px;  padding: 5px 5px 5px 8px;}
+.merchant-services1 .ui-widget-header ul li{ float: left; width: 100px;}
+.merchant-services1 .ui-widget-header ul li span{ display: inline-block;}
+.merchant-services1 .ui-widget-header ul li span.ui-icon-closethick{ background-position: -98px -125px;}
+.merchant-services1 .ui-widget-header ul li span.ui-icon-check{ background-position: -66px -142px;}
+.merchant-services1 .ui-widget-header ul li.ui-multiselect-close{ float: right; text-align: right;}
+a#service-select1{ background: #FFFFFF; border: 1px solid #CCCCCC;  border-radius: 4px 4px 4px 4px;   display: block;   padding: 4px 0 5px 6px;  text-align: left;  width: 198px}
+a#service-select1 span{ background: url("../images/ui-icons_888888_256x240.png") no-repeat -64px 0px #FFFFFF;  display: inline-block;float: right;height: 17px;margin-right: 5px;width: 17px;}
+.service-label1 spanservice1{ display: block;}
+.service-label1 span.service-detail1{ display: block; font-size: 9px; color: #252525;}
+.service-done1{background: none repeat scroll 0 0 #252525;border-radius: 5px 5px 5px 5px;color: #FFFFFF;height: 20px;text-align: center;width: 50px;}
 /******** Shop Menu Tab Style Ends************/	
 /******** Shop Review Tab Style************/
 #country2 input[type=button]{ background: none repeat scroll 0 0 #EC008C ;border: medium none ;border-radius: 5px 5px 5px 5px ;color:#FFFFFF;cursor:pointer;font-family:'BebasNeue';font-size:20px;letter-spacing: 2px;margin-left:110px;padding: 3px 13px;text-align: center;float:right;    }
@@ -497,3 +501,20 @@ a#service-select span{ background: url("../images/ui-icons_888888_256x240.png") 
 .review{text-align:left;margin-left: 10px;margin-top: 10px;}
 .errorMessagerev{color:red;margin-bottom:13px;margin-top:-15px;}
 /******** Shop Review Tab Style Ends************/
+#conteent .add-block{
+    width:874px !important;
+}
+.appbook{
+   float: left !important;
+}
+.powered{
+      display: inline-block;
+    float: right;
+    margin: 16px 0 0;
+}
+#contacts{
+    display: none;
+}
+#reviewform{
+    display: none;
+}

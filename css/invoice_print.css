@@ -1,0 +1,35 @@
+/* -----------------------------------------------------------------------
+
+
+ Blueprint CSS Framework 1.0.1
+ http://blueprintcss.org
+
+   * Copyright (c) 2007-Present. See LICENSE for more info.
+   * See README for instructions on how to use Blueprint.
+   * For credits and origins, see AUTHORS.
+   * This is a compressed file. See the sources in the 'src' directory.
+
+----------------------------------------------------------------------- */
+
+/* print.css */
+body {line-height:1.5;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;color:#000;background:none;font-size:10pt;}
+.container {background:none;}
+
+#dynatable{
+    width: 100%;
+    
+}
+#dynatable tr:first-child{
+    width: 50%;
+    
+}
+.remove { 
+    display: none;
+}
+.WebRupee{
+    font-family: 'Ariel';
+}
+span.taxspan{
+    display: inline-block;
+}
+#tax , #vat {display: none;}

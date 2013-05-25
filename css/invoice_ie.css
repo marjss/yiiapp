@@ -1,0 +1,4 @@
+.gradient { filter: none; }
+.popup-content button.buttons,.popup-content input.totbut:hover, .done:hover, .lowerbutton .print:hover, .lowerbutton .cancel:hover{filter:none;}
+.popup-content input.totbut{filter:none;}
+.popup-content input.textbox{filter:none;}
