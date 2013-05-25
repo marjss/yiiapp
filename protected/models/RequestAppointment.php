@@ -20,12 +20,12 @@ class RequestAppointment extends CFormModel
 	{
 		return array(
 			// name, email, subject and body are required
-			array('name, email, subject, body,mobileno, date', 'required'),
+			array('name, email, mobileno, date', 'required'),
 			// email has to be a valid email address
 			array('email', 'email'),
-			array('subject','checsubject'),
+//			array('subject','checsubject'),
 			array('name','checname'),
-			array('body','checbody'),
+//			array('body','checbody'),
                         array('date','checdate'),
 			array('mobileno','checkmobile'),
 
@@ -68,7 +68,7 @@ class RequestAppointment extends CFormModel
 		}
 		
 	}
-	public function checbody($attribute,$params)
+	/*public function checbody($attribute,$params)
 	{
 		
 		if($this->body === 'Message')
@@ -76,7 +76,7 @@ class RequestAppointment extends CFormModel
 			$this->addError($attribute, 'Message can not be blank.');
 		}
 		
-	}
+	}*/
         public function checdate($attribute,$params)
 	{
 		
