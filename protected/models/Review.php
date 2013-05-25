@@ -50,8 +50,8 @@ class Review extends CActiveRecord
 			array('date', 'safe'),
                         array('email', 'email'),
                         array('name','checname'),
-                    array('review','checreview'),
-			// The following rule is used by search().
+                        array('review','checreview'),
+                   	// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, merchant_id, name, email, mobile, website, review, avtar, date, status', 'safe', 'on'=>'search'),
 		);
@@ -108,9 +108,33 @@ class Review extends CActiveRecord
 		$criteria->compare('avtar',$this->avtar,true);
 		$criteria->compare('date',$this->date,true);
 		$criteria->compare('status',$this->status);
-
+               
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+                    'pagination'=>array(
+                        'pageSize'=>6,
+                    ),
+		));
+	}
+        public function newsearch(){
+                $id= Yii::app()->user->id;
+                $criteria=new CDbCriteria;
+                $criteria->compare('id',$this->id);
+		$criteria->compare('merchant_id',$id);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('mobile',$this->mobile);
+		$criteria->compare('website',$this->website,true);
+		$criteria->compare('review',$this->review,true);
+		$criteria->compare('avtar',$this->avtar,true);
+		$criteria->compare('date',$this->date,true);
+		$criteria->compare('status',$this->status);
+               
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                    'pagination'=>array(
+                        'pageSize'=>10,
+                    ),
 		));
 	}
         public function checname($attribute,$params)
