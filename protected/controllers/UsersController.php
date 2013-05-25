@@ -34,7 +34,7 @@ class UsersController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('ChangePassword','Appointment', 'Bookappointment', 'Deleteappointment','findCustomerinfo','Settings','Offers','description','Account','Plans','Deleteavtar','Gettime','feedback'),
+				'actions'=>array('ChangePassword','Appointment', 'Bookappointment', 'Deleteappointment','findCustomerinfo','Settings','Offers','description','Account','Plans','Deleteavtar','Gettime','feedback','Cancelbill','Confirmbill','stock'),
 				'users'=>array('@'),
 				//'redirect'=>Yii::app()->params['loginUrl'],
 			),
@@ -362,10 +362,10 @@ class UsersController extends Controller
 			if($model->validate()){
 				$email = $_POST['Forgotpass']['email'];
                                 
-				$record=Users::model()->findByAttributes(array('email'=>$email));
+				$record=Users::model()->findByAttributes(array('email'=>$email,'status'=>1));
 				if($record==null)
 				{
-					$model->addError('email','Invalid email address.');
+					$model->addError('email','Invalid email address or your account is deactivated.');
 				}
 				else
 				{
@@ -519,9 +519,7 @@ class UsersController extends Controller
                     //Avtar image manipulation
                     $avtarimage = $usermodel->avtar;
                     $usermodel->attributes = $_POST['UserDetails'];
-                    echo '<pre>';
-                    print_r( $_POST['UserDetails']);
-                    echo '</pre>';die;
+//                   
 			if($_FILES['UserDetails']['name']['avtar'] != '')
 			{ 
                             $usermodel->avtar = CUploadedFile::getInstanceByName('UserDetails[avtar]');
@@ -1380,11 +1378,11 @@ class UsersController extends Controller
                         Slot: ".date('h:i A',$_POST['starttime'])."-".date('h:i A',$_POST['endtime']).".
                         Stylist: ".$customer_order->seat->name.". \n Thank you.";
 //                echo $message1;    
-                //$model->sendSms($customer_order->customer_contact_no,$message1);
+//                $model->sendSms($customer_order->customer_contact_no,$message1);
                
                     
                }
-               if($_POST['smsemail'] != 'email'){
+               if($_POST['customer_email'] && $_POST['smsemail'] == 'email'){
 						  
 							$usercustomer				=	Users::model()->findByPk(Yii::app()->user->id);
 							$customerdetail			=	UserDetails::model()->findByAttributes(
@@ -1412,7 +1410,32 @@ class UsersController extends Controller
 							$message->from				= 	$usercustomer->email;
 							Yii::app()->mail->send($message);
 					}
-                
+                if($_POST['customerid'] && $customer->email ){
+                                                        $usercustomer		=	Users::model()->findByPk(Yii::app()->user->id);
+							$customerdetail		=	UserDetails::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
+							$message 		=  new YiiMailMessage;
+							$model_emailtemplate	=	Emailtemplate::model()->findByPk(1);
+							$body			=	$model_emailtemplate->body;
+							$body			=	str_replace('$CustomerName', $customer->name, $body);
+							$create_body		=	'
+																 <div>Your appointment with '.$customerdetail->name.' has been confirmed.</div>
+																 <br />
+																 <div>Here are the details: </div>
+																 <div>Date: '.date('Y-m-d',$_POST['starttime']).'</div>
+																 <div>Time: '.date('h:i A',$_POST['starttime']).'-'.date('h:i A',$_POST['endtime']).' </div>
+																 <div>Stylist: '.$customer_order->seat->name.' </div>
+																 <br />
+																 <div>For any further assistance, please reply to this email or call us at '.$customerdetail->mobile_no.'.</div>
+																 ';
+							$body							=	str_replace('$body', $create_body, $body);
+							$body							=	str_replace('$SalonName', $customerdetail->name, $body);
+							$message->setBody($body, 'text/html');
+							$message->subject 			= 'Appointment confirmed with '.$customerdetail->name;
+							$message->to 				=  $customer->email;
+							$message->from				= 	$usercustomer->email;
+							Yii::app()->mail->send($message);
+                    
+                }
 					$services =$_POST['slctd_services'];
                                 	$x = explode(',',$services);
 					$y = "'" . implode("','", $x) . "'"; 
@@ -1641,6 +1664,16 @@ class UsersController extends Controller
                     );
         }
         /**
+         * Manage merchant settings and tax rates
+         */
+        public function actionTax()
+        {
+            $id= Yii::app()->user->id;
+            $model = new MerchantSettings;
+            
+        }
+        
+        /**
          * Manage the user account
          */
 	public function actionAccount()
@@ -1648,8 +1681,9 @@ class UsersController extends Controller
             $id= Yii::app()->user->id;
 //            echo $id;die;
 		$this->layout 	= 	'front_layout';
-		$model 			= 	UserDetails::model()->findByAttributes(array('user_id'=>$id));
+		$model 		= 	UserDetails::model()->findByAttributes(array('user_id'=>$id));
                 $user = Users::model()->findByPk($id);
+                $tax= new MerchantSettings;
                 $planmodel= new Pricingplansusers;
 //                $planmodel= Pricingplansusers::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
 		// Uncomment the following line if AJAX validation is needed
@@ -1687,7 +1721,21 @@ class UsersController extends Controller
 			{
 				$model->avtar = $avtarimage;
 			}
-                        
+                        if(isset($_POST['MerchantSettings'])){
+                            $tax = MerchantSettings::model()->findByAttributes(array('user_id'=>$id));
+                            if($tax){
+                                $tax->attributes = $_POST['MerchantSettings'];
+                                $tax->setAttribute('user_id',$id);
+                                $tax->setAttribute('status',1);
+                            }else{
+                            $tax = new MerchantSettings; 
+                            $tax->attributes = $_POST['MerchantSettings'];
+                            $tax->setAttribute('user_id',$id);
+                            $tax->setAttribute('status',1);
+                              
+                            }
+                            $tax->save();  
+                        }
                        /* if(isset($_POST['Pricingplansusers'])){
                             $planmodel= Pricingplansusers::model()->findByAttributes(array('user_id'=>$id));
                             if($planmodel!=''){
@@ -1723,7 +1771,7 @@ class UsersController extends Controller
                                 }
 		}
 
-		$this->render('account',array('model'=>$model,'user'=>$user,'planmodel'=>$planmodel));
+		$this->render('account',array('model'=>$model,'user'=>$user,'planmodel'=>$planmodel,'tax'=>$tax));
 	}
         /**
          * Delete the avtar image from the salon account{Sudhanshu}
@@ -1753,6 +1801,9 @@ class UsersController extends Controller
 			Yii::app()->end();
          
         }
+         /**
+         * Sends  Email by Admin on Plan change or updation Marked via Admin panel.{Sudhanshu}
+         */
         public function actionChangeplan($id){
             $planval = $_GET['plan'];
             $plan = Pricingplans::model()->findByPk($planval);
@@ -1776,9 +1827,7 @@ class UsersController extends Controller
 			<div>For any further assistance, please reply to this email.</div>';
             $body=str_replace('$body', $create_body, $body);
             $body=str_replace('$SalonName', 'Admin', $body);
-//            print_r($body);die;
             $message->setBody($body, 'text/html');
-            
             $message->subject= 'Your Salon Chimp '.$plan->name.' Plan confirmation mail';
             $message->to=$user->email;
             $message->from=$settings->value;
@@ -1811,5 +1860,91 @@ class UsersController extends Controller
                     echo CJavaScript::jsonEncode($data);
                     Yii::app()->end();
         }
+        /**
+         *Cancell action of the Invoice by merchant on Appointment completion or updation Marked via App Book.{Sudhanshu}
+         */
+        public function actionCancelbill(){
+                  $this->layout = false;
+                       
+                    $order2 = Customerorders::model()->updateByPk($_POST['orderid'],array('status'=>1));
+                    $order= Customerorders::model()->findByPk($_POST['orderid']);
+                    $salon= UserDetails::model()->findByAttributes(array('user_id'=>$order->merchant_id));
+                    $details = new Orderdetails;
+                    $mobileno = $order->customer_contact_no;
+                    $message = 'Dear '.$order->customer_name.",\n Thank you for your visit at ".$salon->name." Salon. We have sent you a mail for your feedback and suggestions to help us improve our services\nBy, \n".$salon->name;
+                    //$details->sendSms($mobileno, $message);
+                    //$details->sendEmailfeedback($_POST['orderid']);
+                    $crit = new CDbCriteria;
+                    $crit->condition = "customer_order_id  = '".$_POST['orderid']."'";
+                    $orderdetails = Orderdetails::model()->findAll($crit);
+                    $totaltime  = 0;
+                    foreach($orderdetails as $od){
+                            $totaltime += $od->service_duration;
+                    }
+                    $data['result'] 	= 'success';
+                    $data['completeid']	= $_POST['completeid']	;
+                    $data['totaltime']	=$totaltime;
+                    echo CJavaScript::jsonEncode($data);
+                    Yii::app()->end();
+        }
+        /**
+         * Credit the stock with the post quantities and save the remaining stock
+         */
+        public function actionStock(){
+            $merchant_id= Yii::app()->user->id;
+            $itemid= explode(',',$_POST['serials']);
+            $itemstock= explode(',',$_POST['multipliers']);
+            $result = array_combine($itemid,$itemstock);  
+            foreach($result as $itemid => $itemstock)  {
+                $pro = Merservices::model()->findByPk($itemid);
+                            if($pro->isproduct){
+                               $pro->stock -= $itemstock ;
+                                if($pro->save()){echo'success';}else{echo 'fail';}
+                            }
+            }
+        }
        
+       /**
+         *Cancell action of the Invoice by merchant on Appointment completion or updation Marked via App Book.{Sudhanshu}
+         */
+        public function actionconfirmbill(){
+                  $this->layout = false;
+                  $merchant_id= Yii::app()->user->id;
+                  $orders= Customerorders::model()->findByPk($_POST['orderid']);
+                    $customer_id= $orders->customer_id;
+                  if($_POST['serials']){
+                    $itemid= explode(',',$_POST['serials']);
+                    $crit = new CDbCriteria;
+                    $crit->condition = "customer_order_id  = '".$_POST['orderid']."'";
+                    $orderdetails =  CustomerInvoice::model()->deleteAll($crit);
+                    $totaltime  = 0;
+                    
+                     if (!empty($itemid)) {
+			$out = array();
+			foreach ($itemid as $itemstock=>$item) {
+                            $pro = Merservices::model()->findByPk($item);
+                             $order = new CustomerInvoice;
+                             $order->customer_order_id = $_POST['orderid'];
+                             $order->service_id = $pro->id;
+                             $order->service_name = $pro->name;
+                             $order->service_price = $pro->price;
+                             $order->service_duration = $pro->duration;
+                             $order->customer_id = $customer_id ;
+                             $order->merchant_id = $merchant_id ;
+                             $order->save();
+                            $out[] = array(
+				'label' => $pro->name,  
+				'value' => $pro->name,
+				'id' => $pro->id,
+                                'price'=>$pro->price,
+                                'duration'=>$pro->duration,
+				
+			    );
+			}
+                       echo CJSON::encode($out);
+			Yii::app()->end();
+		    }
+                     }
+        
+        }
 }
