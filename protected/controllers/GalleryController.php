@@ -67,11 +67,12 @@ class GalleryController extends Controller
                 $id= Yii::app()->user->id;
                 $user= Users::model()->findByPk($id);
                 // Uncomment the following line if AJAX validation is needed
-//		$this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
                if(!isset($_GET['ajax']))
 		{
                     
 			$model->attributes=$_POST['Photo'];
+                        $rand= rand(1,505050);
 			$images = CUploadedFile::getInstancesByName('image');
 			if(isset($images) && count($images)> 0) 
 			{  
@@ -83,11 +84,11 @@ class GalleryController extends Controller
                                     if (!file_exists($path) && is_writeable($pathrel)) {
                                        mkdir(Yii::getPathOfAlias('webroot').'/gallery/'.$user->username, 0777);
                                    }
-                    			if ($pic->saveAs(Yii::getPathOfAlias('webroot').'/gallery/'.$user->username.'/'.$pic->name)) 	
+                    			if ($pic->saveAs(Yii::getPathOfAlias('webroot').'/gallery/'.$user->username.'/'.$rand.'_'.$pic->name)) 	
 					{	
 						$model->setIsNewRecord(true);
 						$model->id = null;
-                        			$model->image = $pic->name;
+                        			$model->image = $rand.'_'.$pic->name;
                                                 $model->setAttribute('user_id',$id);
                                                 $model->setAttribute('description',$_POST['Gallery']['description']);
                     	 			$model->save();
@@ -112,9 +113,9 @@ class GalleryController extends Controller
 
                         }else{
                
-		$this->render('create',array(
-			'model'=>$model,
-		));
+//		$this->render('create',array(
+//			'model'=>$model,
+//		));
                 }
             }
 
@@ -160,6 +161,7 @@ class GalleryController extends Controller
                 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
+                   
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
                 }
         
