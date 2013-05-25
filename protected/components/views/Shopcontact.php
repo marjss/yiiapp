@@ -28,25 +28,26 @@
             ),
 
     )); ?>
-<?php  echo $form->errorSummary($model); ?>
+<?php echo $form->errorSummary($model); ?>
        
 	<div class="row">
 		<?php echo $form->textField($model,'name',array('value'=>'Name','id'=>'contactname' , 'onblur'=>"if(this.value==''){this.value='Name'}", 'onclick'=>"if(this.value=='Name'){this.value=''}")); ?>
                 <?php echo $form->error($model,'name'); ?>
 	</div>
-        <div class="row">
-		<?php echo $form->textField($model,'mobileno', array('value'=>'Mobile No','id'=>'mobileno', 'onblur'=>"if(this.value==''){this.value='Mobile No'}", 'onclick'=>"if(this.value=='Mobile No'){this.value=''}")); ?>
-                <?php echo $form->error($model,'mobileno'); ?>
-	</div>
+
 	<div class="row">
 		<?php echo $form->textField($model,'email',array('value'=>'Email','id'=>'contactemail' , 'onblur'=>"if(this.value==''){this.value='Email'}", 'onclick'=>"if(this.value=='Email'){this.value=''}")); ?>
                 <?php echo $form->error($model,'email'); ?>
 	</div>
 
-	 <div class="row">
-		<?php echo $form->textField($model,'subject', array('value'=>'Subject','id'=>'subject', 'onblur'=>"if(this.value==''){this.value='Subject'}", 'onclick'=>"if(this.value=='Subject'){this.value=''}")); ?>
-                <?php echo $form->error($model,'subject'); ?>
+	<div class="row">
+		<?php echo $form->textField($model,'mobileno', array('value'=>'Mobile No','id'=>'mobileno', 'onblur'=>"if(this.value==''){this.value='Mobile No'}", 'onclick'=>"if(this.value=='Mobile No'){this.value=''}")); ?>
+                <?php echo $form->error($model,'mobileno'); ?>
 	</div>
+<!--	 <div class="row">
+		<?php //echo $form->textField($model,'subject', array('value'=>'Subject','id'=>'subject', 'onblur'=>"if(this.value==''){this.value='Subject'}", 'onclick'=>"if(this.value=='Subject'){this.value=''}")); ?>
+                <?php //echo $form->error($model,'subject'); ?>
+	</div>-->
         
         
         
@@ -127,20 +128,23 @@
 		<?php echo  CHtml::ajaxSubmitButton(
 //                                    'Confirm Appointment',
                                 'Request',
-                                CHtml::normalizeUrl(array('site/ajaxRequestAppointment')),
+                                CHtml::normalizeUrl(array('site/AjaxRequestAppointment')),
                                 array(
                                     'beforeSend'=>'function(){
-                                        $("#update_info").replaceWith("<p id=\"update_info\">sending...</p>");
+                                        $("#update_info").replaceWith("<div id=\"update_info\"><img src=\"/images/loading.gif\"></div>");
                                     }',
                                     'success'=>'function(data){
                                         if(data=="sent"){
                                             $("#div_com_form").hide();
-                                            $("#update_info").replaceWith("<p id=\"update_info\"><h3 class=\"spa-name\">Thank you</h3>Request has been sent successfully. </p>");
+                                            $("#update_info").replaceWith("<div id=\"update_info\"><h3 class=\"spa-name\">Thank you</h3>Request has been sent successfully. </div>");
                                         }else if(data=="fail"){
                                             $("#div_com_form").hide();
-                                            $("#update_info").replaceWith("<p id=\"update_info\">An error occured</p>");
+                                            $("#update_info").replaceWith("<div id=\"update_info\">An error occured</div>");
                                         }else{
-                                            $("#update_info").replaceWith("<p id=\"update_info\">&nbsp;</p>");
+                                            $("#update_info").replaceWith("<div id=\"update_info\">&nbsp;</div>");
+                                            if(data.search("Please enter a valid number.")!=-1){
+                                                $("#ContactForm_mobileno_em_").replaceWith("<div id=\"ContactForm_mobileno_em_\" class=\"errorMessage\" style=\"\">Mobile must be integer.</div>");
+                                            }
                                             if(data.search("Mobile cannot be blank.")!=-1){
                                                 $("#ContactForm_mobileno_em_").replaceWith("<div id=\"ContactForm_mobileno_em_\" class=\"errorMessage\" style=\"\">Mobile cannot be blank.</div>");
                                             }
@@ -177,4 +181,49 @@
     
     </div><!-- form -->
 </div>
+<script>
+    $(document).ready(function() 
+    { 
+        $('#contactname').change(function(){
+            if($('#contact').val != 'name'){
+                $('#ContactForm_name_em_').css('display','none');
+            }
+            
+        });
+        $('#contactemail').change(function(){
+            if($('#contactemail').val != 'Email'){
+                $('#Comment_email_em_').css('display','none');
+            }
+            
+        });
+         $('#mobileno').change(function(){
+            if($('#mobileno').val != 'Mobile No'){
+               
+                if($('#mobileno').val().length >= 10){
+                   var a = $('#mobileno').val() ;
+                   var filter = /^[0-9-+]+$/;
+                       if (filter.test(a)) {
+                            $('#ContactForm_mobileno_em_').css('display','none');
+                            $('.send').css('display','block');
+                    }else{
+                        $('#ContactForm_mobileno_em_').html('Please enter a valid mobile number');
+                        $('.send').css('display','none');
+                        }
+                            }else{ 
+                                $('#ContactForm_mobileno_em_').css('display','block');
+                                $('.send').css('display','none');
+                                $('#ContactForm_mobileno_em_').html('Please enter a valid mobile number');
+                                return false;
+                            }
+                    }else{
+                        return false;}
+                });
+                $('#ContactForm_date').change(function(){
+            if($('#ContactForm_date').val != 'Date'){
+                $('#ContactForm_date_em_').css('display','none');
+            }
+            
+        });
+    });
+</script>
 <?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
