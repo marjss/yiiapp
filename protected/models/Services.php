@@ -5,10 +5,12 @@
  *
  * The followings are the available columns in table 'dt_services':
  * @property integer $id
+ * @property integer $cat_id
  * @property string $name
  * @property string $description
  * @property integer $price
  * @property integer $duration
+ * @property integer $isproduct
  */
 class Services extends CActiveRecord
 {
@@ -39,10 +41,10 @@ class Services extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('price, duration, name, cat_id', 'required'),
-			array('price, duration', 'numerical', 'integerOnly'=>true),
+			array('price, name, cat_id', 'required'),
+			array('price, duration,isproduct', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
-			array('description', 'safe'),
+			array('description,isproduct,duration', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, description, price, duration, cat_id', 'safe', 'on'=>'search'),
@@ -73,6 +75,7 @@ class Services extends CActiveRecord
 			'description' => 'Description',
 			'price' => 'Price',
 			'duration' => 'Duration',
+                        'isproduct' => 'Product',
 		);
 	}
 
@@ -87,13 +90,13 @@ class Services extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 		$criteria->with=array('catservice');
-		$criteria->compare( 'cat_id', $this->cat_id, true );
+		$criteria->compare( 'cat_id', $this->cat_id );
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('t.description',$this->description,true);
 		$criteria->compare('price',$this->price);
 		$criteria->compare('duration',$this->duration);
-
+                $criteria->compare('isproduct',$this->isproduct);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
