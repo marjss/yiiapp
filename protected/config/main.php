@@ -6,6 +6,7 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 //ini_set("session.cookie_domain", ".salonchimp.com");
+
 Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
@@ -23,7 +24,8 @@ return array(
                 'ext.EchMultiSelect.EchMultiSelect',
                 'ext..qtip.QTip.*',
                 'application.extensions.*',
-      'application.extensions.crontab.*',
+                'application.extensions.crontab.*',
+//                'application.components.CDataProviderIterator',
                 /*'application.modules.cal.models.*',
                 'application.modules.cal.components.*',
                 'application.modules.cal.controllers.*',
@@ -54,14 +56,33 @@ return array(
 	'components'=>array(
             'bootstrap' => array(
 	    'class' => 'ext.bootstrap.components.Bootstrap',
-	    'responsiveCss' => false,
-                'coreCss' => false,
+//	    'responsiveCss' => false,
+//                'coreCss' => true,
+//                'ajaxCssImport' => true,
 	),
-            'session'=>array(
-            'class' => 'CDbHttpSession',
-            'connectionID' => 'db',
-            'sessionTableName' => 'dbsession',
-        ),
+//            'facebook'=>array(
+//                'class' => 'ext.yii-facebook-opengraph.SFacebook',
+//                'appId'=>'163229043837236', // needed for JS SDK, Social Plugins and PHP SDK
+//                'secret'=>'a89a8a4ada197a613b32bf48a40af218', // needed for the PHP SDK
+//                //'fileUpload'=>false, // needed to support API POST requests which send files
+//                //'trustForwarded'=>false, // trust HTTP_X_FORWARDED_* headers ?
+//                //'locale'=>'en_US', // override locale setting (defaults to en_US)
+//                //'jsSdk'=>true, // don't include JS SDK
+//                //'async'=>true, // load JS SDK asynchronously
+//                //'jsCallback'=>false, // declare if you are going to be inserting any JS callbacks to the async JS SDK loader
+//                //'status'=>true, // JS SDK - check login status
+//                //'cookie'=>true, // JS SDK - enable cookies to allow the server to access the session
+//                //'oauth'=>true,  // JS SDK - enable OAuth 2.0
+//                //'xfbml'=>true,  // JS SDK - parse XFBML / html5 Social Plugins
+//                //'frictionlessRequests'=>true, // JS SDK - enable frictionless requests for request dialogs
+//                //'html5'=>true,  // use html5 Social Plugins instead of XFBML
+//                'ogTags'=>array(  // set default OG tags
+//                    'title'=>'MY_WEBSITE_NAME',
+//                    'description'=>'MY_WEBSITE_DESCRIPTION',
+//                    'image'=>'URL_TO_WEBSITE_LOGO',
+//                ),
+//              ),
+//           
             //image extension 
             'image'=>array(
           'class'=>'application.extensions.image.CImageComponent',
@@ -75,10 +96,10 @@ return array(
                 'user'=>array(
                     'class' => 'WebUser',
                     'allowAutoLogin'=>true,
-                    'autoRenewCookie' => true,
-                    'identityCookie' => array('domain' => '.stuffuneedlocal.com'),
-                    'loginUrl'=>'http://sudhanshu.stuffuneedlocal.com/login',
-//                    'loginUrl'=>array('site/login'),
+//                    'autoRenewCookie' => true,
+//                    'identityCookie' => array('domain' => '.stuffuneedlocal.com'),
+//                    'loginUrl'=>'http://sudhanshu.stuffuneedlocal.com/login',
+                    'loginUrl'=>array('site/login'),
 
                     ),
                 
@@ -99,19 +120,27 @@ return array(
                                 'terms'=>'site/terms',
                                 'privacy'=>'site/privacy',
                                 'search'=>'site/searchsalon',
-				'http://<user:\w+>.stuffuneedlocal.com/<controller:\w+>/<id:\d+>/'=>'<controller>/view',
+                                'appointment'=>'users/appointment',
+                                'customers'=>'mercustomers/admin',
+//                                'settings'=>'users/settings',
+                                /*'http://<user:\w+>.stuffuneedlocal.com/<controller:\w+>/<id:\d+>/'=>'<controller>/view',
 				'http://<user:\w+>.stuffuneedlocal.com/<controller:\w+>/<action:\w+>/<id:\d+>/'=>'<controller>/<action>',
 				'http://<user:\w+>.stuffuneedlocal.com/<controller:\w+>/<action:\w+>'=>'<controller>/<action>',      
-                               /* 
+                               */ 
                                 '<controller:\w+>/<id:\d+>/'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>/'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-                               */
+                               
 			),
 		),
+          /*   'session'=>array(
+            'class' => 'CDbHttpSession',
+            'connectionID' => 'db',
+            'sessionTableName' => 'dbsession',
+        ),*/
                 'session' => array(
                         'class' => 'CDbHttpSession',
-                        'cookieParams' => array('domain' => '.stuffuneedlocal.com'),
+//                        'cookieParams' => array('domain' => '.stuffuneedlocal.com'),
                         'timeout' => 3600,
                         'sessionName' => 'session',
                      ),
@@ -144,12 +173,12 @@ return array(
 //					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
+//				// uncomment the following to show log messages on web pages
+//				/*
+//				array(
+//					'class'=>'CWebLogRoute',
+//				),
+//				*/
 			),
 		),
                 
@@ -175,8 +204,8 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'care@salonchimp.com',
       'merchantcontactno' => '+91-96600 38338',
-      'siteUrl'=>'http://sudhanshu.stuffuneedlocal.com',
-            'loginUrl'=>'http://sudhanshu.stuffuneedlocal.com/login',
+//      'siteUrl'=>'http://sudhanshu.stuffuneedlocal.com',
+//            'loginUrl'=>'http://sudhanshu.stuffuneedlocal.com/login',
 //               'loginUrl'=>'http://www.salonchimp.com/site/login'
 	),
 );
