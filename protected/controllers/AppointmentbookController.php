@@ -32,7 +32,7 @@ class AppointmentbookController extends Controller
 				'users'=>array('*'),
 			),*/
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('getservices','getbookedorder','cancelorder','changestatus','getuniqueemail','getuniquemobile'),
+				'actions'=>array('getproducts','getservices','getbookedorder','cancelorder','changestatus','getuniqueemail','getuniquemobile','getinvoice','Products','getmultipro','stockcheck','Appservices'),
 				'users'=>array('@'),
 				'expression'=>'Yii::app()->user->isMerchant()'
 			),
@@ -87,10 +87,170 @@ class AppointmentbookController extends Controller
 		echo $content;
 		exit;
 	}
-	
-	
+        /**
+         * function to check the product is out of stock or not. return boolean true/false {Sudhanshu}
+         */
+        public function actionStockcheck(){
+            if($_POST['id']){
+                $id=$_POST['id'];
+                $model = Merservices::model()->findByPk($id);
+                if($model){
+                    if($model->stock <= 0){ echo 'false';}else{echo 'true';}
+		exit;
+                }
+            }
+            
+        }
         
-	
+        /**
+         * Invoice Auto complete fields search function to fetch merchants products and services and return in Json format {Sudhanshu} 
+         */
+	public function actionProducts(){
+		$q = $_GET['term'];
+                $id = Yii::app()->user->id;
+		if (isset($q)) {
+		    $criteria = new CDbCriteria;
+//		    $criteria->compare('name',trim($q));
+                    $criteria->condition='merchant_id='.$id.' AND status = 1 AND name LIKE "%'.trim($q).'%"';
+                    $criteria->distinct = true;
+                    $criteria->group = 'name';
+		    $criteria->limit = 10;
+		    $street = Merservices::model()->findAll($criteria);
+                    
+		    if (!empty($street)) {
+			$out = array();
+			foreach ($street as $c) {
+			    $out[] = array(
+				'label' => $c->name,  
+				'value' => $c->name,
+				'id' => $c->id,
+                                'price'=>$c->price,
+				
+			    );
+			}
+			echo CJSON::encode($out);
+			Yii::app()->end();
+		    }
+		}
+	}
+        /**
+         * App Book Auto complete fields search function to fetch merchants services and return in Json format {Sudhanshu} 
+         */
+	public function actionAppservices(){
+		$q = $_GET['term'];
+                $id = Yii::app()->user->id;
+		if (isset($q)) {
+		    $criteria = new CDbCriteria;
+//		    $criteria->compare('name',trim($q));
+                    $criteria->condition='merchant_id='.$id.' AND status = 1 AND isproduct = 0 AND name LIKE "%'.trim($q).'%"';
+                    $criteria->distinct = true;
+                    $criteria->group = 'name';
+		    $criteria->limit = 10;
+		    $street = Merservices::model()->findAll($criteria);
+                    
+		    if (!empty($street)) {
+			$out = array();
+			foreach ($street as $c) {
+			    $out[] = array(
+				'label' => $c->name,  
+				'value' => $c->name,
+				'id' => $c->id,
+                                'price'=>$c->price,
+				'duration'=>$c->duration,
+			    );
+			}
+			echo CJSON::encode($out);
+			Yii::app()->end();
+		    }
+		}
+	}
+        /**
+         * function to get products quantities and return in Json format{Sudhanshu}
+         */
+         public function actionGetmultiPro(){
+            $id= Yii::app()->user->id;
+            if($_POST['pro_id']){
+            $product = $_POST['pro_id'];
+            $service = Merservices::model()->findBypk($product);
+            $total = $service->price + $subprice;
+             if (!empty($service)) {
+			$out = array();
+                            $out = array(
+				'label' => $service->name,  
+				'value' => $service->name,
+				'id' => $service->id,
+                                'price'=>$service->price,
+				
+			    );
+			echo CJSON::encode($out);
+			Yii::app()->end();
+		    }
+              }
+        }
+       /**
+        * function to fetch the merchant products and services list and return in Json format.{Sudhanshu}
+        */
+        public function actionGetproducts(){
+            $id= Yii::app()->user->id;
+            $product = $_POST['product'];
+            $subprice = $_POST['subprice'];
+            if($_POST['product_id']){
+                $product_id=$_POST['product_id'];
+            $service = Merservices::model()->findByPk($product_id);
+            $total = $service->price + $subprice;
+		    if (!empty($service)) {
+			$out = array();
+                        if($service->isproduct){$out = array(
+				'label' => $service->name,  
+				'value' => $service->name,
+				'id' => $service->id,
+                                'price'=>$service->price,
+				'stock'=>$service->stock,
+			    );}else{
+			    $out = array(
+				'label' => $service->name,  
+				'value' => $service->name,
+				'id' => $service->id,
+                                'price'=>$service->price,
+			    );}
+			echo CJSON::encode($out);
+			Yii::app()->end();
+		    }
+                    
+                    }
+        }
+        /**
+         * function to load the merchants customers invoice in the pop-up.{Sudhanshu}
+         */
+	public function actiongetinvoice($id){
+		$merchant_id = Yii::app()->user->id;
+                $order = Customerorders::model()->findByPk($id);
+                $customer_id= $order->customer_id;
+                $customer_model= Mercustomers::model()->findByPk($customer_id);
+                $starttime = date('h:i A',strtotime($order->appointment_date_time));
+                $usersettings = MerchantSettings::model()->findByAttributes(array('user_id'=>$merchant_id));
+                $orderdet = new Orderdetails;
+                $criteria = new CDbCriteria;
+		$criteria->condition = "customer_order_id = '".$id."'";
+		$orderdetails = Orderdetails::model()->findAll($criteria);
+		$endtime = $orderdetails['endtime'];
+                
+                $loyal= Customerorders::model()->findAllByAttributes(array('customer_id'=>$customer_id));
+                $cash= CustomerInvoice::model()->findAllByAttributes(array('customer_id'=>$customer_id,'merchant_id'=>$merchant_id));
+                $this->renderPartial('invoice',array(
+                    'cash'=>$cash,
+                    'order'=>$order,
+                    'orderdetails'=>$orderdetails,
+                    'usersettings'=>$usersettings,
+                    'loyal'=>$loyal,
+                    'customer'=>$customer_model,
+                    ),false,true);
+                
+	}
+        
+	/**
+         * function to check the input e-mail is unique for that merchant or not.Return Boolean True/False {Sudhanshu}
+         */
 	
 	public function actiongetuniqueemail(){
 		$userid = Yii::app()->user->id;
@@ -120,7 +280,9 @@ class AppointmentbookController extends Controller
 		}
 		exit;
 	}
-	
+	/**
+         * function to check the input mobile is unique for that merchant or not.Return Boolean True/False {Sudhanshu}
+         */
 	public function actiongetuniquemobile(){ 
 		$userid = Yii::app()->user->id;
 		$mobileno = $_REQUEST['checkmoble'];
