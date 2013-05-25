@@ -7,7 +7,7 @@ class DealsController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 //	public $layout='//layouts/column2';
-    public $layout='//layouts/controlpanel';
+        public $layout='//layouts/controlpanel';
 	/**
 	 * @return array action filters
 	 */
@@ -100,6 +100,8 @@ class DealsController extends Controller
                                         $imagename = 'offer' .'/'.  $merchantid .'_'.$rand. '_' . $_FILES['Deals']['name']['image'];
                                         $thumbimagename = 'offer' .'/thumb/'.  $merchantid.'_'.$rand . '_' . $_FILES['Deals']['name']['image'];
 //                                        echo $thumbimagename;die;
+                                        $imagename = str_replace(' ', '', $imagename);
+                                        $thumbimagename = str_replace(' ', '', $thumbimagename);
                                         $model->image->saveAs($imagename);
                                         copy($imagename,$thumbimagename);
                                         //list($width, $height, $type, $attr) = getimagesize($filename);
@@ -172,7 +174,9 @@ class DealsController extends Controller
                                         $rand = rand(0,3000);
                                         $imagename = 'offer' .'/'.  $merchantid .'_'.$rand. '_' . $_FILES['Deals']['name']['image'];
                                         $thumbimagename = 'offer' .'/thumb/'.  $merchantid.'_'.$rand . '_' . $_FILES['Deals']['name']['image'];
-//                                        echo $thumbimagename;die;
+                                        $imagename = str_replace(' ', '', $imagename);
+                                        $thumbimagename = str_replace(' ', '', $thumbimagename);
+//                                         echo $thumbimagename;die;
                                         $model->image->saveAs($imagename);
                                         copy($imagename,$thumbimagename);
                                         //list($width, $height, $type, $attr) = getimagesize($filename);
@@ -208,11 +212,12 @@ class DealsController extends Controller
 	{
                 $model =$this->loadModel($id);
                 $offerimg = $model->image;
+                if($offerimg){
 		$filename = $offerimg;
 		$thumbavtar    = explode("/",$filename);
 		$thumbfilename = $thumbavtar[0]."/thumb/".$thumbavtar[1];
 		unlink($filename);
-		unlink($thumbfilename); 
+		unlink($thumbfilename);} 
 		$this->loadModel($id)->delete();
                 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -306,11 +311,18 @@ class DealsController extends Controller
          */
         public function actionSendmail($id){
            $merchant_id= Yii::app()->user->id;
-           $customer = Mercustomers::model()->findAllByAttributes(array('merchant_id'=>$merchant_id));
+           $criteria = new CDbCriteria;
+           $criteria->condition= 'merchant_id = '.$merchant_id.' AND email !=""';
+           $customer = Mercustomers::model()->findAll($criteria);
            $model=$this->loadModel($id);
            $salon = UserDetails::model()->findByAttributes(array('user_id'=>$merchant_id));
            $salondet= Users::model()->findByPk($merchant_id);
-           foreach($customer as $cus){
+           if($model->image){
+           $imagepath = Yii::app()->request->baseUrl.'/'.$model->image; } else {
+               $imagepath = Yii::app()->request->baseUrl.'/avtar/no-image.png';
+           }
+         if($model->status){
+          foreach($customer as $cus){
            $message= new YiiMailMessage;
 		$model_emailtemplate=Emailtemplate::model()->findByPk(1);
 		$body   =	$model_emailtemplate->body;
@@ -320,7 +332,7 @@ class DealsController extends Controller
 		 <br />
                  <div class="deals" style="border: 1px solid #D1D1D1; margin: 0 0 10px; padding: 8px 0 118px 11px;">
                         <div class="image" style="float: left;width: 150px;">
-                            <img src="'.Yii::app()->request->baseUrl."/".$model->image.'" style=" border: 3px solid #BEBEBE; height: 100px; width: 150px;">
+                        <img src="'.$imagepath.'" style=" border: 3px solid #BEBEBE; height: 100px; width: 150px;">
                         </div>
                         <div class="content" style="float: left; margin-left: 10px; width: 500px;">
                         <div class="title" style="   height: 26px;    margin-left: 10px; position: relative;"><h2>'.$model->title.'</h2></div>
@@ -333,16 +345,16 @@ class DealsController extends Controller
 			$body	=str_replace('$SalonName', $salon->name, $body);
 			$message->setBody($body, 'text/html');
 			$message->subject= $model->title;
-			$message->to 	= 'marjss21@gmail.com';
+			$message->to 	= $cus->email;
 			$message->from	= $salondet->email;
-//                        print_r($body);die;
 			if(Yii::app()->mail->send($message))
 			{
-			  echo 'sent';die;
-			}else{
-			echo 'fail';die;
+			  echo 'sent';}
+                          else{ echo 'fail';die;
 			}
-           }
+                    }
+            }
+            else { echo 'Inactive Offer.';die;}
         }
         /**
          * Sending deals / offer to the customers Mobile via data grid
@@ -354,6 +366,7 @@ class DealsController extends Controller
            $model=$this->loadModel($id);
            $salon = UserDetails::model()->findByAttributes(array('user_id'=>$merchant_id));
            $salondet= Users::model()->findByPk($merchant_id);
+           if($model->status){
            foreach($customer as $cus){
                         $mobile= $cus->mobile_no;
                         $message= 'Dear '.$cus->name.",\n".$model->description."\n".'vldtill:'.date('d-m-Y', strtotime($model->valid))."\nBy, \n".$salon->name;
@@ -365,5 +378,6 @@ class DealsController extends Controller
 			echo 'fail';die;
 			}
            }
+           }else { echo 'Inactive Offer.';die;}
         }
 }
