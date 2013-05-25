@@ -2,9 +2,9 @@
 
 class SiteController extends Controller
 {
-	
+//	
 	public $defaultAction = 'salons';
-
+        
 	
 	/**
 	 * Declares class-based actions.
@@ -99,7 +99,7 @@ class SiteController extends Controller
 	{
 		$this->layout = "blank";
 		if($error=Yii::app()->errorHandler->error)
-		{
+		$this->layout = "blank";{
 			if(Yii::app()->request->isAjaxRequest)
 				echo $error['message'];
 			else
@@ -140,8 +140,7 @@ class SiteController extends Controller
 	{
 		$url = $_SERVER['HTTP_HOST'];
 		$url = explode('.',$url);
-                //print_r($url);
-		$crit = new CDbCriteria;
+                $crit = new CDbCriteria;
 		$crit->condition = "status = 1";
 		$users = Users::model()->findAll($crit);
                 $userid = Yii::app()->user->id;
@@ -173,15 +172,17 @@ class SiteController extends Controller
 			if($model->validate() && $model->login()){
 				$user_id = Yii::app()->user->id;
 				$record=Users::model()->findByPk($user_id);
-                               
+                                
 				if($record->masrole->name == 'Admin')
                                    // echo'<pre>'; print_r($record->username);die;
 					$this->redirect(array('//users/admin'));
 				if($record->masrole->name == 'Merchant'){
-                                    
-					
+                                    Users::model()->updateByPk($user_id, array('log'=>1));
+					if($record->log == 1){
+                                            $this->redirect(array('/users/appointment','user'=>$record->username));
+                                        }else{
 //                                        $this->redirect(array('/users/appointment','user'=>$record->username));
-					$this->redirect(array('//users/settings','user'=>$record->username));
+					$this->redirect(array('//users/settings','user'=>$record->username));}
 					//$this->redirect(array('//users/appointment'));
 				}
 				
@@ -231,18 +232,69 @@ class SiteController extends Controller
 	{
 		$this->layout = 'front_layout';
 		$model = Pages::model()->findByPk(1);
-		$this->render('terms',array('model'=>$model));
-	}
+		if($model->is_active == 1){
+         	$this->render('terms',array('model'=>$model));
+                }else{throw new CHttpException(502,'The content you are looking was not found here.');
+                }
+         }
 	public function actionPrivacy()
 	{
 		$this->layout = 'front_layout';
 		$model = Pages::model()->findByPk(2);
-		$this->render('privacy',array('model'=>$model));
+                if($model->is_active == 1){
+         	$this->render('privacy',array('model'=>$model));}else{
+                throw new CHttpException(502,'The content you are looking was not found here.');
+                }
 	}
 	
 	public function actionSalons()
 	{
-		$this->layout 	=   'salons';
+            $url = $_SERVER['HTTP_HOST'];
+                
+		if($url == 'localhost' || $url == '127.0.0.1' || $url == '192.168.1.56' || $url == 'sudhanshu.stuffuneedlocal.com '){
+			$url = '';
+		}
+		else{
+			$url = str_replace('www.','',$url);
+			$url = str_replace('http://','',$url);
+			$url = str_replace('https://','',$url);
+			$url = str_replace('stuffuneedlocal.com','',$url);
+			$url = str_replace('.','',$url);
+//			echo $url; die;
+		}
+                        $crit = new CDbCriteria;
+			$crit->condition = "status = 1";
+			$users = Users::model()->findAll($crit);
+                        
+                        foreach($users as $val){
+                            
+				if($val->username == $url){
+					$flag = 1;
+                                        $val_id= $val->id;
+					$details = UserDetails::model()->findByAttributes(array('user_id'=>$val->id));
+					$merchantinfor['name'] = $details->name;
+					$merchantinfor['mobile_no'] = $details->mobile_no;
+					$merchantinfor['city'] = $details->city;
+				}
+			}
+			
+			if($flag == 1)
+			{
+                             
+				$this->layout = "front_layout";
+				$this->pageTitle=Yii::app()->name . ' - Online appointment system for salons by SalonChimp';
+//				$this->render('welcome',array('merinfo'=>$merchantinfor));
+                                $this->redirect(array('/site/details','id'=>$val_id));
+			}
+			else{
+                                $this->layout 	=   'salons';
+				$model  =   new Users;
+                                $this->render('salons', array('model'=>$model));
+			}
+                        
+                        
+                        
+                        
                 /*
                 $crit = new CDbCriteria;
 		$crit->condition = "status = 1";
@@ -253,8 +305,7 @@ class SiteController extends Controller
 			$record=Users::model()->findByPk($userid);
 			$this->redirect(array('/users/appointment','user'=>$record->username));
 		}*/
-                $model  =   new Users;
-		$this->render('salons', array('model'=>$model));
+                
 	}
 	
 	public function actionSearchsalon()
@@ -314,33 +365,82 @@ class SiteController extends Controller
          */
 	public function actionDetails($id){
             $this->layout = 'chimps';
-            $services= Merservices::model()->findAllByattributes(array('merchant_id'=>$id,'status'=>1));
+            $services= Merservices::model()->findByattributes(array('merchant_id'=>$id,'status'=>1));
             $users = Users::model()->findByPk($id);
             $time = Mertimings::model()->findAllByAttributes(array('merchant_id'=>$id));
             $gallery= Gallery::model()->findAllByAttributes(array('user_id'=>$id));
-            $deals= Deals::model()->findAllByAttributes(array('merchant_id'=>$id));
-            $review = Review::model()->findAllByAttributes(array('merchant_id'=>$id));
+            $deals= Deals::model()->findAllByAttributes(array('merchant_id'=>$id,'status'=>1));
+            $review = Review::model()->findAllByAttributes(array('merchant_id'=>$id,'status'=>2));
             $categoryservice = CategoryService::model()->findAll();
-//             if( Yii::app()->request->isAjaxRequest )
-                        
-                 
-            $model = UserDetails::model()->findByAttributes(array('user_id' => $id));
-            
-//             Yii::app()->clientScript->scriptMap['jquery-ui.min.js'] = false;
-//             Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
-            $this->render('shops',array('model'=>$model,'users'=>$users ,'services'=>$services,'time'=> $time,'gallery'=>$gallery,'deals'=>$deals,'categoryservice'=>$categoryservice,'review'=>$review));
+            $details = UserDetails::model()->findByAttributes(array('user_id' => $id));
+            if($users->status == 1){
+                
+            $this->render('shops',array('details'=>$details,'users'=>$users ,'services'=>$services,'time'=> $time,'gallery'=>$gallery,'deals'=>$deals,'categoryservice'=>$categoryservice,'review'=>$review,
+							      'model'=>$model));
+        }else{ 
+//            $this->layout = "blank";
+            throw new CHttpException(402,'This account is deactivated temporarily!!');
+             }
                         
         }
         public function getMerchantServices($merchantid,$cat_id)
     {
-       
-      $criteria=array('condition'=>'merchant_id='.$merchantid.' AND cat_id='.$cat_id.' AND status =1','order'=>'t.name ASC');
+      
+      $criteria=array('condition'=>'merchant_id='.$merchantid.' AND cat_id='.$cat_id.' AND isproduct = 0 AND status = 1','order'=>'t.name ASC');
       return Merservices::model()->findAll($criteria);
     }
 	public function actionAjaxRequestAppointment()
 	{
             
 			  if (isset($_POST['ContactForm'])){
+                             
+					//$post  = $this->loadModel();
+					$requestapp = new RequestAppointment;
+					$requestapp->Attributes = $_POST['ContactForm'];
+                                        $requestapp->body =$_POST['ContactForm']['body'];
+  					$error = CActiveForm::validate($requestapp, array('name','email','mobileno', 'body','date'));
+					if($error=='[]'){
+						$merchant_id = $_POST['merchant'];
+						$merchant_model = Users::model()->findByPk($merchant_id);
+						$message 					= new YiiMailMessage;
+							$model_emailtemplate=Emailtemplate::model()->findByPk(1);
+							$body   =	$model_emailtemplate->body;
+							$body	=	str_replace('$CustomerName', $merchant_model->username, $body);
+							$create_body	='
+																 <div>'.$requestapp->name.' has Requested for Appointment.</div>
+																 <br />
+																 <div>Here are the details: </div>
+                                                                                                                                 <div>Appointment On: '.$requestapp->date.' </div>
+																 <div>Mobile No: '.$requestapp->mobileno.'</div>
+																 <div>Email: '.$requestapp->email.' </div>
+																 <div>Message: '.$requestapp->body.' </div>
+																 <br />
+																 
+																 ';
+							$body							=	str_replace('$body', $create_body, $body);
+							$body							=	str_replace('$SalonName', $customerdetail->name, $body);
+							$message->setBody($body, 'text/html');
+							$message->subject 			= 'Request for Appointment';
+							$message->to 				=  $merchant_model->email;
+							$message->from				= 	$requestapp->email;
+                                                       if(Yii::app()->mail->send($message))
+							{
+							  echo 'sent';die;
+							}else{
+									 echo 'fail';die;
+							}
+					}else{
+						 echo $error;
+					}
+			  }else{
+					//$this->redirect(array("site/index"));
+			  }
+	}
+	public function actionRequestAppointment()
+	{
+            
+			  if (isset($_POST['ContactForm'])){
+                             
 					//$post  = $this->loadModel();
 					$requestapp = new RequestAppointment;
 					$requestapp->setAttributes($_POST['ContactForm']);
@@ -367,7 +467,7 @@ class SiteController extends Controller
 							$body							=	str_replace('$body', $create_body, $body);
 							$body							=	str_replace('$SalonName', $customerdetail->name, $body);
 							$message->setBody($body, 'text/html');
-							$message->subject 			= $requestapp->subject;
+							$message->subject 			= 'Request Appointment';
 							$message->to 				=  $merchant_model->email;
 							$message->from				= 	$requestapp->email;
 							if(Yii::app()->mail->send($message))
@@ -383,7 +483,6 @@ class SiteController extends Controller
 					//$this->redirect(array("site/index"));
 			  }
 	}
-	
 	/*protected function afterAction()
 	{
 		if(Yii::app()->user->id){
@@ -392,32 +491,5 @@ class SiteController extends Controller
 		}
 	}
 	*/
-        /**
-         * Function for submitting the review from the Shop page
-         */
-       public function actionReviewsub($id){
-           if (isset($_POST['Review'])){
-               $model = new Review;
-               $model->setAttributes($_POST['Review']);
-					$error = CActiveForm::validate($model, array('name','email','review',));
-//					
-					if($error=='[]'){
-                                             $timezone = "Asia/Calcutta";
-                                            date_default_timezone_set($timezone);
-                                            $time= mktime();
-//                                          echo $time;
-                                            $model->setAttribute('date', $time);
-                                             $model->setAttribute('status',1);
-//                                         print_r($model->attributes);die;
-                                           if($model->save()){
-							  echo 'sent';die;
-							}else{
-									 echo 'fail';die;
-							}  
-                                            
-                                        }else{
-						 echo $error;
-					}
-           }
-       }
+        
 }
