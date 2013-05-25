@@ -71,9 +71,9 @@ class PagesController extends Controller
 
 		if(isset($_POST['Pages']))
 		{
-			$slug = str_replace(' ','_',strtolower(trim($_POST['Pages']['menu_title'])));
+			//$slug = str_replace(' ','_',strtolower(trim($_POST['Pages']['menu_title'])));
 			$model->attributes=$_POST['Pages'];
-			$model->slug = $slug;
+			//$model->slug = $slug;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
