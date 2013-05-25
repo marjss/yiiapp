@@ -85,6 +85,7 @@ class Orderdetails extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('customer_order_id',$this->customer_order_id);
+                $criteria->compare('service_id',$this->service_id);
 		$criteria->compare('service_name',$this->service_name,true);
 		$criteria->compare('service_price',$this->service_price);
 		$criteria->compare('service_duration',$this->service_duration);
@@ -137,15 +138,25 @@ class Orderdetails extends CActiveRecord
 		}
 		return $bookedorders;
 	}
+        public function sum($total){
+//          $price = array();
+//            foreach ($total as $price){
+//                $price['price']=
+//            }
+        }
 	public function getBookedorder($id){
+//     echo $id;die;
 		$bookedorders = array();
 		$order = Customerorders::model()->findByPk($id);
-		//echo "<pre>"; print_r($value->attributes);
+		
 		$duration = 0;
 		$services = array();
+                $services1 = array();
+                $servicesid = array();
 		$criteria = new CDbCriteria;
 		$criteria->condition = "customer_order_id = '".$id."'";
 		$orderdetails = Orderdetails::model()->findAll($criteria);
+                
 		foreach($orderdetails as $detail)
 		{
 		    $bookedorders['duration'] += $detail->service_duration;
@@ -153,16 +164,14 @@ class Orderdetails extends CActiveRecord
 		    $services[]= $detail->service_name.'('.$detail->service_duration.' mins) <span class="WebRupee">Rs</span> '.$detail->service_price;
 		    $services1[]= $detail->service_name.'('.$detail->service_duration.' mins) Rs '.$detail->service_price;
 		}
-		$bookedorders['services'] = implode(', ',$services);
-		$bookedorders['services1'] = implode(', ',$services1);
+//                echo '<pre>';
+//                print_r($services1);
+//                echo '</pre>'; die;
+		$bookedorders['services'] = implode(',',$services);
+		$bookedorders['services1'] = implode(',',$services1);
 		$bookedorders['serviceids'] = implode(',',$servicesid);
-		//echo "<pre>"; print_r($duration);
-		//echo "<br />".$timestamp."<br />";
-		//echo strtotime($value->appointment_date_time);
-	
 		$starttime = strtotime($order->appointment_date_time);
 		$bookedorders['endtime'] = date("h:i A",($starttime + ($bookedorders['duration']*60)));
-		
 		return $bookedorders;
 	}
 	public function sendEmaildelete($id){
@@ -204,6 +213,7 @@ class Orderdetails extends CActiveRecord
 	}
         public function sendEmailfeedback($id){
 		$order = Customerorders::model()->findByPk($id);
+                if($order->customer_email){
 		$order_cred = $this->getBookedorder($id);
 		$usercustomer =	Users::model()->findByPk($order->merchant_id );
 		$customerdetail =UserDetails::model()->findByAttributes(array('user_id'=>$order->merchant_id));
@@ -221,7 +231,7 @@ class Orderdetails extends CActiveRecord
 		$message->subject 	= 'Service feedback with '.$customerdetail->name;
 		$message->to 		=  $order->customer_email;
 		$message->from 		= $usercustomer->email;
-		Yii::app()->mail->send($message);
+		Yii::app()->mail->send($message);}
 	}
         public function sendSms($mobileno,$message){
 		
