@@ -13,7 +13,7 @@ class Shopcontact extends CPortlet {
 	
 	protected function renderContent()
 	{
-                $merchant_id = $_GET['id'];
+         	$merchant_id = $_GET['id'];
 		$model=new ContactForm;
 		if(isset($_POST['ContactForm']))
 		{ 
