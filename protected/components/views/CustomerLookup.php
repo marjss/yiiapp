@@ -113,7 +113,7 @@
     <div class="check">
     	<span>Intimate Customer via: </span>
 	 <?php //echo CHtml::checkBox('sms','sms', array('class'=>'checkbox require-one', 'checked'=>'checked','value'=>1, 'uncheckValue'=>NULL));?>
-	 <input type="checkbox" value="sms" class="checkbox smsemail " checked='checked' id="sendsms" name="sms" />
+	<input type="checkbox" value="sms" class="checkbox smsemail "  id="sendsms" name="sms" />
         <label>SMS</label>
         
          <?php //echo CHtml::checkBox('email','email', array('class'=>'checkbox require-one', 'checked'=>'checked','value'=>1, 'uncheckValue'=>NULL));?>
@@ -202,16 +202,16 @@
 						  //jQuery("#ajaxloader").show();
 						  jQuery(".appbook").css("opacity","0.5");
 						  
-						  var starttime					=	jQuery('#starttime').val();
-						  var endtime						=	jQuery('#endtime').val();
-						  var seatid						=	jQuery('#seatid').val();
-						  var customerid					=	jQuery('#customerid').val();
-						  var slctd_services				=	jQuery('#slctd_services').val();
-						  var customer_name				=	jQuery('#customer_name').val();
-						  var customer_contact_no		=	jQuery('#customer_contact_no').val();
-						  var customer_email				=	jQuery('#customer_email').val();
-						  var sms 							= 	jQuery('#sendsms').val();
-						  var smsemail						=	jQuery("#sendsmsemal").val();
+						  var starttime			=	jQuery('#starttime').val();
+						  var endtime			=	jQuery('#endtime').val();
+						  var seatid			=	jQuery('#seatid').val();
+						  var customerid		=	jQuery('#customerid').val();
+						  var slctd_services		=	jQuery('#slctd_services').val();
+						  var customer_name		=	jQuery('#customer_name').val();
+						  var customer_contact_no	=	jQuery('#customer_contact_no').val();
+						  var customer_email		=	jQuery('#customer_email').val();
+						  var sms 			= 	jQuery('#sendsms').val();
+						  var smsemail			=	jQuery("#sendsmsemal").val();
 						  
 						  var url = "<?php echo Yii::app()->request->baseUrl; ?>/users/bookappointment";
 						  jQuery.post( url, { starttime: starttime , endtime: endtime, seatid: seatid, customerid: customerid, slctd_services: slctd_services, customer_name: customer_name, customer_contact_no: customer_contact_no, customer_email: customer_email, sms: sms, smsemail: smsemail},
@@ -307,12 +307,20 @@
 //		  
 	  }
      function afterValidates()
-     {
+     
+     {    var sms = false;
+         var smsemail = false; 
+         if(jQuery("#sendsms").is(':checked')){
+             sms = jQuery('#sendsms').val();
+         }  if(jQuery("#sendsmsemal").is(':checked')){
+             smsemail = jQuery('#sendsmsemal').val();
+         }
+         
+         
 		  jQuery(".errorSummary").css('display','none');
 		  jQuery('#customerDialog').dialog('close');
 		  //jQuery("#ajaxloader").show();
 		  jQuery(".appbook").css("opacity","0.5");
-		  
 		  var starttime					=	jQuery('#starttime').val();
 		  var endtime						=	jQuery('#endtime').val();
 		  var seatid						=	jQuery('#seatid').val();
@@ -321,8 +329,8 @@
 		  var customer_name				=	jQuery('#customer_name').val();
 		  var customer_contact_no		=	jQuery('#customer_contact_no').val();
 		  var customer_email				=	jQuery('#customer_email').val();
-		  var sms 							= 	jQuery('#sendsms').val();
-		  var smsemail						=	jQuery("#sendsmsemal").val();
+//		  var sms 							= 	jQuery('#sendsms').val();
+//		  var smsemail						=	jQuery("#sendsmsemal").val();
 		  
 		  var url = "<?php echo Yii::app()->request->baseUrl; ?>/users/bookappointment";
 		  jQuery.post( url, { starttime: starttime , endtime: endtime, seatid: seatid, customerid: customerid, slctd_services: slctd_services, customer_name: customer_name, customer_contact_no: customer_contact_no, customer_email: customer_email, sms: sms, smsemail: smsemail},
