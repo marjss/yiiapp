@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.validationEngine.js"></script>
+<!--<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.validationEngine.js"></script>-->
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/invoice.css" media="screen, projection" />
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/font-awesome.css" media="screen, projection" />
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/invoice_print.css" media="print" />
@@ -170,14 +170,12 @@
       *Global Variables and Array
       */
 //     $(".tax, .vat, .multi").attr('maxlength','6');
-     var flag = false;
+     
      var total =0;
      var pricearr = [<?php echo '"'.implode('","', $arrprice).'"' ?>];
      var sumarr = 0;
      jQuery(".appbook").css("opacity","0.5");
         $('.totbut').click(function(){
-            var product = $('#search-products').val();
-            var temp = $('.temp').val();
             var subtotal = getPrice();
             if(subtotal){
                 pricearr.push(subtotal);
@@ -220,22 +218,19 @@
       type: "POST",
       data: {pro_id: id},
       async: false,
-      success:function(resp){
-          var obj=0;
-          obj =	jQuery.parseJSON(resp);
-          console.log(obj);
-          if(obj){
-              multiprice  = obj.price * +val;
-          }
-          else{} 
-      }, 
-      error:function(resp){
-          //                Some Error Throw code.
-      }           
-      });
-      return multiprice;
-
-      }
+                    success:function(resp){
+                                              var obj=0;
+                                              obj =	jQuery.parseJSON(resp);
+                                              console.log(obj);
+                                              if(obj){
+                                                  multiprice  = obj.price * +val;
+                                              }
+                                              else{} 
+                      }, 
+                    error:function(resp){ console.log(resp); }           
+              });
+        return multiprice;
+     }
       /**
       *Get the price and product name from the database uniquely identified by the merchant only.
       */
@@ -251,105 +246,107 @@
       type: "POST",
       data: {product: product,product_id:product_id,subprice:subprice},
       async: false,
-      success:function(resp){
-          jQuery("#ajaxloader").hide();
-          if ($('.dynamic').length <= 2) {
-              $('.done').css('display','inline-block');
-          }
-          var obj=0;
-          obj =	jQuery.parseJSON(resp);
-          //                                console.log(pricearr);
-          if(obj){
-              var product_id= obj.id;     
+            success:function(resp){
+                                    jQuery("#ajaxloader").hide();
+                                    if ($('.dynamic').length <= 2) {
+                                        $('.done').css('display','inline-block');
+                                    }
+                                    var obj=0;
+                                    obj =	jQuery.parseJSON(resp);
+                                    // console.log(pricearr);
+                                    if(obj){
+                                        var product_id= obj.id;     
 
-              if(obj.stock){
-                  if(checkStock(product_id)=='true'){
-                      var sub = <?php echo $subtotal; ?>;
-                      prices = obj.price;
-                      console.log(prices);
-                      totalq = +sub + +prices ;
-                      $('.temp').val(obj.price);
-                      $('.temp_pro_id').val(obj.id);
-                      $('#dynatable tr:first').after('<tr class="dynamic"><td class="border-btm" id="'+obj.id+'">'+product+'</td><td class="border-btm" id="'+obj.id+'"><input id="'+obj.id+'" class="multi" value="1" name="multi" size="3" maxlength="3" ></td><td class="border-btm"><span class="WebRupee">Rs. </span><span class="priced">'+obj.price+'</span></td><td><input id="'+product+'" name="'+obj.price+'" class="remove" type="button"></td></tr>');
-                  }else{ return false;}
-              }else{ 
-                  var sub = <?php echo $subtotal; ?>;
-                  prices = obj.price;
-                  totalq = +sub + +prices ;
-                  $('.temp').val(obj.price);
-                  $('.temp_pro_id').val(obj.id);
-                  $('#dynatable tr:first').after('<tr class="dynamic"><td class="border-btm" id="'+obj.id+'">'+product+'</td><td class="border-btm" id="'+obj.id+'"><input id="'+obj.id+'" class="multi" value="1" name="multi" size="3" maxlength="3"></td><td class="border-btm"><span class="WebRupee">Rs. </span><span class="priced">'+obj.price+'</span></td><td><input id="'+product+'" name="'+obj.price+'" class="remove" type="button"></td></tr>');
-              } 
-          }
-      }, 
-      error:function(resp){ /**Error Handling code.*/ console.log(resp);}           
-      });
+                                        if(obj.stock){
+                                            if(checkStock(product_id)=='true'){
+
+                                                prices = obj.price;
+                                                //console.log(prices);
+
+                                                $('.temp').val(obj.price);
+                                                $('.temp_pro_id').val(obj.id);
+                                                $('#dynatable tr:first').after('<tr class="dynamic"><td class="border-btm" id="'+obj.id+'">'+product+'</td><td class="border-btm" id="'+obj.id+'"><input id="'+obj.id+'" class="multi" value="1" name="multi" size="3" maxlength="3" ></td><td class="border-btm"><span class="WebRupee">Rs. </span><span class="priced">'+obj.price+'</span></td><td><input id="'+product+'" name="'+obj.price+'" class="remove" type="button"></td></tr>');
+                                                                              }else{ return false;}
+                                                      }else{ 
+
+                                                              prices = obj.price;
+
+                                                              $('.temp').val(obj.price);
+                                                              $('.temp_pro_id').val(obj.id);
+                                                              $('#dynatable tr:first').after('<tr class="dynamic"><td class="border-btm" id="'+obj.id+'">'+product+'</td><td class="border-btm" id="'+obj.id+'"><input id="'+obj.id+'" class="multi" value="1" name="multi" size="3" maxlength="3"></td><td class="border-btm"><span class="WebRupee">Rs. </span><span class="priced">'+obj.price+'</span></td><td><input id="'+product+'" name="'+obj.price+'" class="remove" type="button"></td></tr>');
+                                                           } 
+                                              }
+                                          }, 
+            error:function(resp){ console.log(resp);}           
+                });
       return prices;
       }
-
-      function checkStock(id){
-      var resp = 0;
-      $.ajax({
-      url: '<?php echo Yii::app()->request->baseUrl; ?>/appointmentbook/stockcheck',
-      type:'POST',
-      data:{id:id},
-      async: false,
-      success:function(response){
-          if(response=='true'){resp = 'true';}else{alert('product is out of stock!');resp = 'false';return false;}
-      },
-      error:function(response){console.log(response);}
-      });
-      return resp;
-      }               
       /**
-      *Remove button click functionality to remove the existing product or service from the cart.
-      **/   
-      $(document).on('click', '.remove', function(){ 
-      var ele = $(this).attr('id');
-      var remprice = $(this).parent().prev().find('.priced').html();
-      var newprice = 0;
-      var index = pricearr.indexOf(remprice);
-      pricearr.splice(index, 1);
-      newprice = removePro(remprice);
-      console.log(pricearr);
-      $('#total').val(newprice);
-      $('.finalrate').html('<span class="WebRupee">Rs. </span>'+newprice);
-      $(this).parent().parent().remove();
-      if ($('.dynamic').length <= 1) {
-            alert("current invoice is Empty! PLease add some items.");
-            $('.finalrate').html('<span class="WebRupee">Rs. </span>'+0);
-            $('.done').css('display','none');
-            $('#total').val(0);
-        }
-      });
-     /**
+      *Check the live stock and return boolean true / false.
+      */
+      
+            function checkStock(id){
+                          var resp = 0;
+                          $.ajax({
+                          url: '<?php echo Yii::app()->request->baseUrl; ?>/appointmentbook/stockcheck',
+                          type:'POST',
+                          data:{id:id},
+                          async: false,
+                          success:function(response){
+                              if(response=='true'){resp = 'true';}else{alert('product is out of stock!');resp = 'false';return false;}
+                          },
+                          error:function(response){console.log(response);}
+                          });
+                          return resp;
+            }               
+    /**
+     *Remove button click functionality to remove the existing product or service from the cart.
+     */   
+            $(document).on('click', '.remove', function(){ 
+            var ele = $(this).attr('id');
+            var remprice = $(this).parent().prev().find('.priced').html();
+            var newprice = 0;
+            var index = pricearr.indexOf(remprice);
+            pricearr.splice(index, 1);
+            newprice = removePro(remprice);
+            console.log(pricearr);
+            $('#total').val(newprice);
+            $('.finalrate').html('<span class="WebRupee">Rs. </span>'+newprice);
+            $(this).parent().parent().remove();
+            if ($('.dynamic').length <= 1) {
+                  alert("current invoice is Empty! PLease add some items.");
+                  $('.finalrate').html('<span class="WebRupee">Rs. </span>'+0);
+                  $('.done').css('display','none');
+                  $('#total').val(0);
+              }
+            });
+    /**
      *Done button click functionality to complete the order.
-     **/       
-    $(document).on('click', '.done', function(e){
-        doneconfirm();
-        flag = true;
-        return false;
-    });
-        /**
-         *On Done Button click.It disables the all button so after that no changes can be made.
-         */        
+     */       
+            $(document).on('click', '.done', function(e){
+                doneconfirm();
+                return false;
+            });
+    /**
+     *On Done Button click.It disables the all button so after that no changes can be made.
+     */        
         function doneconfirm(){
         var serials = [];
         var multipliers = [];
         var orderid=<?php echo $order_id; ?>;
+//         var didConfirm = confirm("Are you sure? After confirmation, you cant edit the invoice.");
+//          if (didConfirm == true){
         if(!isNaN ($('.tax').val()) && !isNaN ($('.vat').val())){
-            $('tr.dynamic td:first-child').each(function() {
-                serials.push($(this).attr('id'));
-            });
+            $('tr.dynamic td:first-child').each(function() { serials.push($(this).attr('id'));});
             if(!isNaN ($('.multi').val()) ){
-            $('tr.dynamic td:nth-child(2)').each(function() {
-                multipliers.push($(this).find('.multi').val());
-            });}
+                $('tr.dynamic td:nth-child(2)').each(function() {
+                    multipliers.push($(this).find('.multi').val());
+                });
+            }
             var multipliers = multipliers.join(',');
             var serials = serials.join(',');
             var addorder= $('.temp_pro_id').val();
-//          var didConfirm = confirm("Are you sure? After confirmation, you cant edit the invoice.");
-//          if (didConfirm == true){
+         
             $.ajax({
                 url: '<?php echo Yii::app()->request->baseUrl; ?>/users/confirmbill',     //controller action url
                 type: "POST",
@@ -360,7 +357,7 @@
                     obj =	jQuery.parseJSON(resp);
 //                    console.log(obj);
 //                  resetgrid();
-                }
+                },error:function(resp){console.log(resp);}
             });
             $.ajax({
                 url: '<?php echo Yii::app()->request->baseUrl; ?>/users/stock',     //controller action url
@@ -371,8 +368,7 @@
                     var obj = 0;
 //                    obj =	jQuery.parseJSON(resp);
 //                    console.log(obj);
-//                  resetgrid();
-                }
+                },error:function(resp){console.log(resp);}
             });
             
             if($('.tax').val() != 0){
@@ -398,35 +394,36 @@
         }else{alert('Please enter proper tax or vat value!');
             $('.print_button').css('display','none');
             return false;}
+//            }else{}
     }
     /**
-       *Round the value to the nearest integer.
-       */ 
+     *Round the value to the nearest integer.
+     */ 
         function rounded(number){ 
                 return Math.floor(Number(number)*100)/100; 
         };     
                 
      /**
-       *Remove the Product price from the list and return the subtracted price.
-       */           
-    function removePro(price){
-        var total = $('#total').val();
-        var newprice = 0;
-        newprice = +total - +price;
-    return newprice
+      *Remove the Product price from the list and return the subtracted price.
+      */           
+        function removePro(price){
+            var total = $('#total').val();
+            var newprice = 0;
+            newprice = +total - +price;
+        return newprice
     }
     
     /**
-      *Calculate the tax value which is entered on the tax text box by the invoice generator.
-      */
+     *Calculate the tax value which is entered on the tax text box by the invoice generator.
+     */
     function tax(){
                 var tax = $('.tax').val();
                 var vat = $('.vat').val();
-                var beforetax=  eval(pricearr.join("+"));
-                beforetax = rounded(beforetax);
                 var aftertax = 0;
                 var aftervat = 0;
                 var newPrice = 0;
+                var beforetax=  eval(pricearr.join("+"));
+                beforetax = rounded(beforetax);
                 aftertax = rounded(+beforetax * (+tax / 100));
                 aftervat = rounded(+beforetax * (+vat / 100));
                 aftertax = rounded(aftertax);
@@ -436,7 +433,7 @@
                 $('.taxprice').html('<span class="WebRupee">Rs. </span>'+aftertax);
                 $('.vatprice').html('<span class="WebRupee">Rs. </span>'+aftervat);
                 return newPrice;
-    }
+                }
 
  $(document).on('keyup','.tax, .vat, .multi',function(e){
               s=$(this).val();
@@ -448,35 +445,38 @@
 //        $(this).focus();
 //        return false;
 //            }
-       });   
- $('.print').click(function() {
-		var win2;
-		//win2.document.write('<table style="width:600px;"><thead><th><td width="80%">Item</td><td width="20%">Price</td></th></thead><tbody>');
-		var style  = "<style>.WebRupee {font-family: 'WebRupee';}.printing{width:'100%';}            </style>";
-		var invoiceTable = style+'<table class="printing" width="100%"><tr><td style="width:70%">Item</td><td style="width:10%">Quantity</td><td style="width:20%">Price</td></tr>';
-		var rowData = '';
-		$('#dynatable tbody tr').each(function(i,obj){
-		var  item = $(this).find("td:first").html();
-                
-                var  quantity = $(this).find("td:nth-child(2) input").val();
-                if(quantity == undefined){quantity = ' ';}
-		 var price = $(this).find("td:nth-child(3)").html();
-		  if(item!= null && price!=null){
-			rowData += '<tr>';
-			rowData += '<td>'+item+'</td><td>'+quantity+'</td><td>'+price+'</td>';
-			rowData += '</tr>';
-		  }
-		});
-		invoiceTable += rowData + '</table>';
-		
-		win2 = window.open('', 'Invoice', 'width=600,height=500');
-		win2.document.write(invoiceTable);
-		
-                if(win2.print()){win2.close();}
-    		
-//    		return true;
-		//$(".itembody").printArea();
-    });
+       });
+       /**
+        *print button click function makes a temporary stream and sends the data to print command
+        **/
+        $('.print').click(function() {
+                       var win2;
+                       //win2.document.write('<table style="width:600px;"><thead><th><td width="80%">Item</td><td width="20%">Price</td></th></thead><tbody>');
+                       var style  = "<style>.WebRupee {font-family: 'WebRupee';}.printing{width:'100%';}            </style>";
+                       var invoiceTable = style+'<table class="printing" width="100%"><tr><td style="width:70%">Item</td><td style="width:10%">Quantity</td><td style="width:20%">Price</td></tr>';
+                       var rowData = '';
+                       $('#dynatable tbody tr').each(function(i,obj){
+                       var  item = $(this).find("td:first").html();
+
+                       var  quantity = $(this).find("td:nth-child(2) input").val();
+                       if(quantity == undefined){quantity = ' ';}
+                        var price = $(this).find("td:nth-child(3)").html();
+                         if(item!= null && price!=null){
+                               rowData += '<tr>';
+                               rowData += '<td>'+item+'</td><td>'+quantity+'</td><td>'+price+'</td>';
+                               rowData += '</tr>';
+                         }
+                       });
+                       invoiceTable += rowData + '</table>';
+
+                       win2 = window.open('', 'Invoice', 'width=600,height=500');
+                       win2.document.write(invoiceTable);
+
+                       if(win2.print()){win2.close();}
+
+       //    		return true;
+                       //$(".itembody").printArea();
+           });
 }); 
 
 </script>
