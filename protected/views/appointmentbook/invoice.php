@@ -176,14 +176,29 @@
      var sumarr = 0;
      jQuery(".appbook").css("opacity","0.5");
         $('.totbut').click(function(){
+           var found = 0; 
+           var checked= $.trim($('#search-products').val());
+            console.log(checked);
+           $('#dynatable .dynamic').find('td').each(function(){
+                  if($.trim($(this).text()) == checked){ 
+                     found = true; 
+                 }
+             });
+            
+           if(found == false)
+            {
             var subtotal = getPrice();
             if(subtotal){
+                alert(subtotal);
                 pricearr.push(subtotal);
                 sumarr =  eval(pricearr.join("+"));
                 $('#total').val(sumarr);
                 $('.finalrate').html('<span class="WebRupee">Rs. </span>'+sumarr);
             }else{ 
                 alert("Please Enter a Valid Product or Service") }
+            }else{
+                alert("Already exist in the current list.");}
+                subtotal = 0;
     });
         $(document).on('change', '.multi', function(){
         if($(this).val()=='' && $(this).val()== '0' ){alert('please enter minimum 1.'); return false;}
