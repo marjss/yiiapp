@@ -48,13 +48,13 @@ $active = array(1=>'Active',0=>'Inactive');
 		<?php echo $form->checkBox($model,'isproduct',array('class'=>'isproduct')); ?>
 		<?php echo $form->error($model,'isproduct'); ?>
 	</div>
-        
+        <div class="stocks">
         <div class="row">
 		<?php echo $form->labelEx($model,'stock'); ?>
 		<?php echo $form->textField($model,'stock',array('class'=>'stock')); ?>
 		<?php echo $form->error($model,'stock'); ?>
 	</div>
-        
+        </div>
         <div class="dynamics">
         <div class="row">
 		<?php echo $form->labelEx($model,'duration'); ?>
@@ -78,15 +78,18 @@ $active = array(1=>'Active',0=>'Inactive');
 </div><!-- form -->
 <script>
    $(document).ready(function() {
-       
+       $('.stocks').css('display','none');
    if($('#Merservices_isproduct').attr("checked") == "checked"){
        $('.dynamics').css('display','none');
+        $('.stocks').css('display','block');
    }
   $("#merchant-setting-form input[type=checkbox]").click(function(){
     if ($(this).attr("checked") == "checked"){
       $('.dynamics').css('display','none');
+      $('.stocks').css('display','block');
     } else {
       $('.dynamics').css('display','block');
+       $('.stocks').css('display','none');
     }
   });
 });
