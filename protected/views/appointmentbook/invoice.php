@@ -161,7 +161,7 @@
         </div>
 
 
-
+<div id="ajaxloaders" style="display:none;margin-top: -135px;position: relative;"><center><img src="<?php echo Yii::app()->request->baseUrl;?>/images/ajax-loader.gif" /></center></div>
 <script>
     $(document).ready(function() 
     {
@@ -178,7 +178,7 @@
         $('.totbut').click(function(){
            var found = 0; 
            var checked= $.trim($('#search-products').val());
-            console.log(checked);
+//            console.log(checked);
            $('#dynatable .dynamic').find('td').each(function(){
                   if($.trim($(this).text()) == checked){ 
                      found = true; 
@@ -189,7 +189,6 @@
             {
             var subtotal = getPrice();
             if(subtotal){
-                alert(subtotal);
                 pricearr.push(subtotal);
                 sumarr =  eval(pricearr.join("+"));
                 $('#total').val(sumarr);
@@ -202,9 +201,10 @@
     });
         $(document).on('change', '.multi', function(){
         if($(this).val()=='' && $(this).val()== '0' ){alert('please enter minimum 1.'); return false;}
-        if(!isNaN ($(this).val()) && $(this).val()!=''){
+        if(!isNaN ($(this).val()) && $(this).val()!='' && $(this).val()!= 0){
             var pro_id= $(this).attr('id');
         var multiplier = $(this).val();
+        
         var fullprice= multiples(pro_id,multiplier);
         var remprice= $(this).parent().next().find('.priced').html();
         var whole = 0;
@@ -213,7 +213,7 @@
         {
           pricearr[index] = ''+fullprice+''; 
         }
-        console.log(pricearr);
+//        console.log(pricearr);
         if(fullprice){
             $(this).parent().next().find('.priced').html(fullprice);
             whole = eval(pricearr.join("+"))
@@ -227,30 +227,73 @@
       *Multiplies the product price with the input values.
       */
       function multiples(id,val){
+      $('.popup').css("opacity","0.5");
+      $("#ajaxloaders").show().css('z-index','9999 !important');
       var multiprice= 0;
+      if($('.multi').val()!=0){
       $.ajax({
       url: '<?php echo Yii::app()->request->baseUrl; ?>/appointmentbook/getmultipro',     //controller action url
       type: "POST",
       data: {pro_id: id},
       async: false,
-                    success:function(resp){
+                    success:function(resp){  
+                        $('.popup').css("opacity","1");
+                        $('#ajaxloaders').hide();
                                               var obj=0;
                                               obj =	jQuery.parseJSON(resp);
-                                              console.log(obj);
-                                              if(obj){
-                                                  multiprice  = obj.price * +val;
+                                             
+                                              if(obj.stock){
+                                                 
+                                                  if(checkBacklog(obj.id,val)){
+                                                      
+                                                  multiprice  = obj.price * +val;}else {return false;}
                                               }
-                                              else{} 
+                                              else{ multiprice  = obj.price * +val; } 
                       }, 
                     error:function(resp){ console.log(resp); }           
               });
         return multiprice;
+        }
      }
+     function checkBacklog(id,value){
+     $('.popup').css("opacity","0.5");
+     $("#ajaxloaders").show().css('z-index','9999 !important');
+     var resp = 0;
+            $.ajax({
+            url: '<?php echo Yii::app()->request->baseUrl; ?>/appointmentbook/checkexistingStock',     //controller action url
+            type: "POST",
+            data: {pro_id: id,quantity:value},
+            async: false,
+           
+                          success:function(response){
+                              $('.popup').css("opacity","1");
+                              $("#ajaxloaders").hide();
+                              var obj=0;
+                                    obj =	jQuery.parseJSON(response);
+//                                    console.log(obj);
+                              if(obj.final_result == 'true'){
+                                  resp = 'true';
+                                  $('.done').css('display','inline-block');
+                              }else{
+                                  var quantity= obj.stock;
+                                  var name = obj.value;
+                                  alert(name+' available stock is '+quantity); 
+                                  resp = 'false';
+                                  $('.done').css('display','none');
+                                  return false;
+                              }
+                             }, 
+                          error:function(resp){ alert("Internal Server Error 500!"); console.log(resp); }           
+                    });
+                    return resp ;
+           }
+     
       /**
       *Get the price and product name from the database uniquely identified by the merchant only.
       */
       function getPrice(){
-      jQuery("#ajaxloader").show().css('z-index','9999 !important');
+      $('.popup').css("opacity","0.5");
+      $("#ajaxloaders").show().css('z-index','9999 !important');
       var product = $('#search-products').val();
       var product_id= $('.hidden_pro_id').val();;
       var subprice = <?php echo $subtotal; ?>;
@@ -261,8 +304,10 @@
       type: "POST",
       data: {product: product,product_id:product_id,subprice:subprice},
       async: false,
+      
             success:function(resp){
-                                    jQuery("#ajaxloader").hide();
+                                    $('.popup').css("opacity","1");
+                                    $("#ajaxloaders").hide();
                                     if ($('.dynamic').length <= 2) {
                                         $('.done').css('display','inline-block');
                                     }
@@ -280,7 +325,7 @@
 
                                                 $('.temp').val(obj.price);
                                                 $('.temp_pro_id').val(obj.id);
-                                                $('#dynatable tr:first').after('<tr class="dynamic"><td class="border-btm" id="'+obj.id+'">'+product+'</td><td class="border-btm" id="'+obj.id+'"><input id="'+obj.id+'" class="multi" value="1" name="multi" size="3" maxlength="3" ></td><td class="border-btm"><span class="WebRupee">Rs. </span><span class="priced">'+obj.price+'</span></td><td><input id="'+product+'" name="'+obj.price+'" class="remove" type="button"></td></tr>');
+                                                $('#dynatable tr:first').after('<tr class="dynamic"><td class="border-btm" id="'+obj.id+'">'+product+'</td><td class="border-btm" id="'+obj.id+'"><input id="'+obj.id+'" class="multi" value="1" name="multi" size="3" maxlength="3" ></td><td class="border-btm" width="15%"><span class="WebRupee">Rs. </span><span class="priced">'+obj.price+'</span></td><td><input id="'+product+'" name="'+obj.price+'" class="remove" type="button"></td></tr>');
                                                                               }else{ return false;}
                                                       }else{ 
 
@@ -288,7 +333,7 @@
 
                                                               $('.temp').val(obj.price);
                                                               $('.temp_pro_id').val(obj.id);
-                                                              $('#dynatable tr:first').after('<tr class="dynamic"><td class="border-btm" id="'+obj.id+'">'+product+'</td><td class="border-btm" id="'+obj.id+'"><input id="'+obj.id+'" class="multi" value="1" name="multi" size="3" maxlength="3"></td><td class="border-btm"><span class="WebRupee">Rs. </span><span class="priced">'+obj.price+'</span></td><td><input id="'+product+'" name="'+obj.price+'" class="remove" type="button"></td></tr>');
+                                                              $('#dynatable tr:first').after('<tr class="dynamic"><td class="border-btm" id="'+obj.id+'">'+product+'</td><td class="border-btm" id="'+obj.id+'"><input id="'+obj.id+'" class="multi" value="1" name="multi" size="3" maxlength="3"></td><td class="border-btm" width="15%"><span class="WebRupee">Rs. </span><span class="priced">'+obj.price+'</span></td><td><input id="'+product+'" name="'+obj.price+'" class="remove" type="button"></td></tr>');
                                                            } 
                                               }
                                           }, 
@@ -301,6 +346,8 @@
       */
       
             function checkStock(id){
+            $('.popup').css("opacity","0.5");
+            $("#ajaxloaders").show().css('z-index','9999 !important');
                           var resp = 0;
                           $.ajax({
                           url: '<?php echo Yii::app()->request->baseUrl; ?>/appointmentbook/stockcheck',
@@ -308,6 +355,8 @@
                           data:{id:id},
                           async: false,
                           success:function(response){
+                              $('.popup').css("opacity","1");
+                              $("#ajaxloaders").hide();
                               if(response=='true'){resp = 'true';}else{alert('product is out of stock!');resp = 'false';return false;}
                           },
                           error:function(response){console.log(response);}
@@ -353,7 +402,7 @@
 //          if (didConfirm == true){
         if(!isNaN ($('.tax').val()) && !isNaN ($('.vat').val())){
             $('tr.dynamic td:first-child').each(function() { serials.push($(this).attr('id'));});
-            if(!isNaN ($('.multi').val()) ){
+            if(!isNaN ($('.multi').val())  ){
                 $('tr.dynamic td:nth-child(2)').each(function() {
                     multipliers.push($(this).find('.multi').val());
                 });
@@ -363,7 +412,7 @@
             var addorder= $('.temp_pro_id').val();
          
             $.ajax({
-                url: '<?php echo Yii::app()->request->baseUrl; ?>/users/confirmbill',     //controller action url
+                url: '<?php echo Yii::app()->request->baseUrl; ?>/users/confirmbill',     //controller action url to confirm the onvoice and return the total price
                 type: "POST",
                 data: {orderid:orderid,addorder:addorder,serials:serials},
                 async: false,
@@ -375,7 +424,7 @@
                 },error:function(resp){console.log(resp);}
             });
             $.ajax({
-                url: '<?php echo Yii::app()->request->baseUrl; ?>/users/stock',     //controller action url
+                url: '<?php echo Yii::app()->request->baseUrl; ?>/users/stock',     //controller action url to Subtract the stock quantity if invoice contains some products
                 type: "POST",
                 data: {orderid:orderid,addorder:addorder,serials:serials,multipliers:multipliers},
                 async: false,
@@ -400,11 +449,13 @@
                 $(this).attr("disabled", true);
                 $('.totbut').attr("disabled", true);
                 $('.remove').attr("disabled", true); 
+                $('.multi').attr("disabled", true);
               }
             else{   $('.done').css('display','none');
                 $(this).attr("disabled", true);
                 $('.totbut').attr("disabled", true);
-                $('.remove').attr("disabled", true); 
+                $('.remove').attr("disabled", true);
+                $('.multi').attr("disabled", true);
             }
         }else{alert('Please enter proper tax or vat value!');
             $('.print_button').css('display','none');
@@ -453,13 +504,22 @@
  $(document).on('keyup','.tax, .vat, .multi',function(e){
               s=$(this).val();
     if (!/^\d*\.?\d{0,2}$/.test(s)) $(this).val(s.substr(0,s.length-8));
-//    if (s > 99) {
-//        
-//        alert("Please enter a value between 0 to 99");
-//        $(this).val(s.substr(0,s.length-1));
-//        $(this).focus();
-//        return false;
-//            }
+    });
+$(document).on('keyup','.multi',function(e){
+           $('.multi').each(function(){
+               m=$(this).val();
+            if (!/^\d*\.?\d{0}$/.test(m)) $(this).val(m.substr(0,m.length-3));
+            if (m <= 0) {
+                alert("Please enter a value between 1 to 999");
+                $('.popup').css("opacity","1");
+                $("#ajaxloaders").hide();
+                $(this).val(s.substr(0,s.length-1));
+                $(this).val('1');
+                $(this).focus();
+                return false;
+            }
+           });
+           
        });
        /**
         *print button click function makes a temporary stream and sends the data to print command
