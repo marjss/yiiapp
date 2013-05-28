@@ -32,7 +32,7 @@ class AppointmentbookController extends Controller
 				'users'=>array('*'),
 			),*/
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('getproducts','getservices','getbookedorder','cancelorder','changestatus','getuniqueemail','getuniquemobile','getinvoice','Products','getmultipro','stockcheck','Appservices'),
+				'actions'=>array('getproducts','getservices','getbookedorder','cancelorder','changestatus','getuniqueemail','getuniquemobile','getinvoice','Products','getmultipro','stockcheck','Appservices','CheckexistingStock'),
 				'users'=>array('@'),
 				'expression'=>'Yii::app()->user->isMerchant()'
 			),
@@ -87,6 +87,38 @@ class AppointmentbookController extends Controller
 		echo $content;
 		exit;
 	}
+        /**check the existing stock with post quantity, if stock is overflow then return false with json details, else true.{Sudhanshu}
+         */
+        public function actionCheckexistingStock(){
+         if($_POST['pro_id']){
+                $id=$_POST['pro_id'];
+                $quantity = $_POST['quantity'];
+                $model = Merservices::model()->findByPk($id);
+                if($model){
+                    $out = array();
+                    if($model->stock < $quantity){
+                        
+                        $out = array(
+				'label' => $model->name,  
+				'value' => $model->name,
+				'id' => $model->id,
+                                'price'=>$model->price,
+				'stock'=>$model->stock,
+                                'final_result'=>'false'
+			    );}else{ $out = array(
+				'label' => $model->name,  
+				'value' => $model->name,
+				'id' => $model->id,
+                                'price'=>$model->price,
+				'stock'=>$model->stock,
+                                'final_result'=>'true'
+			    );}
+                        echo CJSON::encode($out);
+			Yii::app()->end();
+                }
+            }
+            
+        }
         /**
          * function to check the product is out of stock or not. return boolean true/false {Sudhanshu}
          */
@@ -146,11 +178,11 @@ class AppointmentbookController extends Controller
                     $criteria->distinct = true;
                     $criteria->group = 'name';
 		    $criteria->limit = 10;
-		    $street = Merservices::model()->findAll($criteria);
+		    $services = Merservices::model()->findAll($criteria);
                     
-		    if (!empty($street)) {
+		    if (!empty($services)) {
 			$out = array();
-			foreach ($street as $c) {
+			foreach ($services as $c) {
 			    $out[] = array(
 				'label' => $c->name,  
 				'value' => $c->name,
@@ -175,13 +207,19 @@ class AppointmentbookController extends Controller
             $total = $service->price + $subprice;
              if (!empty($service)) {
 			$out = array();
-                            $out = array(
+                             if($service->isproduct){$out = array(
 				'label' => $service->name,  
 				'value' => $service->name,
 				'id' => $service->id,
                                 'price'=>$service->price,
-				
-			    );
+				'stock'=>$service->stock,
+			    );}else{
+			    $out = array(
+				'label' => $service->name,  
+				'value' => $service->name,
+				'id' => $service->id,
+                                'price'=>$service->price,
+			    );}
 			echo CJSON::encode($out);
 			Yii::app()->end();
 		    }
@@ -195,8 +233,12 @@ class AppointmentbookController extends Controller
             $product = $_POST['product'];
             $subprice = $_POST['subprice'];
             if($_POST['product_id']){
-                $product_id=$_POST['product_id'];
-            $service = Merservices::model()->findByPk($product_id);
+            $product_id=$_POST['product_id'];
+                    $criteria = new CDbCriteria;
+		    $criteria->condition='merchant_id='.$id.' AND status = 1 AND id ='.$product_id.' AND name LIKE "%'.trim($product).'%"';
+		    $service = Merservices::model()->find($criteria);
+                    
+//            $service = Merservices::model()->findByPk($product_id);
             $total = $service->price + $subprice;
 		    if (!empty($service)) {
 			$out = array();
