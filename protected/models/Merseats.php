@@ -40,7 +40,7 @@ class Merseats extends CActiveRecord
 		return array(
 			array('merchant_id,name','required'),
 			array('merchant_id, stylist_id, status', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>25),
+			array('name', 'length', 'max'=>20),
                          array('name','UniqueAttributesValidator', 'with'=>'merchant_id','message'=>'{value} has already been taken.'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
