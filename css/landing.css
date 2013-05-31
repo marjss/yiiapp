@@ -460,7 +460,7 @@ border-top-right-radius: 15px;}
  input, textarea, select {outline-style:none;}
 .No-Time{ font-family: 'Conv_avenirltstd-heavy';font-size: 18px;font-weight: 700;letter-spacing: -0.4px;margin-left: -1px;padding: 9px 39px ;text-decoration: none;}
  /*****Shops Deals Tab Style*********/
-.deals{border:1px solid #D1D1D1;padding:8px 0px 118px 11px;margin:0 0 10px;}
+.deals{border:1px solid #D1D1D1;padding:8px 0px 130px 11px;margin:0 0 10px;}
 .deals .image {float: left; width: 150px;}
 .deals .image img { border: 3px solid #BEBEBE; height:100px;  width:150px;   }
 .deals .content{ float: left; width: 500px;margin-left: 10px;}
@@ -517,4 +517,54 @@ a#service-select1 span{ background: url("../images/ui-icons_888888_256x240.png")
 }
 #reviewform{
     display: none;
+}
+.rates{float: left;}
+.rating{float: left;}
+ul.yiiPager li
+{
+	display:inline;
+}
+
+ul.yiiPager a:link,
+ul.yiiPager a:visited
+{
+	border:solid 1px #F10C82;
+	font-weight:bold;
+	color:#F10C82;
+	padding:1px 6px;
+	text-decoration:none;
+    padding: 3px 9px;    
+}
+
+ul.yiiPager .page a
+{
+	font-weight:normal;
+}
+
+ul.yiiPager a:hover
+{
+	border:solid 1px #0e509e;
+}
+
+ul.yiiPager .selected a
+{
+	background:#38708A;
+	color:#FFFFFF;
+	font-weight:bold;
+
+}
+
+ul.yiiPager .hidden a
+{
+	border:solid 1px #DEDEDE;
+	color:#888888;
+}
+
+/**
+ * Hide first and last buttons by default.
+ */
+ul.yiiPager .first,
+ul.yiiPager .last
+{
+	display:none;
 }
